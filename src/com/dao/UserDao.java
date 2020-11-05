@@ -110,7 +110,44 @@ public class UserDao {
 
         return user;
     }
+    
+    public User pwdupdate(String username, String password, String new_pwd1, String new_pwd2) {
+        //实例化一个用户对象
+        User user =null;
+        Connection conn = DataBaseUtil.getConn();
+        String sql = "select * from tb_user where username = ? and password = ?";
+        String sql1= "update tb_user set password = ? where username = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            PreparedStatement ps1 = conn.prepareStatement(sql1);
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ps1.setString(1, new_pwd1);
+            ps1.setString(2, username);
+            //执行查询获取结果集
+            ResultSet rs = ps.executeQuery();
 
+            //判断结果集是否有效,如果有效，则准备对密码进行修改
+            while (rs.next()) {
+                user = new User();
+                user.setUsername(rs.getString("username"));
+                //判断两次新密码是否一致
+                if(new_pwd1.equals(new_pwd2)){
+                	user.setPassword(rs.getString("password"));
+                	ps1.executeUpdate();
+                }
+            }
+            //释放资源
+            rs.close();
+            ps1.close();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DataBaseUtil.closeConn(conn);
+        }
+        return user;
+    }
     
 }
 

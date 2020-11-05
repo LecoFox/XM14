@@ -32,7 +32,7 @@
 							<div class="mb2">
 								<a type="submit" href="javascript:;" class="act-but submit" style="color: #FFFFFF" onclick="document:login.submit()">登录</a>
 								<a type="submit" href="register.jsp" class="act-but submit" style="color: #FFFFFF" >注册</a>
-								
+								<a type="submit" href="pwd_update.jsp" class="act-but submit" style="color: #FFFFFF" >修改密码</a>
 							</div>
 						</form>
 					</div>
