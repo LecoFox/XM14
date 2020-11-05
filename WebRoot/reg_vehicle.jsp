@@ -27,7 +27,7 @@
 				<div class="logo_box">
 					<form id="regvehicle"action="/XM14/RegVehicleServlet" method="post"
 						onsubmit="return reg(this)">
-						<table align="center" border="0" width="500">
+						<table align="center" border="0" width="330">
 							<tr>
 								<td class="td1">车辆ID：</td>
 								<td class="td2"><select class="input_outer2" id="sel"

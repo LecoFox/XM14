@@ -25,8 +25,8 @@
 }
 .logo_box1{
 	width: 400px;
-	height: 700px;
-	padding: 0px;
+	height: 500px;
+	padding:35px;
 	color: #EEE;
 	position: absolute;
 	left: 50%;
@@ -46,7 +46,16 @@
 .logo_box1 h1{
 	text-align: center;
 	height: 20px;
-	font: 40px "microsoft yahei",Helvetica,Tahoma,Arial,"Microsoft jhengHei",sans-serif;
+	font: 20px "microsoft yahei",Helvetica,Tahoma,Arial,"Microsoft jhengHei",sans-serif;
+	color: #FFFFFF;
+	height: 20px;
+	line-height: 20px;
+	padding:0 0 35px 0; 
+}
+.logo_box h1{
+	text-align: center;
+	height: 20px;
+	font: 20px "microsoft yahei",Helvetica,Tahoma,Arial,"Microsoft jhengHei",sans-serif;
 	color: #FFFFFF;
 	height: 20px;
 	line-height: 20px;
@@ -90,7 +99,7 @@
 }
 .input_outer1{
 	height: 40px;
-	padding: 0 0px;
+	padding: 0 5px;
 	margin-bottom: 15px;
 	border-radius: 50px;
 	position: relative;
@@ -99,7 +108,7 @@
 
 .input_outer2{
 	height: 40px;
-	width:250px;
+	width:230px;
 	padding: 0 5px;
 	border-radius: 50px;
 	position: relative;
@@ -141,13 +150,23 @@
 }
 .td1{
 	color:#FFFFFF;
-	font: 20px "microsoft yahei",Helvetica,Tahoma,Arial,"Microsoft jhengHei";
+	font: 15px "microsoft yahei",Helvetica,Tahoma,Arial,"Microsoft jhengHei";
 	height:50px;
 	text-align:left;
-	width:23%;
+	width:30%;
 }
 .td2{
 	height:50px;
+}
+.td3{
+	color:#FFFFFF;
+	font: 15px "microsoft yahei",Helvetica,Tahoma,Arial,"Microsoft jhengHei";
+	height:60px;
+	text-align:left;
+	width:30%;
+}
+.td4{
+	height:60px;
 }
 .text{
 	width: 220px;
@@ -198,9 +217,7 @@
 }
 .submit2{
 	padding: 15px;
-	margin-left:60%;
-	/*margin-top: 5px;*/
-	/*display: block;*/
+	margin-top: 20px;
 }
 .act-but1{
 	line-height: 10px;
