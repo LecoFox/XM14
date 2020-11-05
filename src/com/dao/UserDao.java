@@ -1,4 +1,4 @@
-package com.dao;
+﻿package com.dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -149,5 +149,24 @@ public class UserDao {
         return user;
     }
     
+public boolean delete(String username){
+        Connection conn = DataBaseUtil.getConn();
+        String sql = "delete from tb_user where username = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, username);
+            //执行更新操作
+            System.out.println(sql);
+            ps.executeUpdate();
+            //释放资源
+            ps.close();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DataBaseUtil.closeConn(conn);
+        }
+        return true;
+    }
 }
 

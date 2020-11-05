@@ -32,13 +32,11 @@ public class RegServlet extends HttpServlet {
 		String answer = req.getParameter("answer");
 		String email = req.getParameter("email");
 		System.out.println("获取用户注册信息成功");
-		System.out.println(username=="");
-		System.out.println(password=="");
 		//实例化UserDao对象
 		UserDao userDao = new UserDao();
 		if (username != "") {
 			if(password !=""){
-				if(password==password2){
+				if(password.equals(password2)){
 					//实例化一个User对象
 					User user = new User();
 					//对用户对象的属性赋值
@@ -68,6 +66,7 @@ public class RegServlet extends HttpServlet {
 			req.setAttribute("info", "用户名为空！<br>注册失败！<br>");
 		}
 		//转发到message.jsp页面
+		req.setAttribute("type", "register");
 		req.getRequestDispatcher("message.jsp").forward(req, resp);
 	}
 
