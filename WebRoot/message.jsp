@@ -45,6 +45,7 @@
 								<div class="mb2">
 									<h3><%=user.getUsername()%>登录成功！</h3>
 									<a href="front.jsp" class="act-but submit" style="color: #FFFFFF">获取伴车星数据</a>
+									<a href="Searchall" class="act-but submit" style="color: #FFFFFF">查看已注册用户</a>
 								</div>
 					<%
 						//session.invalidate();

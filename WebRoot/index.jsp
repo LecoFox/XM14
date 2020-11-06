@@ -23,5 +23,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <body>
     This is my Index page. <br>
     <a href="front.jsp">获取bcx数据</a>
+    <a href="Searchall">查看所有用户</a>
   </body>
 </html>
