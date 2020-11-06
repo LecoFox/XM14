@@ -1,4 +1,4 @@
-package com.dao;
+﻿package com.dao;
 
 import java.awt.Font;
 import java.io.FileNotFoundException;
@@ -59,11 +59,7 @@ public class ExcelFileGenerator {
 	 */
 	public void exportUser(ArrayList<User> list,OutputStream os){
 		HSSFWorkbook workbook = new HSSFWorkbook();
-<<<<<<< HEAD
-		HSSFSheet sheet = workbook.createSheet("家具数据表");
-=======
 		HSSFSheet sheet = workbook.createSheet("用户数据表");
->>>>>>> dev
 		HSSFRow row = sheet.createRow(0);
 		HSSFCell cell = row.createCell(0);
 		cell.setCellValue("ID");
