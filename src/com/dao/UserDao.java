@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.model.User;
 import com.utils.DataBaseUtil;
@@ -44,6 +46,36 @@ public class UserDao {
         return false;
     }
 
+    public List<User> getUserAll() {
+		List<User> list = new ArrayList<User>();
+		Connection conn = DataBaseUtil.getConn();
+		//根据指定的用户名查询信息
+		String sql = "select * from tb_user";
+		try {
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			//执行查询获取结果集
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()){
+				User user = new User();
+				user.setId(resultSet.getInt("id"));
+				user.setUsername(resultSet.getString("username"));
+				user.setPassword(resultSet.getString("password"));
+				user.setSex(resultSet.getString("sex"));
+				user.setEmail(resultSet.getString("email"));
+				list.add(user);
+			}
+			//释放资源,后创建的先销毁
+			resultSet.close();
+			preparedStatement.close();
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+    
+
+    
     /**
      * 在用户提交注册信息时，如果注册成功需要将，需要将用户注册的信息存入数据库
      */
