@@ -1,11 +1,14 @@
 ﻿package com.dao;
 
+import java.awt.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
+
+
+
 
 import com.model.User;
 import com.utils.DataBaseUtil;
@@ -46,36 +49,6 @@ public class UserDao {
         return false;
     }
 
-    public List<User> getUserAll() {
-		List<User> list = new ArrayList<User>();
-		Connection conn = DataBaseUtil.getConn();
-		//根据指定的用户名查询信息
-		String sql = "select * from tb_user";
-		try {
-			PreparedStatement preparedStatement = conn.prepareStatement(sql);
-			//执行查询获取结果集
-			ResultSet resultSet = preparedStatement.executeQuery();
-			while(resultSet.next()){
-				User user = new User();
-				user.setId(resultSet.getInt("id"));
-				user.setUsername(resultSet.getString("username"));
-				user.setPassword(resultSet.getString("password"));
-				user.setSex(resultSet.getString("sex"));
-				user.setEmail(resultSet.getString("email"));
-				list.add(user);
-			}
-			//释放资源,后创建的先销毁
-			resultSet.close();
-			preparedStatement.close();
-			return list;
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-    
-
-    
     /**
      * 在用户提交注册信息时，如果注册成功需要将，需要将用户注册的信息存入数据库
      */
@@ -181,7 +154,7 @@ public class UserDao {
         return user;
     }
     
-public boolean delete(String username){
+    public boolean delete(String username){
         Connection conn = DataBaseUtil.getConn();
         String sql = "delete from tb_user where username = ?";
         try {
@@ -199,6 +172,41 @@ public boolean delete(String username){
             DataBaseUtil.closeConn(conn);
         }
         return true;
+    }
+
+    public ArrayList<User> getAllUser(){
+    	ArrayList<User> list = new ArrayList<User>();
+    	Connection conn = DataBaseUtil.getConn();
+        //根据指定的用户名查询信息
+        String sql = "select * from tb_user";
+
+        try {
+            //获取PreparedStatement对象，用于执行数据库查询
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            //执行查询获取结果集
+            ResultSet rs = preparedStatement.executeQuery();
+            User user=null;
+            while (rs.next()) {
+                //如果没有此数据，证明该用户名可用
+                user = new User();
+                user.setId(rs.getInt("id"));
+                user.setUsername(rs.getString("username"));
+                user.setPassword(rs.getString("password"));
+                user.setSex(rs.getString("sex"));
+                user.setQuestion(rs.getString("question"));
+                user.setAnswer(rs.getString("answer"));
+                user.setEmail(rs.getString("email"));
+                list.add(user);
+            }
+            //释放资源,后创建的先销毁
+            rs.close();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DataBaseUtil.closeConn(conn);
+        }
+    	return list;
     }
 }
 

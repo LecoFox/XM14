@@ -58,10 +58,12 @@ html, body {
 					<div class="mb2">
 						<a type="submit" href="reg_vehicle.jsp" class="act-but submit2"
 							style="color: #FFFFFF">车辆注册</a>
-							<br> 
-							</br>
-							<br> 
-							</br>
+
+					</div>
+				</div>
+                <canvas id="demo-canvas"></canvas>
+				<div class="logo_box2">
+					<div class="mb2">
 						<a type="submit" href="delete_account.jsp" class="act-but submit2"
 							style="color: #FFFFFF">删除账号</a>
 							<br> 

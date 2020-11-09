@@ -64,7 +64,7 @@
     <servlet-name>RegVehicleServlet</servlet-name>
     <url-pattern>/RegVehicleServlet</url-pattern>
   </servlet-mapping>
-<filter>
+  <filter>
     <filter-name>LoginFilter</filter-name>
     <filter-class>com.filter.LoginFilter</filter-class>
   </filter>

@@ -42,7 +42,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</c:forEach>
 		</tbody>
 	</table>
-
+	<form action="excel">
+    <input value="提交" type="submit">
+    </form>
 </body>
 </html>
 

@@ -2,6 +2,7 @@ package com.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -22,7 +23,7 @@ public class Searchall extends HttpServlet {
 
 		UserDao ud = new UserDao();
 		System.out.println("这是一个断点。");
-		List<User> userAll = ud.getUserAll();
+		ArrayList<User> userAll = ud.getAllUser();
 		request.setAttribute("userAll", userAll);
 		request.getRequestDispatcher("/showall.jsp").forward(request, response);
 	}
