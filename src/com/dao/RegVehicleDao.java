@@ -5,12 +5,15 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.model.RegVehicle;
+import com.model.User;
 import com.utils.DataBaseUtil;
 
 public class RegVehicleDao {
@@ -48,6 +51,37 @@ public class RegVehicleDao {
 
         return array;
     }
+	
+	public List<RegVehicle> getRegVehicleAll() {
+		List<RegVehicle> list = new ArrayList<RegVehicle>();
+		Connection conn = DataBaseUtil.getConn();
+		//根据指定的用户名查询信息
+		String sql = "select * from reg_device";
+		try {
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			//执行查询获取结果集
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while(resultSet.next()){
+				RegVehicle regVehicle = new RegVehicle();
+				regVehicle.setDevice_id(resultSet.getString("device_id"));
+				regVehicle.setCarImg(resultSet.getString("carImg"));
+				regVehicle.setOwner(resultSet.getString("owner"));
+				regVehicle.setChepai(resultSet.getString("chepai"));
+				regVehicle.setBrand(resultSet.getString("brand"));
+				regVehicle.setModel(resultSet.getString("model"));
+				regVehicle.setEngine_id(resultSet.getString("engine_id"));
+				list.add(regVehicle);
+			}
+			//释放资源,后创建的先销毁
+			resultSet.close();
+			preparedStatement.close();
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
 	public void saveVehicle(RegVehicle vehicle) {//注册车辆
         //获取数据库连接
         Connection conn = DataBaseUtil.getConn();

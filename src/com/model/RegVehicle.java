@@ -50,5 +50,25 @@ public class RegVehicle {
 	}
 	public void setEngine_id(String engine_id) {
 		this.engine_id = engine_id;
+	} 
+	
+	@Override
+	public String toString() {
+		return "RegVehicle [device_id=" + device_id + ", carImg=" + carImg + ", owner=" + owner + "]";
+	}
+
+	public RegVehicle(String device_id, String carImg, String owner, String chepai, String brand, String model, String engine_id) {
+		super();
+		this.device_id = device_id;
+		this.carImg = carImg;
+		this.owner = owner;
+		this.chepai = chepai;
+		this.brand = brand;
+		this.model = model;
+		this.engine_id = engine_id;
+	}
+
+	public RegVehicle() {
+		super();
 	}
 }

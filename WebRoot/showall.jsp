@@ -43,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</tbody>
 	</table>
 	<form action="excel">
-    <input value="提交" type="submit">
+    <input value="导出" type="submit">
     </form>
 </body>
 </html>
