@@ -43,6 +43,28 @@
 	left: 70%;
 	top:10%;
 }
+.logo_box3{
+	width: 400px;
+	height: 500px;
+	padding:35px;
+	color: #EEE;
+	position: absolute;
+	left: 50%;
+	top:45%;
+	margin-left: -650px;
+	margin-top: -300px;
+}
+.logo_box4{
+	width: 400px;
+	height: 500px;
+	padding:35px;
+	color: #EEE;
+	position: absolute;
+	left: 50%;
+	top:45%;
+	margin-left: -400px;
+	margin-top: -300px;
+}
 .logo_box1 h1{
 	text-align: center;
 	height: 20px;
