@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import com.model.RegVehicle;
 import com.model.User;
+import com.model.Vehicle;
 import com.utils.DataBaseUtil;
 
 public class RegVehicleDao {
@@ -105,4 +106,43 @@ public class RegVehicleDao {
             e.printStackTrace();
         }
     }
+	
+	public JSONArray getOverSpeed(String StartTime, String EndTime, String setSpeed) throws JSONException{
+		JSONArray array = new JSONArray();
+		Connection conn = DataBaseUtil.getConn();
+		//根据指定的用户名查询信息
+		String sql = "select DISTINCT device_id,MAX(speed) as maxspeed,MIN(GPS_time) as btime,MAX(GPS_time) as etime from bcx_data where speed >= ? AND GPS_time>=? AND GPS_time<=? group by device_id";
+		try {
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, setSpeed);
+			preparedStatement.setString(2, StartTime);
+			preparedStatement.setString(3, EndTime);
+			//执行查询获取结果集
+			ResultSet rs = preparedStatement.executeQuery();
+			ResultSetMetaData metaData = rs.getMetaData(); 
+            int columnCount = metaData.getColumnCount();
+            
+            //将结果集转换为jsonarray
+            while (rs.next()) {
+            	JSONObject jsonObj = new JSONObject();
+            	for (int i = 1; i <= columnCount; i++) { 
+                    String columnName =metaData.getColumnLabel(i); 
+                    String value = rs.getString(columnName);
+                    if(columnName.contains("time")){
+                    	value = value.substring(0,value.length()-2);
+                    }
+                    jsonObj.put(columnName, value);
+                    //System.out.println(jsonObj);
+                }  
+                array.put(jsonObj); 
+            }
+			//释放资源,后创建的先销毁
+			rs.close();
+			preparedStatement.close();
+			return array;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
