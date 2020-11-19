@@ -31,12 +31,18 @@
 			<div class="content">
 				<div id="large-header" class="large-header">
 					<canvas id="demo-canvas"></canvas>
-					<div class="logo_box">
-						<input id="speed" type="text" name="setSpeed"> 
-						<input id="datetime1" type="text" name="StartTime"> 
-						<input id="datetime2" type="text" name="EndTime">
-						<button type="button">确认</button>
-						<div style="width:900px;height:400px;" id = "tableInfo"></div>
+					<div class="logo_box5">
+						<div class="input_outer3">
+							<input id="speed" type="text" name="setSpeed" class= "text" placeholder="请输入超速范围，如40"> 
+						</div>
+						<div class="input_outer3">
+							<input id="datetime1" type="text" name="StartTime" class= "text" placeholder="请输入起始时间">
+						</div>
+						<div class="input_outer3">
+							<input id="datetime2" type="text" name="EndTime" class= "text" placeholder="请选择结束时间">
+						</div> 
+						<button class="submit3" style="color: #FFFFFF">确认</button>
+						<div style="width:100%;height:400px;overflow:auto;" id = "tableInfo"; class="speedtable"></div>
 					</div>
 				</div>
 			</div>
@@ -83,7 +89,7 @@ $(document).ready(function(){
 				var parsedJson = jQuery.parseJSON(result);
 				if (parsedJson != null && parsedJson.length > 0) {
 					var tableInfos = document.getElementById('tableInfo');//生成动态表格
-					var code = '<TABLE style="width:900px;height:350px;" border="1">';
+					var code = '<TABLE style="width:100%;height:350px;color:FFFFFF;" cellpadding="0" cellspacing="1" border="1">';
 					code += '<TR><TH>车辆ID</TH><TH>最高时速</TH><th>超速时间段</th></TR>';
 					for (var i = 0; i < parsedJson.length; i++) {
 						code += '<TR><TD>' + parsedJson[i].device_id + '</TD><TD>' + parsedJson[i].maxspeed + '</TD><TD>' + parsedJson[i].btime + '~' + parsedJson[i].etime + '</TD></TR>';
