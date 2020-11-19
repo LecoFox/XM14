@@ -65,6 +65,17 @@
 	margin-left: -400px;
 	margin-top: -300px;
 }
+.logo_box5{
+	width: 400px;
+	height: 500px;
+	padding:35px;
+	color: #EEE;
+	position: absolute;
+	left: 50%;
+	top:45%;
+	margin-left: -400px;
+	margin-top: -300px;
+}
 .logo_box1 h1{
 	text-align: center;
 	height: 20px;

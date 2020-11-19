@@ -76,6 +76,12 @@ html, body {
 							</br>
 						<a type="submit" href="SearchallRegVehicle" class="act-but submit2"
 							style="color: #FFFFFF">查看车辆注册信息</a>
+							<br/>
+							<br/>
+							<br/>
+							<br/>
+						<a type="submit" href="overspeed.jsp" class="act-but submit2"
+							style="color: #FFFFFF">超速统计</a>
 					</div>
 				</div>
 	<!-- /container -->
@@ -201,3 +207,4 @@ function getRecord(){
 }
 getRecord();
 </script>
+

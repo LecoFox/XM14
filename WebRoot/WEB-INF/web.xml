@@ -5,7 +5,7 @@
     <servlet-name>SearchallRegVehicle</servlet-name>
     <servlet-class>com.servlet.SearchallRegVehicle</servlet-class>
   </servlet>
-    <servlet>
+  <servlet>
     <servlet-name>Searchall</servlet-name>
     <servlet-class>com.servlet.Searchall</servlet-class>
   </servlet>
@@ -38,17 +38,14 @@
     <servlet-name>RegVehicleServlet</servlet-name>
     <servlet-class>com.servlet.RegVehicleServlet</servlet-class>
   </servlet>
-  
   <servlet-mapping>
     <servlet-name>SearchallRegVehicle</servlet-name>
     <url-pattern>/SearchallRegVehicle</url-pattern>
   </servlet-mapping>
-  
-    <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>Searchall</servlet-name>
     <url-pattern>/Searchall</url-pattern>
   </servlet-mapping>
-  
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/LoginServlet</url-pattern>
