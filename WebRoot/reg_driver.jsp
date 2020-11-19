@@ -59,8 +59,8 @@
 								<td class="td1">生日：</td>
 								<td class="td2">
 									<div class="input_outer2">
-										<input class="text1" type="text" name="birthday"
-											style="color: #FFFFFF !important" class="box">
+										<input id="datetime1" type="text" name="birthday"
+										style="BACKGROUND-COLOR: transparent;">
 									</div>
 								</td>
 							</tr>
@@ -68,8 +68,8 @@
 								<td class="td1">驾驶证有效期：</td>
 								<td class="td2">
 									<div class="input_outer2">
-										<input class="text1" type="text" name="validity_period"
-											style="color: #FFFFFF !important" class="box">
+										<input id="datetime2" type="text" name="validity_period"
+										style="BACKGROUND-COLOR: transparent;">
 									</div>
 								</td>
 							</tr>
@@ -99,6 +99,25 @@
 	<script src="js/rAF.js"></script>
 	<script src="js/demo-1.js"></script>
 </body>
+
+<link
+	href="https://cdn.bootcss.com/jquery-datetimepicker/2.5.17/jquery.datetimepicker.min.css"
+	rel="stylesheet">
+<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script
+	src="https://cdn.bootcss.com/jquery-datetimepicker/2.5.17/jquery.datetimepicker.full.min.js"></script>
+<script>
+	jQuery('#datetime1').datetimepicker({
+		format : 'Y-m-d',
+		//changeHour: false,
+		lang : 'zh'
+	});
+	jQuery('#datetime2').datetimepicker({
+		format : 'Y-m-d',
+		lang : 'zh'
+	});
+</script>
+
 </html>
 
 <script src="jquery-1.8.3.min.js"></script>
