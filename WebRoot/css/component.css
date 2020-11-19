@@ -66,15 +66,19 @@
 	margin-top: -300px;
 }
 .logo_box5{
-	width: 400px;
-	height: 500px;
-	padding:35px;
-	color: #EEE;
-	position: absolute;
-	left: 50%;
-	top:45%;
-	margin-left: -400px;
-	margin-top: -300px;
+	width: 900px;
+    height: 500px;
+    padding: 35px;
+    color: #EEE;
+    position: absolute;
+    left: 30%;
+    top: 40%;
+    margin-left: -200px;
+    margin-top: -250px;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    flex-direction: row;
 }
 .logo_box1 h1{
 	text-align: center;
@@ -147,7 +151,15 @@
 	position: relative;
 	border: rgba(255,255,255,0.2) 2px solid !important;
 }
-
+.input_outer3{
+	height: 46px;
+	width:250px;
+	padding: 0 5px;
+	margin-bottom: 30px;
+	border-radius: 50px;
+	position: relative;
+	border: rgba(255,255,255,0.2) 2px solid !important;
+}
 .u_user{
 	width: 25px;
 	height: 25px;
@@ -251,6 +263,18 @@
 .submit2{
 	padding: 15px;
 	margin-top: 20px;
+}
+.submit3{
+	line-height: 20px;
+	text-align: center;
+	font-size: 20px;
+	border-radius: 50px;
+	background: #0096e6;
+	padding: 15px;
+	margin-top: 20px;
+	display: block;
+	height: 44px;
+    width: 80px;
 }
 .act-but1{
 	line-height: 10px;
