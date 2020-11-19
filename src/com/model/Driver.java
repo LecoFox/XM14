@@ -1,0 +1,91 @@
+package com.model;
+
+import java.util.Date;
+
+public class Driver {
+	private int id;
+	private String name;
+	private String driver_id;
+	private String sex;
+	private String birthday;
+	private String validity_period;
+	private String phone_number;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDriverId() {
+		return driver_id;
+	}
+
+	public void setDriverId(String driver_id) {
+		this.driver_id = driver_id;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public String getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(String birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getValidityPeriod() {
+		return validity_period;
+	}
+
+	public void setValidityPeriod(String validity_period) {
+		this.validity_period = validity_period;
+	}
+
+	public String getPhoneNumber() {
+		return phone_number;
+	}
+
+	public void setPhoneNumber(String phone_number) {
+		this.phone_number = phone_number;
+	}
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + name + ", driver_id=" + driver_id + "]";
+	}
+
+	public Driver(int id, String name, String driver_id, String sex, String birthday, String validity_period, String phone_number) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.driver_id = driver_id;
+		this.sex = sex;
+		this.birthday = birthday;
+		this.validity_period = validity_period;
+		this.phone_number = phone_number;
+	}
+
+	public Driver() {
+		super();
+	}
+
+}
+

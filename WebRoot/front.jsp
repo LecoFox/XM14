@@ -62,8 +62,14 @@ html, body {
 							</br>
 							<br> 
 							</br>
-<a type="submit" href="delete_account.jsp" class="act-but submit2"
+   						<a type="submit" href="delete_account.jsp" class="act-but submit2"
 							style="color: #FFFFFF">删除账号</a>
+							<br> 
+							</br>
+							<br> 
+							</br>
+   						<a type="submit" href="reg_driver.jsp" class="act-but submit2"
+							style="color: #FFFFFF">驾驶员信息注册</a>
 							<br> 
 							</br>
 							<br> 
