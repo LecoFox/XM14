@@ -42,7 +42,7 @@ html, body {
 }
 </style>
 <script type="text/javascript"
-	src="http://api.map.baidu.com/api?key=&v=1.1&services=true"></script>
+	src="http://api.map.baidu.com/api?v=3.0&ak=awORzYNz3svIeWeQ9pGPLnmZletmqfog"></script>
 </head>
 
 <body>
@@ -82,6 +82,15 @@ html, body {
 							<br/>
 						<a type="submit" href="overspeed.jsp" class="act-but submit2"
 							style="color: #FFFFFF">超速统计</a>
+							<br/>
+							<br/>
+							<br/>
+						<h3>全景功能使用步骤:</h3>
+						<h3>1.找到蓝色区域</h3>
+						<h3>(此为可查看全景路段)</h3>
+						<h3>2.放大地图至可看清道路</h3>
+						<h3>3.点击右上角全景图标</h3>
+						<h3>4.点击呈蓝色路段即可</h3>
 					</div>
 				</div>
 	<!-- /container -->
@@ -113,6 +122,8 @@ html, body {
         map.enableScrollWheelZoom();//启用地图滚轮放大缩小
         map.enableDoubleClickZoom();//启用鼠标双击放大，默认启用(可不写)
         map.enableKeyboard();//启用键盘上下左右键移动地图
+		
+		
     }
     
     //地图控件添加函数：
@@ -125,7 +136,11 @@ html, body {
 	map.addControl(ctrl_ove);
         //向地图中添加比例尺控件
 	var ctrl_sca = new BMap.ScaleControl({anchor:BMAP_ANCHOR_BOTTOM_LEFT});
-	map.addControl(ctrl_sca);
+	map.addTileLayer(new BMap.PanoramaCoverageLayer());
+	var stCtrl = new BMap.PanoramaControl({anchor:BMAP_ANCHOR_TOP_RIGHT}); //构造全景控件
+	stCtrl.setOffset(new BMap.Size(20, 20));
+	map.addControl(stCtrl);//添加全景控件
+	
     }
     //创建marker
     function addCarMarker(lon, lat, png, title, location, status, speed){
@@ -179,6 +194,8 @@ html, body {
         var icon = new BMap.Icon(png, new BMap.Size(32,32),{imageOffset: new BMap.Size(0,0),infoWindowOffset:new BMap.Size(10,1),offset:new BMap.Size(6,32)})
         return icon;
     }
+    
+    
 
     initMap();//创建和初始化地图z
 </script>
