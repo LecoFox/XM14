@@ -14,6 +14,11 @@
     <servlet-class>com.servlet.LoginServlet</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>RegDriverServlet</servlet-name>
+    <servlet-class>com.servlet.RegDriverServlet</servlet-class>
+  </servlet>
+  
+  <servlet>
     <servlet-name>RegServlet</servlet-name>
     <servlet-class>com.servlet.RegServlet</servlet-class>
   </servlet>
@@ -48,6 +53,10 @@
   <servlet-mapping>
     <servlet-name>RegServlet</servlet-name>
     <url-pattern>/RegServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>RegDriverServlet</servlet-name>
+    <url-pattern>/RegDriverServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>PasswordUpdate</servlet-name>
