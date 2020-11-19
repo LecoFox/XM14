@@ -48,11 +48,11 @@
 							<c:forEach var="U" items="${userAll}">
 								<form action="UpdateServlet" method="post">
 									<tr>
-										<td><input type="text" value="${U.id}" name="id"></td>
-										<td><input type="text" value="${U.username}"
+										<td><input type="text" style="BACKGROUND-COLOR: transparent;" value="${U.id}" name="id"></td>
+										<td><input type="text" style="BACKGROUND-COLOR: transparent;" value="${U.username}"
 											name="username"></td>
-										<td><input type="text" value="${U.sex}" name="sex"></td>
-										<td><input type="text" value="${U.email}" name="email"></td>
+										<td><input type="text" style="BACKGROUND-COLOR: transparent;" value="${U.sex}" name="sex"></td>
+										<td><input type="text" style="BACKGROUND-COLOR: transparent;" value="${U.email}" name="email"></td>
 									</tr>
 								</form>
 							</c:forEach>

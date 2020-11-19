@@ -48,14 +48,14 @@
 							<c:forEach var="U" items="${regVehicleAll}">
 								<form action="UpdateServlet" method="post">
 									<tr>
-										<td><input type="text" value="${U.device_id}"
+										<td><input type="text" style="BACKGROUND-COLOR: transparent;" value="${U.device_id}"
 											name="device_id"></td>
-										<td><input type="text" value="${U.carImg}" name="carImg"></td>
-										<td><input type="text" value="${U.owner}" name="owner"></td>
-										<td><input type="text" value="${U.chepai}" name="chepai"></td>
-										<td><input type="text" value="${U.brand}" name="brand"></td>
-										<td><input type="text" value="${U.model}" name="model"></td>
-										<td><input type="text" value="${U.engine_id}"
+										<td><input type="text" style="BACKGROUND-COLOR: transparent;" value="${U.carImg}" name="carImg"></td>
+										<td><input type="text" style="BACKGROUND-COLOR: transparent;" value="${U.owner}" name="owner"></td>
+										<td><input type="text" style="BACKGROUND-COLOR: transparent;" value="${U.chepai}" name="chepai"></td>
+										<td><input type="text" style="BACKGROUND-COLOR: transparent;" value="${U.brand}" name="brand"></td>
+										<td><input type="text" style="BACKGROUND-COLOR: transparent;" value="${U.model}" name="model"></td>
+										<td><input type="text" style="BACKGROUND-COLOR: transparent;" value="${U.engine_id}"
 											name="engine_id"></td>
 									</tr>
 								</form>
