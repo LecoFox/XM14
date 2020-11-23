@@ -202,26 +202,37 @@ html, body {
 </html>
 <script type="text/javascript" src="jquery-1.8.3.min.js"></script>
 <script>
-function getRecord(){
-	var url = "get_bcxdata.jsp";
-	$.post(url, function(json){
-		window.map.clearOverlays();
-		//console.log(JSON.stringify(json));
-		var list=json.aaData;
-		//console.log(list);
-		for(var i=0;i<list.length;i++){
-			var location=list[i].location;
-			var lon=Number(list[i].lon);
-			var lat=Number(list[i].lat);
-			var name=list[i].name;
-			var status=list[i].start;
-			var speed=Number(list[i].speed);
-			//console.log(status + " " + speed);
-			addCarMarker(lon.toFixed(4), lat.toFixed(4), "carImg.png", name, location, status, speed.toFixed(2));
-		}
-	});
-	realtime=setTimeout(getRecord, 10000);
-}
-getRecord();
+	function getRealtime_data() {
+		var url = "BcxData";
+		$.post(url, function(json) {
+			console.log("running getRealtime_data()");
+		});
+	}
+	function getRecord() {
+		var url = "SearchRecord";
+		$.post(url, function(json) {
+			console.log("running getRecord()");
+			window.map.clearOverlays();
+			var list = json.aaData;
+			if (list.length == 0) {
+				console.log("Connecting--bcxgps.com");
+			} else {
+				//console.log(list);
+				for (var i = 0; i < list.length; i++) {
+					var location = list[i].location;
+					var lon = Number(list[i].lon);
+					var lat = Number(list[i].lat);
+					var name = list[i].name;
+					var status = list[i].start;
+					var speed = Number(list[i].speed);
+					var carImg = list[i].carImg;
+					addCarMarker(lon.toFixed(5), lat.toFixed(5), carImg, name, location, status, speed.toFixed(2));
+				}
+			}
+		});
+		realtime = setTimeout(getRecord, 10000);
+	}
+	getRealtime_data();
+	getRecord();
 </script>
 
