@@ -2,6 +2,14 @@
 .clearfix:before, .clearfix:after { content: ''; display: table; }
 .clearfix:after { clear: both; }
 
+input:-webkit-autofill {
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+input {
+	-webkit-text-fill-color: #FFFFFF;  //颜色是设置成你需要的颜色
+}
+
 body {
 	background: #fff;
 	color: #383a3c;

@@ -5,7 +5,7 @@
     <servlet-name>SearchallRegVehicle</servlet-name>
     <servlet-class>com.servlet.SearchallRegVehicle</servlet-class>
   </servlet>
-    <servlet>
+  <servlet>
     <servlet-name>Searchall</servlet-name>
     <servlet-class>com.servlet.Searchall</servlet-class>
   </servlet>
@@ -13,6 +13,11 @@
     <servlet-name>LoginServlet</servlet-name>
     <servlet-class>com.servlet.LoginServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>RegDriverServlet</servlet-name>
+    <servlet-class>com.servlet.RegDriverServlet</servlet-class>
+  </servlet>
+  
   <servlet>
     <servlet-name>RegServlet</servlet-name>
     <servlet-class>com.servlet.RegServlet</servlet-class>
@@ -33,17 +38,14 @@
     <servlet-name>RegVehicleServlet</servlet-name>
     <servlet-class>com.servlet.RegVehicleServlet</servlet-class>
   </servlet>
-  
   <servlet-mapping>
     <servlet-name>SearchallRegVehicle</servlet-name>
     <url-pattern>/SearchallRegVehicle</url-pattern>
   </servlet-mapping>
-  
-    <servlet-mapping>
+  <servlet-mapping>
     <servlet-name>Searchall</servlet-name>
     <url-pattern>/Searchall</url-pattern>
   </servlet-mapping>
-  
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
     <url-pattern>/LoginServlet</url-pattern>
@@ -51,6 +53,10 @@
   <servlet-mapping>
     <servlet-name>RegServlet</servlet-name>
     <url-pattern>/RegServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>RegDriverServlet</servlet-name>
+    <url-pattern>/RegDriverServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>PasswordUpdate</servlet-name>
