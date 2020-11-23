@@ -42,7 +42,7 @@ public class BcxData extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		// Çå¿Õbcx_data±í
+		// æ¸…ç©ºbcx_dataè¡¨
 		try {
 			this.truncate();
 		} catch (SQLException e) {
@@ -52,7 +52,7 @@ public class BcxData extends HttpServlet {
 		this.m_request = request;
 		this.m_response = response;
 
-		// ·ÃÎÊ°é³µĞÇ,»ñÈ¡Êı¾İ
+		// è®¿é—®ä¼´è½¦æ˜Ÿ,è·å–æ•°æ®
 		this.runTimer();
 		System.out.println("runTimer");
 	}
@@ -61,14 +61,14 @@ public class BcxData extends HttpServlet {
 		doGet(request, response);
 	}
 
-	// Çå¿Õbcx_data±í
+	// æ¸…ç©ºbcx_dataè¡¨
 	public void truncate() throws SQLException {
 		String sql = "TRUNCATE TABLE bcx_data";
 		statement.executeUpdate(sql);
-		System.out.println("Çå¿Õbcx_data±í");
+		System.out.println("æ¸…ç©ºbcx_dataè¡¨");
 	}
 
-	// ¶¨Ê±»ñÈ¡Êı¾İ
+	// å®šæ—¶è·å–æ•°æ®
 	public void runTimer() {
 		this.timer.scheduleAtFixedRate(new TimerTask() {
 			public void run() {
@@ -163,6 +163,12 @@ public class BcxData extends HttpServlet {
 						JSONArray l = j.getJSONArray("list");
 						if (l.length() == 0) {
 							System.out.println("log in");
+							// é‡æ–°ç™»å½•,æ¸…ç©ºè¡¨
+							try {
+								truncate();
+							} catch (SQLException e) {
+								e.printStackTrace();
+							}
 							URL urlLogin = null;
 							try {
 								urlLogin = new URL("http://www.bcxgps.com/page/login/BcxLoad.action?r=g");
@@ -205,7 +211,7 @@ public class BcxData extends HttpServlet {
 		}, 0, 5000);
 	}
 
-	// ±£´æµ½Êı¾İ¿â
+	// ä¿å­˜åˆ°æ•°æ®åº“
 	public void save_data(JSONArray l) {
 		try {
 			for (int i = 0; i < l.length(); i++) {
