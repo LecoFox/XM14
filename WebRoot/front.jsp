@@ -42,7 +42,7 @@ html, body {
 }
 </style>
 <script type="text/javascript"
-	src="http://api.map.baidu.com/api?v=3.0&ak=awORzYNz3svIeWeQ9pGPLnmZletmqfog"></script>
+	src="http://api.map.baidu.com/getscript?v=3.0&ak=awORzYNz3svIeWeQ9pGPLnmZletmqfog"></script>
 </head>
 
 <body>
