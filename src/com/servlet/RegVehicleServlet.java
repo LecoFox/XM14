@@ -100,7 +100,7 @@ public class RegVehicleServlet extends HttpServlet {
             req.setAttribute("info", "登记失败<br>");
         }
         //转发到message.jsp页面
-        req.getRequestDispatcher("front.jsp").forward(req,response);
+        req.getRequestDispatcher("front2.jsp").forward(req,response);
 	}
 
 	/**

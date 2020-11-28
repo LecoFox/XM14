@@ -3,9 +3,7 @@ package com.servlet;
 import java.text.*;
 import org.json.JSONObject;
 
-import com.model.User;
 import com.utils.DataBaseUtil;
-
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,25 +30,15 @@ public class SearchRecord extends HttpServlet {
 		response.setCharacterEncoding("UTF=8");
 		response.setContentType("text/html;charset=UTF-8");
 		List jsonList = new ArrayList();
-		int cnt=0;
-		
-		HttpSession session =request.getSession(false);
-		String s = (String) session.getAttribute("username");
-		System.out.println(s);
-		
 		try {
 			Connection conn = DataBaseUtil.getConn();
 			Statement statement = conn.createStatement();
 			// ����sql��䣬���ݴ��ݹ����Ĳ�ѯ��������
 			String sql = "select * from bcx_data order by id DESC limit 25;";
-			String sql1 = "select * from reg_device where owner = ?;";
 			// System.out.println("���������sql����ǣ�"+sql);
 			
+			
 			ResultSet rs = statement.executeQuery(sql);
-			
-			
-			//获取PreparedStatement对象，用于执行数据库查询
-			
 			
 			int count = 0;
 			while (rs.next()) {
@@ -65,20 +53,7 @@ public class SearchRecord extends HttpServlet {
 				map.put("start", rs.getString("Start"));
 				map.put("speed", rs.getString("Speed"));
 				map.put("carImg", rs.getString("carImg"));
-				
-				PreparedStatement preparedStatement = conn.prepareStatement(sql1);
-				preparedStatement.setString(1,s);
-				//执行查询获取结果集
-				ResultSet resultSet = preparedStatement.executeQuery();
-				
-				while(resultSet.next()){
-					if((rs.getString("Device_id")).equals(resultSet.getString("Device_id"))){
-						cnt=cnt+1;
-						jsonList.add(map);
-					}
-				}
-				
-				
+				jsonList.add(map);
 			}
 			statement.close();
 			conn.close();
@@ -89,7 +64,7 @@ public class SearchRecord extends HttpServlet {
 		JSONObject json = new JSONObject();
 		try {
 			json.put("aaData", jsonList);
-			json.put("total", cnt);
+			json.put("total", 25);
 			json.put("result_msg", "ok"); // ���������������ó�"error"��
 			json.put("result_code", 0); // ����0��ʾ������������0�ͱ�ʾ�д���������������
 			// System.out.println("�����õ���json�ǣ�"+json.toString());
