@@ -22,7 +22,7 @@ import com.utils.DataBaseUtil;
 /**
  * Servlet implementation class UserServlet
  */
-@WebServlet("/UserServlet")
+@WebServlet("/UserEmailServlet")
 public class UserEmailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -49,8 +49,9 @@ public class UserEmailServlet extends HttpServlet {
 			Connection conn = DataBaseUtil.getConn();
 			Statement statement = conn.createStatement();
 			// ����sql��䣬���ݴ��ݹ����Ĳ�ѯ��������
-			String sql = "select distinct email,reg_device.Device_id, Location,car_name, Lon, Lat, Start, Speed, reg_device.carImg, owner "
-					+ "from bcx_data,reg_device,tb_user where speed > 15 and bcx_data.Device_id = reg_device.Device_id and reg_device.`owner` = tb_user.username;";
+			String sql = "select distinct email,reg_device.Device_id, Location,car_name, Lon, Lat, Start, max(Speed) as Speed, reg_device.carImg, owner "
+					+ "from bcx_data,reg_device,tb_user where speed > 15 and bcx_data.Device_id = reg_device.Device_id and reg_device.`owner` = tb_user.username"
+					+ " group by reg_device.Device_id;";
 			System.out.println("Sql语句是："+sql);
 			ResultSet rs = statement.executeQuery(sql);
 			//int count = 0;
@@ -83,7 +84,7 @@ public class UserEmailServlet extends HttpServlet {
 				System.out.println("车辆ID是"+device_id);
 				System.out.println("超速速度是"+speed);
 				System.out.println("发送的邮箱是"+email);
-				String mess= "您的超速信息如下：车辆ID为"+ device_id + "速度为"+ speed + "  ";
+				String mess= "您的超速信息如下：车辆ID为"+ device_id + "最高速度为"+ speed + "  ";
 				EmailDao emaildao = new EmailDao();
 				emaildao.sendEmail(email, mess);
 			}

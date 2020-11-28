@@ -8,7 +8,7 @@ public class User {
 	private String question;
 	private String answer;
 	private String email;
-
+	private String login_time;
 	public int getId() {
 		return id;
 	}
@@ -81,6 +81,14 @@ public class User {
 
 	public User() {
 		super();
+	}
+
+	public String getLogin_time() {
+		return login_time;
+	}
+
+	public void setLogin_time(String login_time) {
+		this.login_time = login_time;
 	}
 
 }

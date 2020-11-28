@@ -1,4 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java"
+	import="com.model.User"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -18,15 +19,17 @@
 <title>车辆注册</title>
 </head>
 <body>
-
+	<%
+		User user = (User) session.getAttribute("user");
+	%>
 
 	<div class="container demo-1">
 		<div class="content">
 			<div id="large-header" class="large-header">
 				<canvas id="demo-canvas"></canvas>
 				<div class="logo_box">
-					<form id="regvehicle"action="/XM14/RegVehicleServlet" method="post"
-						onsubmit="return reg(this)">
+					<form id="regvehicle" action="/XM14/RegVehicleServlet"
+						method="post" onsubmit="return reg(this)">
 						<table align="center" border="0" width="330">
 							<tr>
 								<td class="td1">车辆ID：</td>
@@ -56,6 +59,7 @@
 								<td class="td2">
 									<div class="input_outer2">
 										<input class="text1" type="text" name="owner"
+											value=<%=user.getUsername()%>
 											style="color: #FFFFFF !important" class="box">
 									</div>
 								</td>
@@ -89,10 +93,12 @@
 							</tr>
 							<tr>
 								<td colspan="2" align="center" height="40"><input
-									type="submit" value="注册" class="act-but1 submit1" onclick="document:regvehicle.submit()"> <input
+									type="submit" value="注册" class="act-but1 submit1"
+									onclick="document:regvehicle.submit()"> <input
 									type="reset" value="重置" class="act-but1 submit1"></td>
 							</tr>
 						</table>
+
 					</form>
 				</div>
 			</div>
