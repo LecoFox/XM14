@@ -244,14 +244,3 @@ html, body {
 	getRecord();
 </script>
 
-<script>
-	function sendMessage() {
-		var url = "UserEmailServlet";
-		$.post(url, function(json) {
-			console.log("running sendMessage()");
-		});
-		realtime = setTimeout(sendMessage, 50000);
-	}
-	sendMessage();
-</script>
-
