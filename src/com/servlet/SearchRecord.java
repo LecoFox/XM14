@@ -3,7 +3,9 @@ package com.servlet;
 import java.text.*;
 import org.json.JSONObject;
 
+import com.model.User;
 import com.utils.DataBaseUtil;
+
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,13 +32,26 @@ public class SearchRecord extends HttpServlet {
 		response.setCharacterEncoding("UTF=8");
 		response.setContentType("text/html;charset=UTF-8");
 		List jsonList = new ArrayList();
+		int cnt=0;
+		
+		HttpSession session =request.getSession(false);
+		String s = (String) session.getAttribute("username");
+		System.out.println(s);
+		
 		try {
 			Connection conn = DataBaseUtil.getConn();
 			Statement statement = conn.createStatement();
-			// ¹¹ÔìsqlÓï¾ä£¬¸ù¾İ´«µİ¹ıÀ´µÄ²éÑ¯Ìõ¼ş²ÎÊı
+			// ï¿½ï¿½ï¿½ï¿½sqlï¿½ï¿½ä£¬ï¿½ï¿½ï¿½İ´ï¿½ï¿½İ¹ï¿½ï¿½ï¿½ï¿½Ä²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			String sql = "select * from bcx_data order by id DESC limit 25;";
-			// System.out.println("¹¹Ôì³öÀ´µÄsqlÓï¾äÊÇ£º"+sql);
+			String sql1 = "select * from reg_device where owner = ?;";
+			// System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sqlï¿½ï¿½ï¿½ï¿½Ç£ï¿½"+sql);
+			
 			ResultSet rs = statement.executeQuery(sql);
+			
+			
+			//è·å–PreparedStatementå¯¹è±¡ï¼Œç”¨äºæ‰§è¡Œæ•°æ®åº“æŸ¥è¯¢
+			
+			
 			int count = 0;
 			while (rs.next()) {
 				count = count + 1;
@@ -50,21 +65,34 @@ public class SearchRecord extends HttpServlet {
 				map.put("start", rs.getString("Start"));
 				map.put("speed", rs.getString("Speed"));
 				map.put("carImg", rs.getString("carImg"));
-				jsonList.add(map);
+				
+				PreparedStatement preparedStatement = conn.prepareStatement(sql1);
+				preparedStatement.setString(1,s);
+				//æ‰§è¡ŒæŸ¥è¯¢è·å–ç»“æœé›†
+				ResultSet resultSet = preparedStatement.executeQuery();
+				
+				while(resultSet.next()){
+					if((rs.getString("Device_id")).equals(resultSet.getString("Device_id"))){
+						cnt=cnt+1;
+						jsonList.add(map);
+					}
+				}
+				
+				
 			}
 			statement.close();
 			conn.close();
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-		// ÏÂÃæ¿ªÊ¼¹¹½¨·µ»ØµÄjson
+		// ï¿½ï¿½ï¿½æ¿ªÊ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½json
 		JSONObject json = new JSONObject();
 		try {
 			json.put("aaData", jsonList);
-			json.put("total", 25);
-			json.put("result_msg", "ok"); // Èç¹û·¢Éú´íÎó¾ÍÉèÖÃ³É"error"µÈ
-			json.put("result_code", 0); // ·µ»Ø0±íÊ¾Õı³££¬²»µÈÓÚ0¾Í±íÊ¾ÓĞ´íÎó²úÉú£¬´íÎó´úÂë
-			// System.out.println("×îºó¹¹ÔìµÃµ½µÄjsonÊÇ£º"+json.toString());
+			json.put("total", cnt);
+			json.put("result_msg", "ok"); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã³ï¿½"error"ï¿½ï¿½
+			json.put("result_code", 0); // ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½Í±ï¿½Ê¾ï¿½Ğ´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			// System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½jsonï¿½Ç£ï¿½"+json.toString());
 			response.setContentType("application/json; charset=UTF-8");
 		} catch (JSONException e1) {
 			e1.printStackTrace();
@@ -76,7 +104,7 @@ public class SearchRecord extends HttpServlet {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		// System.out.println("·µ»Ø½á¹û¸øµ÷ÓÃÒ³ÃæÁË¡£");
+		// System.out.println("ï¿½ï¿½ï¿½Ø½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½Ë¡ï¿½");
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
