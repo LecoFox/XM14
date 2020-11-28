@@ -35,6 +35,10 @@
     <servlet-class>com.servlet.RegServlet</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>UserEmailServlet</servlet-name>
+    <servlet-class>com.servlet.UserEmailServlet</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>PasswordUpdate</servlet-name>
     <servlet-class>com.servlet.PasswordUpdate</servlet-class>
   </servlet>
@@ -95,6 +99,10 @@
   <servlet-mapping>
     <servlet-name>RegVehicleServlet</servlet-name>
     <url-pattern>/RegVehicleServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UserEmailServlet</servlet-name>
+    <url-pattern>/UserEmailServlet</url-pattern>
   </servlet-mapping>
   <filter>
     <filter-name>LoginFilter</filter-name>

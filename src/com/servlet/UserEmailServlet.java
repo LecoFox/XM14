@@ -22,7 +22,7 @@ import com.utils.DataBaseUtil;
 /**
  * Servlet implementation class UserServlet
  */
-@WebServlet("/UserEmailServlet")
+//@WebServlet("/UserEmailServlet")
 public class UserEmailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
