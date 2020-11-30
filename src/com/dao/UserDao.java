@@ -4,11 +4,15 @@ import java.awt.List;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
-
-
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import com.model.User;
 import com.utils.DataBaseUtil;
@@ -84,13 +88,22 @@ public class UserDao {
         User user =null;
         Connection conn = DataBaseUtil.getConn();
         String sql = "select * from tb_user where username = ? and password = ?";
+        String newsql = "insert into login(username,login_time) value(?,?)";
+        SimpleDateFormat sdf = new SimpleDateFormat();// 格式化时间 
+        sdf.applyPattern("yyyy-MM-dd HH:mm:ss");//  
+        Date date = new Date();// 获取当前时间
+        
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
+            PreparedStatement newps = conn.prepareStatement(newsql);
             ps.setString(1, username);
             ps.setString(2, password);
+            newps.setString(1,username);
+            newps.setString(2, sdf.format(date));
+            
             //执行查询获取结果集
             ResultSet rs = ps.executeQuery();
-
+            
             //判断结果集是否有效,如过有效，则对用户进行赋值
             while (rs.next()) {
 
@@ -103,10 +116,12 @@ public class UserDao {
                 user.setQuestion(rs.getString("question"));
                 user.setAnswer(rs.getString("answer"));
                 user.setEmail(rs.getString("email"));
+                newps.executeUpdate();
             }
             //释放资源
             rs.close();
             ps.close();
+            newps.close();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -208,5 +223,77 @@ public class UserDao {
         }
     	return list;
     }
+    public JSONArray getLoginStatus(String username) throws JSONException{
+		JSONArray array = new JSONArray();
+		Connection conn = DataBaseUtil.getConn();
+		//根据指定的用户名查询信息
+		String sql = "select * from login where username=?";
+		try {
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, username);
+			//执行查询获取结果集
+			ResultSet rs = preparedStatement.executeQuery();
+			ResultSetMetaData metaData = rs.getMetaData(); 
+            int columnCount = metaData.getColumnCount();
+            
+            //将结果集转换为jsonarray
+            while (rs.next()) {
+            	JSONObject jsonObj = new JSONObject();
+            	for (int i = 1; i <= columnCount; i++) { 
+                    String columnName =metaData.getColumnLabel(i); 
+                    String value = rs.getString(columnName);
+                    if(columnName.contains("time")){
+                    	value = value.substring(0,value.length()-2);
+                    }
+                    jsonObj.put(columnName, value);
+                    //System.out.println(jsonObj);
+                }  
+                array.put(jsonObj); 
+            }
+			//释放资源,后创建的先销毁
+			rs.close();
+			preparedStatement.close();
+			return array;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	public JSONArray getTotalLoin() throws JSONException{
+		JSONArray array = new JSONArray();
+		Connection conn = DataBaseUtil.getConn();
+		//根据指定的用户名查询信息
+		String sql = "select * from login";
+		try {
+			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			//执行查询获取结果集
+			ResultSet rs = preparedStatement.executeQuery();
+			ResultSetMetaData metaData = rs.getMetaData(); 
+            int columnCount = metaData.getColumnCount();
+            
+            //将结果集转换为jsonarray
+            while (rs.next()) {
+            	JSONObject jsonObj = new JSONObject();
+            	for (int i = 1; i <= columnCount; i++) { 
+                    String columnName =metaData.getColumnLabel(i); 
+                    String value = rs.getString(columnName);
+                    if(columnName.contains("time")){
+                    	value = value.substring(0,value.length()-2);
+                    }
+                    jsonObj.put(columnName, value);
+                    //System.out.println(jsonObj);
+                }  
+                array.put(jsonObj); 
+            }
+			//释放资源,后创建的先销毁
+			rs.close();
+			preparedStatement.close();
+			return array;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
 

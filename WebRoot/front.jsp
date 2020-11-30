@@ -85,9 +85,14 @@ html, body {
 							<br/>
 							<br/>
 							<br/>
-						<h3>全景功能使用步骤:</h3>
+						<a type="submit" href="UserEmailServlet" class="act-but submit2"
+							style="color: #FFFFFF">一键提醒</a>
+							<br/>
+							<br/>
+							<br/>
+						<h3>街道全景功能使用步骤:</h3>
 						<h3>1.找到蓝色区域</h3>
-						<h3>(此为可查看全景路段)</h3>
+						<h3>(此为可查看街道全景路段)</h3>
 						<h3>2.放大地图至可看清道路</h3>
 						<h3>3.点击右上角全景图标</h3>
 						<h3>4.点击呈蓝色路段即可</h3>
@@ -226,7 +231,10 @@ html, body {
 					var status = list[i].start;
 					var speed = Number(list[i].speed);
 					var carImg = list[i].carImg;
+					//var warningImg = list[i].warningImg;
+					
 					addCarMarker(lon.toFixed(5), lat.toFixed(5), carImg, name, location, status, speed.toFixed(2));
+					
 				}
 			}
 		});
@@ -234,5 +242,16 @@ html, body {
 	}
 	getRealtime_data();
 	getRecord();
+</script>
+
+<script>
+	function sendMessage() {
+		var url = "UserEmailServlet";
+		$.post(url, function(json) {
+			console.log("running sendMessage()");
+		});
+		realtime = setTimeout(sendMessage, 50000);
+	}
+	sendMessage();
 </script>
 

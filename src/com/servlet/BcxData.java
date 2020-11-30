@@ -231,7 +231,17 @@ public class BcxData extends HttpServlet {
 				String start = jj.getString("start");
 				String carname = jj.getString("tname");
 				String carimg = "carImg.png";
+				String warningimg = "warningImg.png";
+				int speed1 = 0;
+				try {
+				    speed1 = Integer.parseInt(speed);
+				} catch (NumberFormatException e) {
+				    e.printStackTrace();
+				}
 				String sql = "insert into bcx_data(Device_id, GPS_time, Rev_time, Lon, Lat, oldLon, oldLat, Direction, Location, Speed, Start, car_name, carImg)";
+				if(speed1 > 60){
+					carimg = warningimg;
+				}
 				sql = sql + "values('" + deviceId + "','" + gpsTime + "','" + recvTime + "','" + lon + "','" + lat
 						+ "','" + oldlon + "','" + oldlat + "','" + direction + "','" + location + "','" + speed + "','"
 						+ start + "','" + carname + "','" + carimg + "')";

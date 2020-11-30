@@ -1,4 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+ <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -27,34 +27,48 @@
 </head>
 
 <body>
-<div class="container demo-1">
-			<div class="content">
-				<div id="large-header" class="large-header">
-					<canvas id="demo-canvas"></canvas>
-					<div class="logo_box5">
-						<div class="input_outer3">
-							<input id="speed" type="text" style="BACKGROUND-COLOR: transparent;" name="setSpeed" class= "text" placeholder="请输入超速范围，如40"> 
-						</div>
-						<div class="input_outer3">
-							<input id="datetime1" type="text" style="BACKGROUND-COLOR: transparent;" name="StartTime" class= "text" placeholder="请输入起始时间">
-						</div>
-						<div class="input_outer3">
-							<input id="datetime2" type="text" style="BACKGROUND-COLOR: transparent;" name="EndTime" class= "text" placeholder="请选择结束时间">
-						</div> 
-						<button class="submit3" style="color: #FFFFFF">确认</button>
-						<div style="width:100%;height:400px;overflow:auto;" id = "tableInfo"; class="speedtable"></div>
+	<div class="container demo-1">
+		<div class="content">
+			<div id="large-header" class="large-header">
+				<canvas id="demo-canvas"></canvas>
+				<div class="logo_box5">
+					<div class="input_outer3">
+						<input id="speed" type="text"
+							style="BACKGROUND-COLOR: transparent;" name="setSpeed"
+							class="text" placeholder="请输入超速范围，如40">
 					</div>
+					<div class="input_outer3">
+						<input id="datetime1" type="text"
+							style="BACKGROUND-COLOR: transparent;" name="StartTime"
+							class="text" placeholder="请输入起始时间">
+					</div>
+					<div class="input_outer3">
+						<input id="datetime2" type="text"
+							style="BACKGROUND-COLOR: transparent;" name="EndTime"
+							class="text" placeholder="请选择结束时间">
+					</div>
+				
+					<button class="submit3" style="color: #FFFFFF">确认</button>
+					<div style="width:100%;height:400px;overflow:auto;" id="tableInfo"
+						; class="speedtable"></div>
+					
+					<button class="submit3" style="color: #FFFFFF">图表统计</button>
+					<div style="width:100%;height:400px;overflow:auto;" id="chartInfo"
+						; class="speedtable"></div>
 				</div>
 			</div>
-		</div><!-- /container -->
-		<script src="js/TweenLite.min.js"></script>
-		<script src="js/EasePack.min.js"></script>
-		<script src="js/rAF.js"></script>
-		<script src="js/demo-1.js"></script>
+		</div>
+	</div>
+	<!-- /container -->
+	<script src="js/TweenLite.min.js"></script>
+	<script src="js/EasePack.min.js"></script>
+	<script src="js/rAF.js"></script>
+	<script src="js/demo-1.js"></script>
 </body>
 <link
 	href="https://cdn.bootcss.com/jquery-datetimepicker/2.5.17/jquery.datetimepicker.min.css"
 	rel="stylesheet">
+	
 <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script
 	src="https://cdn.bootcss.com/jquery-datetimepicker/2.5.17/jquery.datetimepicker.full.min.js"></script>
@@ -104,6 +118,5 @@ $(document).ready(function(){
 			}
 		})
 	});
-		
 });
 </script>
