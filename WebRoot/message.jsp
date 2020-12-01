@@ -44,8 +44,7 @@
 					%>
 								<div class="mb2">
 									<h3><%=user.getUsername()%>登录成功！</h3>
-									<a href="front.jsp" class="act-but submit" style="color: #FFFFFF">获取伴车星数据</a>
-									<a href="Searchall" class="act-but submit" style="color: #FFFFFF">查看已注册用户</a>
+									<a href="front.jsp" class="act-but submit" style="color: #FFFFFF" id="jump">获取伴车星数据</a>
 								</div>
 					<%
 						//session.invalidate();
@@ -77,3 +76,14 @@
 	<script src="js/demo-1.js"></script>
 </body>
 </html>
+<script type="text/javascript" src="jquery-1.8.3.min.js"></script>
+<script>
+	function access12011749(){
+		var type = "<%=user.getType()%>";
+		console.log(type);
+		if(type=="n"){
+			$("#jump").attr("href","front2.jsp");
+		}
+	}
+	access12011749();
+</script>

@@ -9,6 +9,7 @@ public class User {
 	private String answer;
 	private String email;
 	private String login_time;
+	private String type;
 	public int getId() {
 		return id;
 	}
@@ -70,13 +71,14 @@ public class User {
 		return "User [id=" + id + ", username=" + username + ", password=" + password + "]";
 	}
 
-	public User(int id, String username, String password, String sex, String email) {
+	public User(int id, String username, String password, String sex, String email,String type) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.password = password;
 		this.sex = sex;
 		this.email = email;
+		this.type=type;
 	}
 
 	public User() {
@@ -89,6 +91,14 @@ public class User {
 
 	public void setLogin_time(String login_time) {
 		this.login_time = login_time;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 }

@@ -46,15 +46,6 @@
 								</td>
 							</tr>
 							<tr>
-								<td class="td1">CarImg：</td>
-								<td class="td2">
-									<div class="input_outer2">
-										<input class="text1" type="text" name="carimg"
-											style="color: #FFFFFF !important" class="box">
-									</div>
-								</td>
-							</tr>
-							<tr>
 								<td class="td1">车主：</td>
 								<td class="td2">
 									<div class="input_outer2">
