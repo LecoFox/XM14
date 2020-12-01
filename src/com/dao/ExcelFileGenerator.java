@@ -62,29 +62,29 @@ public class ExcelFileGenerator {
 		HSSFSheet sheet = workbook.createSheet("用户数据表");
 		HSSFRow row = sheet.createRow(0);
 		HSSFCell cell = row.createCell(0);
-		cell.setCellValue("ID");
-		cell = row.createCell(1);
+		//cell.setCellValue("ID");
+		//cell = row.createCell(1);
 		cell.setCellValue("用户名");
-		cell = row.createCell(2);
+		cell = row.createCell(1);
 		cell.setCellValue("密码");
-		cell = row.createCell(3);
+		cell = row.createCell(2);
 		cell.setCellValue("性别");
-		cell = row.createCell(4);
+		cell = row.createCell(3);
 		cell.setCellValue("安全问题");
-		cell = row.createCell(5);
+		cell = row.createCell(4);
 		cell.setCellValue("安全问题答案");
-		cell = row.createCell(6);
+		cell = row.createCell(5);
 		cell.setCellValue("邮箱");
 		for(int i=0;i<list.size();i++){
 			row =sheet.createRow((int)i+1);
 			User user = (User) list.get(i);
-			row.createCell(0).setCellValue(user.getId());
-			row.createCell(1).setCellValue(user.getUsername());
-			row.createCell(2).setCellValue(user.getPassword());
-			row.createCell(3).setCellValue(user.getSex());
-			row.createCell(4).setCellValue(user.getQuestion());
-			row.createCell(5).setCellValue(user.getAnswer());
-			row.createCell(6).setCellValue(user.getEmail());
+			//row.createCell(0).setCellValue(user.getId());
+			row.createCell(0).setCellValue(user.getUsername());
+			row.createCell(1).setCellValue(user.getPassword());
+			row.createCell(2).setCellValue(user.getSex());
+			row.createCell(3).setCellValue(user.getQuestion());
+			row.createCell(4).setCellValue(user.getAnswer());
+			row.createCell(5).setCellValue(user.getEmail());
 		}
 		try{
 			//FileOutputStream outputStream = new FileOutputStream("C:\\Users\\Ye\\Desktop\\user.xls");

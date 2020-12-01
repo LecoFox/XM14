@@ -77,7 +77,6 @@ public class RegVehicleServlet extends HttpServlet {
         String engine_id = req.getParameter("engineid");
         String owner = req.getParameter("owner");
         String chepai = req.getParameter("chepai");
-        String carimg = req.getParameter("carimg");
         String model = req.getParameter("model");
         String brand = req.getParameter("brand");
         System.out.println("获取车辆登记信息成功");
@@ -90,7 +89,6 @@ public class RegVehicleServlet extends HttpServlet {
             vehicle.setDevice_id(device_id);
             vehicle.setOwner(owner);
             vehicle.setChepai(chepai);
-            vehicle.setCarImg(carimg);
             vehicle.setModel(model);
             vehicle.setBrand(brand);
             vehicle.setEngine_id(engine_id);

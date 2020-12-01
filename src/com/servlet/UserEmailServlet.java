@@ -49,7 +49,7 @@ public class UserEmailServlet extends HttpServlet {
 			Connection conn = DataBaseUtil.getConn();
 			Statement statement = conn.createStatement();
 			// ����sql��䣬���ݴ��ݹ����Ĳ�ѯ��������
-			String sql = "select distinct email,reg_device.Device_id, Location,car_name, Lon, Lat, Start, max(Speed) as Speed, reg_device.carImg, owner "
+			String sql = "select distinct email,reg_device.Device_id, Location,car_name, Lon, Lat, Start, max(Speed) as Speed, carImg, owner "
 					+ "from bcx_data,reg_device,tb_user where speed > 15 and bcx_data.Device_id = reg_device.Device_id and reg_device.`owner` = tb_user.username"
 					+ " group by reg_device.Device_id;";
 			System.out.println("Sql语句是："+sql);

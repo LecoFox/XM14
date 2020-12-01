@@ -90,6 +90,10 @@ html, body {
 							<br/>
 							<br/>
 							<br/>
+						<a href="Searchall" class="act-but submit" style="color: #FFFFFF">查看已注册用户</a>
+						<br/>
+						<br/>
+						<br/>
 						<h3>街道全景功能使用步骤:</h3>
 						<h3>1.找到蓝色区域</h3>
 						<h3>(此为可查看街道全景路段)</h3>

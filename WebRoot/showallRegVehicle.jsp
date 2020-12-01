@@ -32,7 +32,6 @@
 						<thead>
 							<tr>
 								<td class="td1" onclick="sort(theTable,0,'int')">设备ID</td>
-								<td class="td1" onclick="sort(theTable,1,'int')">车辆图片</td>
 								<td class="td1" onclick="sort(theTable,2,'int')">所有者</td>
 								<td class="td1" onclick="sort(theTable,3,'int')">车牌</td>
 								<td class="td1" onclick="sort(theTable,4,'int')">品牌</td>
@@ -50,7 +49,6 @@
 									<tr>
 										<td><input type="text" style="BACKGROUND-COLOR: transparent;" value="${U.device_id}"
 											name="device_id"></td>
-										<td><input type="text" style="BACKGROUND-COLOR: transparent;" value="${U.carImg}" name="carImg"></td>
 										<td><input type="text" style="BACKGROUND-COLOR: transparent;" value="${U.owner}" name="owner"></td>
 										<td><input type="text" style="BACKGROUND-COLOR: transparent;" value="${U.chepai}" name="chepai"></td>
 										<td><input type="text" style="BACKGROUND-COLOR: transparent;" value="${U.brand}" name="brand"></td>

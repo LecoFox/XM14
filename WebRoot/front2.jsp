@@ -66,12 +66,7 @@ html, body {
 							type="submit" href="delete_account.jsp" class="act-but submit2"
 							style="color: #FFFFFF">删除账号</a> <br> </br> <br> </br> <a
 							type="submit" href="reg_driver.jsp" class="act-but submit2"
-							style="color: #FFFFFF">驾驶员信息注册</a> <br> </br> <br> </br> <a
-							type="submit" href="SearchallRegVehicle" class="act-but submit2"
-							style="color: #FFFFFF">查看车辆注册信息</a> <br /> <br /> <br /> <br />
-						<a type="submit" href="overspeed.jsp" class="act-but submit2" style="color: #FFFFFF">超速统计</a>	
-						<br/><br/><br/>
-						
+							style="color: #FFFFFF">驾驶员信息注册</a> <br/><br/><br/>	
 						<h3>街道全景功能使用步骤:</h3>
 						<h3>1.找到蓝色区域</h3>
 						<h3>(此为可查看街道全景路段)</h3>
@@ -240,7 +235,7 @@ html, body {
 		});
 		realtime = setTimeout(getRecord, 10000);
 	}
-	getRealtime_data();
+	
 	getRecord();
 </script>
 
