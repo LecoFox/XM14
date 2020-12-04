@@ -68,7 +68,8 @@ public class RegServlet extends HttpServlet {
 		}
 		//转发到message.jsp页面
 		req.setAttribute("type", "register");
-		req.getRequestDispatcher("message.jsp").forward(req, resp);
+		
+		req.getRequestDispatcher("registermessage.jsp").forward(req, resp);
 	}
 
 }
