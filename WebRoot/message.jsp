@@ -78,12 +78,15 @@
 </html>
 <script type="text/javascript" src="jquery-1.8.3.min.js"></script>
 <script>
-	function access12011749(){
-		var type = "<%=user.getType()%>";
-		console.log(type);
-		if(type=="n"){
-			$("#jump").attr("href","front2.jsp");
+	function access12041701(){
+		var source = "<%=type%>"
+		if(source=="login"){
+			var type = "<%=user.getType()%>";
+			console.log(type);
+			if(type=="n"){
+				$("#jump").attr("href","front2.jsp");
+			}
 		}
 	}
-	access12011749();
+	access12041701();
 </script>
