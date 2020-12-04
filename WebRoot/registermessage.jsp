@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 
-<%@ page contentType="textml;charset=UTF-8" language="java"%>
+<%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html lang="en" class="no-js">
 <head>
@@ -14,12 +14,12 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>login</title>
-<link rel="stylesheet" type="texts" href="cssrmalize.css" />
-<link rel="stylesheet" type="texts" href="css/demo.css" />
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="css/demo.css" />
 <!--必要样式-->
-<link rel="stylesheet" type="texts" href="css/component.css" />
+<link rel="stylesheet" type="text/css" href="css/component.css" />
 <!--[if IE]>
-	<script src="jsml5.js"></script>
+	<script src="js/html5.js"></script>
 	<![endif]-->
 </head>
 <body>
@@ -49,7 +49,7 @@
 									<a href="front.jsp" class="act-but submit" style="color: #FFFFFF" id="jump">获取伴车星数据</a>
 								</div>
 					<%
-						/ssion.invalidate();
+						//session.invalidate();
     						}
     						else {
     							out.println("<div class='mb2'>");
@@ -77,18 +77,4 @@
 	<script src="js/rAF.js"></script>
 	<script src="js/demo-1.js"></script>
 </body>
-<ml>
-<script type="text/javascript" src="jquery-1.8.3.min.js"></script>
-<script>
-	function access12041701(){
-		var source = "<%=type%>";
-		if(source=="login"){
-			var type = "<%=user.getType()%>";
-			console.log(type);
-			if(type=="n"){
-				$("#jump").attr("href","front2.jsp");
-			}
-		}
-	}
-	access12041701();
-</script>
+</html>

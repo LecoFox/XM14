@@ -54,6 +54,7 @@ public class RegServlet extends HttpServlet {
 					user.setQuestion(question);
 					user.setAnswer(answer);
 					user.setEmail(email);
+					user.setType("n");
 					if(userDao.userAvailable(username)){
 						userDao.saveUser(user);
 						req.setAttribute("info", "注册成功！ <br>");
@@ -63,7 +64,7 @@ public class RegServlet extends HttpServlet {
 					}
 				}
 				else{
-					req.setAttribute("info","两次密码不一致或者验证码错误！<br>注册失败！<br>");
+					req.setAttribute("info","两次密码不一致！<br>注册失败！<br>");
 				}
 			}
 			else{
@@ -75,7 +76,8 @@ public class RegServlet extends HttpServlet {
 		}
 		//转发到message.jsp页面
 		req.setAttribute("type", "register");
-		req.getRequestDispatcher("message.jsp").forward(req, resp);
+		
+		req.getRequestDispatcher("registermessage.jsp").forward(req, resp);
 	}
 
 }
