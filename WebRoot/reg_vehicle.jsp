@@ -32,7 +32,7 @@
 						method="post" onsubmit="return reg(this)">
 						<table align="center" border="0" width="330">
 							<tr>
-								<td class="td1">车辆ID：</td>
+								<td class="td1">设备ID：</td>
 								<td class="td2"><select class="input_outer2" id="sel"
 									name="deviceid" class="box"><option>请选择</option></select></td>
 							</tr>
