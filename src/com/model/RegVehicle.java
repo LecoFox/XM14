@@ -2,19 +2,19 @@ package com.model;
 
 public class RegVehicle {
 	private String device_id;
-	private String carImg;
+	//private String carImg;
 	private String owner;
 	private String chepai;
 	private String brand;
 	private String model;
 	private String engine_id;
 	
-	public String getCarImg() {
+	/*public String getCarImg() {
 		return carImg;
 	}
 	public void setCarImg(String carImg) {
 		this.carImg = carImg;
-	}
+	}*/
 	public String getOwner() {
 		return owner;
 	}
@@ -54,13 +54,13 @@ public class RegVehicle {
 	
 	@Override
 	public String toString() {
-		return "RegVehicle [device_id=" + device_id + ", carImg=" + carImg + ", owner=" + owner + "]";
+		return "RegVehicle [device_id=" + device_id + ", owner=" + owner + "]";
 	}
 
-	public RegVehicle(String device_id, String carImg, String owner, String chepai, String brand, String model, String engine_id) {
+	public RegVehicle(String device_id, String owner, String chepai, String brand, String model, String engine_id) {
 		super();
 		this.device_id = device_id;
-		this.carImg = carImg;
+		//this.carImg = carImg;
 		this.owner = owner;
 		this.chepai = chepai;
 		this.brand = brand;

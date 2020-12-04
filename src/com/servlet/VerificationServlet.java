@@ -36,6 +36,7 @@ public class VerificationServlet extends HttpServlet {
 		
 		
 		String e=request.getParameter("email");
+		//String e = "251946391@qq.com";
 		String v = "您的验证码是：";
 		EmailDao emaildao = new EmailDao();
 		String r= emaildao.randomCode();

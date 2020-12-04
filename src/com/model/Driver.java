@@ -3,14 +3,14 @@ package com.model;
 import java.util.Date;
 
 public class Driver {
-	private int id;
+	//private int id;
 	private String name;
 	private String driver_id;
 	private String sex;
 	private String birthday;
 	private String validity_period;
 	private String phone_number;
-
+/*
 	public int getId() {
 		return id;
 	}
@@ -18,7 +18,7 @@ public class Driver {
 	public void setId(int id) {
 		this.id = id;
 	}
-
+*/
 	public String getName() {
 		return name;
 	}
@@ -69,12 +69,12 @@ public class Driver {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", username=" + name + ", driver_id=" + driver_id + "]";
+		//return "User [id=" + id + ", username=" + name + ", driver_id=" + driver_id + "]";
+		return "User [username=" + name + ", driver_id=" + driver_id + "]";
 	}
 
-	public Driver(int id, String name, String driver_id, String sex, String birthday, String validity_period, String phone_number) {
+	public Driver(String name, String driver_id, String sex, String birthday, String validity_period, String phone_number) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.driver_id = driver_id;
 		this.sex = sex;

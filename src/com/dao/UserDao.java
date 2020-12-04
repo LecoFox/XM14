@@ -116,6 +116,7 @@ public class UserDao {
                 user.setQuestion(rs.getString("question"));
                 user.setAnswer(rs.getString("answer"));
                 user.setEmail(rs.getString("email"));
+                user.setType(rs.getString("type"));
                 newps.executeUpdate();
             }
             //释放资源
@@ -211,6 +212,7 @@ public class UserDao {
                 user.setQuestion(rs.getString("question"));
                 user.setAnswer(rs.getString("answer"));
                 user.setEmail(rs.getString("email"));
+                user.setType(rs.getString("type"));
                 list.add(user);
             }
             //释放资源,后创建的先销毁
