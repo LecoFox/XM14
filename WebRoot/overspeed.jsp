@@ -52,9 +52,6 @@
 					<div style="width:100%;height:400px;overflow:auto;" id="tableInfo"
 						; class="speedtable"></div>
 					
-					<button class="submit3" style="color: #FFFFFF">图表统计</button>
-					<div style="width:100%;height:400px;overflow:auto;" id="chartInfo"
-						; class="speedtable"></div>
 				</div>
 			</div>
 		</div>

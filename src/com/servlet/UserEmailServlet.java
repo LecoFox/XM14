@@ -84,7 +84,7 @@ public class UserEmailServlet extends HttpServlet {
 				System.out.println("车辆ID是"+device_id);
 				System.out.println("超速速度是"+speed);
 				System.out.println("发送的邮箱是"+email);
-				String mess= "您的超速信息如下：车辆ID为"+ device_id + "最高速度为"+ speed + "  ";
+				String mess= ":您的车辆已超速（超过15km/h）\n您的超速信息如下：车辆ID为"+ device_id + "最高速度为"+ speed + "  ";
 				EmailDao emaildao = new EmailDao();
 				emaildao.sendEmail(email, mess);
 			}

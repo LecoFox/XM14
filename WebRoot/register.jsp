@@ -72,6 +72,13 @@
 								id="email" style="color: #FFFFFF !important" type="text"
 								placeholder="邮箱"><span id="Email-attention"></span>
 						</div>
+						<button id="b01" type="button">发送验证码</button>					
+						<!-- 验证码-->
+						<div class="input_outer1">
+							<input name="ver" class="text1" "
+								id="verification" style="color: #FFFFFF !important" type="text"
+								placeholder="验证码"><span id="Verification-attention"></span>
+						</div>
 						<span id="Submit-attention"></span>
 						<div class="mb2">
 							<a type="submit" href="javascript:;" class="act-but submit"
@@ -89,6 +96,7 @@
 	<script src="js/EasePack.min.js"></script>
 	<script src="js/rAF.js"></script>
 	<script src="js/demo-1.js"></script>
+	
 </body>
 </html>
 <script>
@@ -137,4 +145,22 @@
 			document.getElementById("Submit-attention").innerHTML = "<font color='red'>Please check your information.</font>";
 		}
 	}
+</script>
+
+<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>                                                                                                                           
+<script>
+$(document).ready(function(){
+	$("#b01").click(function(){
+		
+		var email = $('#email').val();
+		$.ajax({
+			type : "get",
+			url : "/XM14/VerificationServlet",
+			datatype : "json",
+			data:{
+				email:email
+			},
+		})
+	});
+});
 </script>
