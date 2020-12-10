@@ -79,6 +79,9 @@ html, body {
 							type="submit" href="UserEmailServlet" class="act-but submit2"
 							style="color: #FFFFFF">一键提醒</a> <br /> <br /> <br /> <a
 							href="Searchall" class="act-but submit" style="color: #FFFFFF">查看已注册用户</a>
+							<br/><br/><br/>
+							<a type="submit" href="loginstatus.jsp" class="act-but submit2"
+							style="color: #FFFFFF">查看在线用户</a>
 					</div>
 				</div>
 				<!-- /container -->
