@@ -49,7 +49,7 @@
 									<a href="front.jsp" class="act-but submit" style="color: #FFFFFF" id="jump">获取伴车星数据</a>
 								</div>
 					<%
-						/ssion.invalidate();
+						//session.invalidate();
     						}
     						else {
     							out.println("<div class='mb2'>");
