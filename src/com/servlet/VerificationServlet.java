@@ -13,7 +13,6 @@ import com.dao.EmailDao;
 /**
  * Servlet implementation class Verification
  */
-@WebServlet("/VerificationServlet")
 
 public class VerificationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
