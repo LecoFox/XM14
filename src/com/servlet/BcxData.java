@@ -239,7 +239,7 @@ public class BcxData extends HttpServlet {
 				    e.printStackTrace();
 				}
 				String sql = "insert into bcx_data(Device_id, GPS_time, Rev_time, Lon, Lat, oldLon, oldLat, Direction, Location, Speed, Start, car_name, carImg)";
-				if(speed1 > 60){
+				if(speed1 > 15){
 					carimg = warningimg;
 				}
 				sql = sql + "values('" + deviceId + "','" + gpsTime + "','" + recvTime + "','" + lon + "','" + lat

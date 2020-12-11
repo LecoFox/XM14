@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import com.dao.UserDao;
 import com.model.User;
+import com.servlet.VerificationServlet;
 
 public class RegServlet extends HttpServlet {
 	@Override

@@ -55,13 +55,14 @@
 	margin-top: -300px;
 }
 .logo_box4{
-	width: 400px;
+	overflow:auto;
+	width: 800px;
 	height: 500px;
 	padding:35px;
 	color: #EEE;
 	position: absolute;
 	left: 50%;
-	top:45%;
+	top:50%;
 	margin-left: -400px;
 	margin-top: -300px;
 }
@@ -239,6 +240,7 @@
 .mb2{
 	margin-bottom: 20px
 }
+
 .mb2 a{
 	text-decoration: none;
 	outline: none;
