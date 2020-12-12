@@ -46,7 +46,7 @@
 					%>
 								<div class="mb2">
 									<h3><%=user.getUsername()%>登录成功！</h3>
-									<a href="front.jsp" class="act-but submit" style="color: #FFFFFF" id="jump">获取伴车星数据</a>
+									<a href="front.jsp" class="act-but submit" style="color: #FFFFFF" id="jump">获取竞车跳动数据</a>
 								</div>
 					<%
 						//session.invalidate();
