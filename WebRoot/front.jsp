@@ -40,8 +40,8 @@ html, body {
 	white-space: -moz-pre-wrap;
 	word-wrap: break-word
 }
+
 .iw_button {
-	
 	font: 13px arial, sans-serif;
 	color: #CC5522;
 	overflow: visible;
@@ -201,7 +201,7 @@ html, body {
 <script type="text/javascript">
 
 
-	
+
 	//创建和初始化地图函数：
 	function initMap() {
 		createMap(); //创建地图
@@ -251,8 +251,8 @@ html, body {
 		}); //构造全景控件
 		stCtrl.setOffset(new BMap.Size(20, 20));
 		map.addControl(stCtrl); //添加全景控件
-		
-		
+
+
 
 	}
 	//创建marker
@@ -267,7 +267,7 @@ html, body {
 			"offset" : new BMap.Size(5 - 6 + 10, -20)
 		});
 		//全景
-		
+
 
 		marker.setLabel(label);
 		map.addOverlay(marker);
@@ -292,7 +292,7 @@ html, body {
 			label.addEventListener("click", function() {
 				_marker.openInfoWindow(_iw);
 			})
-		
+
 			if (!!this.isOpen) {
 				label.hide();
 				_marker.openInfoWindow(_iw);
@@ -307,9 +307,9 @@ html, body {
 			"<div class='iw_poi_content'>纬度:" + lat + "</div>" +
 			"<div class='iw_poi_content'>状态:" + status + "</div>" +
 			"<div class='iw_poi_content'>速度:" + speed + "</div>" +
-			"<a type='submit' class='iw_button' href='quanjing.jsp?lo="+ lon +"&la="+ lat +"' target='blank'>查看全景</a>" 
+			"<a type='submit' class='iw_button' href='quanjing.jsp?lo=" + lon + "&la=" + lat + "' target='blank'>查看全景</a>"
 		);
-		
+
 		return iw;
 	}
 	//创建一个Icon
@@ -378,3 +378,17 @@ html, body {
 	}
 	sendMessage();
 </script>
+
+<script>
+	$(document).ready(function() {
+		$("#b01").click(function() {
+			$.ajax({
+				type : "get",
+				url : "/XM14/UserEmailServlet",
+				datatype : "json",
+				
+			})
+		});
+	});
+</script>
+
