@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"
 	import="com.model.RegVehicle" import="com.model.User"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -154,11 +155,11 @@ src="http://api.map.baidu.com/getscript?v=3.0&ak=awORzYNz3svIeWeQ9pGPLnmZletmqfo
 		User user = (User) session.getAttribute("user");
 	%>
 				<div id="large-header" class="large-header">
-					<canvas id="demo-canvas"></canvas>
-					<div class="logo_box">
-						<form id="regvehicle" action="/XM14/RegVehicleServlet"
-							method="post" onsubmit="return reg(this)">
-							<table align="center" border="0" width="330">
+					<div class="container-table100">
+						<div class="logo_box">
+							<form id="regvehicle" action="/XM14/RegVehicleServlet"
+								method="post" onsubmit="return reg(this)">
+								<table align="center" border="0" width="330">
 								<tr>
 									<td class="td1">设备ID：</td>
 									<td class="td2"><select class="input_outer2" id="sel" style="BACKGROUND-COLOR: transparent;"
@@ -219,7 +220,8 @@ src="http://api.map.baidu.com/getscript?v=3.0&ak=awORzYNz3svIeWeQ9pGPLnmZletmqfo
 								</tr>
 							</table>
 
-						</form>
+							</form>
+						</div>
 					</div>
 				</div>
 

@@ -9,10 +9,7 @@
     <servlet-name>BcxData</servlet-name>
     <servlet-class>com.servlet.BcxData</servlet-class>
   </servlet>
-   <servlet>
-    <servlet-name>VerificationServlet</servlet-name>
-    <servlet-class>com.servlet.VerificationServlet</servlet-class>
-  </servlet>
+
   <servlet>
     <servlet-name>SearchRecord</servlet-name>
     <servlet-class>com.servlet.SearchRecord</servlet-class>
@@ -113,10 +110,6 @@
   <servlet-mapping>
     <servlet-name>UserEmailServlet</servlet-name>
     <url-pattern>/UserEmailServlet</url-pattern>
-  </servlet-mapping>
-  <servlet-mapping>
-    <servlet-name>VerificationServlet</servlet-name>
-    <url-pattern>/VerificationServlet</url-pattern>
   </servlet-mapping>
   <filter>
     <filter-name>LoginFilter</filter-name>
