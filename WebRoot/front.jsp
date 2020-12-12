@@ -103,7 +103,7 @@ html, body {
 					<li><a href="Searchall">查看用户注册信息</a></li>
 					<li><a href="loginstatus.jsp">查看用户在线信息</a></li>
 					<li><a href="overspeed.jsp">超速统计</a></li>
-					<li><a href="UserEmailServlet">一键提醒</a></li>
+					<li><a id="#b01" href="">一键提醒</a></li>
 				</ul>
 				<!-- script-for-menu -->
 				<script>
@@ -143,7 +143,7 @@ html, body {
 					<a href="Searchall">查看用户注册信息</a>
 					<a href="loginstatus.jsp">查看用户在线信息</a>
 					<a href="overspeed.jsp">超速统计</a>
-					<a href="UserEmailServlet">一键提醒</a>
+					<a id="#b01" href="">一键提醒</a>
 				</nav>
 				<!--script-nav -->
 				<script>
