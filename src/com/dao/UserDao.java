@@ -89,6 +89,7 @@ public class UserDao {
         Connection conn = DataBaseUtil.getConn();
         String sql = "select * from tb_user where username = ? and password = ?";
         String newsql = "insert into login(username,login_time) value(?,?)";
+        String thirdsql = "update tb_user set login_time = ? where username=?";
         SimpleDateFormat sdf = new SimpleDateFormat();// 格式化时间 
         sdf.applyPattern("yyyy-MM-dd HH:mm:ss");//  
         Date date = new Date();// 获取当前时间
@@ -96,11 +97,13 @@ public class UserDao {
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             PreparedStatement newps = conn.prepareStatement(newsql);
+            PreparedStatement thirdps = conn.prepareStatement(thirdsql);
             ps.setString(1, username);
             ps.setString(2, password);
             newps.setString(1,username);
             newps.setString(2, sdf.format(date));
-            
+            thirdps.setString(1, sdf.format(date));
+            thirdps.setString(2, username);
             //执行查询获取结果集
             ResultSet rs = ps.executeQuery();
             
@@ -116,7 +119,9 @@ public class UserDao {
                 user.setQuestion(rs.getString("question"));
                 user.setAnswer(rs.getString("answer"));
                 user.setEmail(rs.getString("email"));
+                user.setType(rs.getString("type"));
                 newps.executeUpdate();
+                thirdps.executeUpdate();
             }
             //释放资源
             rs.close();
@@ -211,6 +216,7 @@ public class UserDao {
                 user.setQuestion(rs.getString("question"));
                 user.setAnswer(rs.getString("answer"));
                 user.setEmail(rs.getString("email"));
+                user.setType(rs.getString("type"));
                 list.add(user);
             }
             //释放资源,后创建的先销毁
@@ -264,9 +270,13 @@ public class UserDao {
 		JSONArray array = new JSONArray();
 		Connection conn = DataBaseUtil.getConn();
 		//根据指定的用户名查询信息
-		String sql = "select * from login";
+		String sql = "select * from tb_user where login_time + interval 30 MINUTE > ?";
 		try {
+			SimpleDateFormat sdf = new SimpleDateFormat();// 格式化时间 
+	        sdf.applyPattern("yyyy-MM-dd HH:mm:ss");  
+	        Date date = new Date();// 获取当前时间 
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);
+			preparedStatement.setString(1, sdf.format(date));
 			//执行查询获取结果集
 			ResultSet rs = preparedStatement.executeQuery();
 			ResultSetMetaData metaData = rs.getMetaData(); 
@@ -294,6 +304,43 @@ public class UserDao {
 			e.printStackTrace();
 		}
 		return null;
+	}
+	
+	public JSONArray SelectUser() throws JSONException{
+		System.out.println("selectuser函数");
+		JSONArray array = new JSONArray();
+		Connection conn = DataBaseUtil.getConn();
+		//根据指定的用户名查询信息
+		String sql = "select * from tb_user";
+		try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            //执行查询获取结果集
+            ResultSet rs = ps.executeQuery();
+            
+            ResultSetMetaData metaData = rs.getMetaData(); 
+            int columnCount = metaData.getColumnCount();
+            
+            //将结果集转换为jsonarray
+            while (rs.next()) {
+            	JSONObject jsonObj = new JSONObject();
+            	for (int i = 1; i <= columnCount; i++) { 
+                    String columnName =metaData.getColumnLabel(i); 
+                    String value = rs.getString(columnName); 
+                    jsonObj.put(columnName, value);
+                }  
+                array.put(jsonObj); 
+            }
+            System.out.println(array);
+            //释放资源
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DataBaseUtil.closeConn(conn);
+        }
+
+        return array;
 	}
 }
 

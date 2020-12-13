@@ -65,7 +65,7 @@ public class RegVehicleDao {
 			while(resultSet.next()){
 				RegVehicle regVehicle = new RegVehicle();
 				regVehicle.setDevice_id(resultSet.getString("device_id"));
-				regVehicle.setCarImg(resultSet.getString("carImg"));
+				//regVehicle.setCarImg(resultSet.getString("carImg"));
 				regVehicle.setOwner(resultSet.getString("owner"));
 				regVehicle.setChepai(resultSet.getString("chepai"));
 				regVehicle.setBrand(resultSet.getString("brand"));
@@ -87,16 +87,17 @@ public class RegVehicleDao {
         //获取数据库连接
         Connection conn = DataBaseUtil.getConn();
         //插入信息的sql语句
-        String sql = "insert into reg_device(carimg,owner,chepai,brand,device_id,engine_id,model) values(?,?,?,?,?,?,?)";
+        //String sql = "insert into reg_device(carimg,owner,chepai,brand,device_id,engine_id,model) values(?,?,?,?,?,?,?)";
+        String sql = "insert into reg_device(owner,chepai,brand,device_id,engine_id,model) values(?,?,?,?,?,?)";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, vehicle.getCarImg());
-            ps.setString(2, vehicle.getOwner());
-            ps.setString(3, vehicle.getChepai());
-            ps.setString(4, vehicle.getBrand());
-            ps.setString(5, vehicle.getDevice_id());
-            ps.setString(6,vehicle.getEngine_id());
-            ps.setString(7, vehicle.getModel());
+            //ps.setString(1, vehicle.getCarImg());
+            ps.setString(1, vehicle.getOwner());
+            ps.setString(2, vehicle.getChepai());
+            ps.setString(3, vehicle.getBrand());
+            ps.setString(4, vehicle.getDevice_id());
+            ps.setString(5,vehicle.getEngine_id());
+            ps.setString(6, vehicle.getModel());
             //执行更新操作
             System.out.println(sql);
             ps.executeUpdate();
