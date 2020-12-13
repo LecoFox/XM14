@@ -156,27 +156,28 @@ xt/javascript"
 		User user = (User) session.getAttribute("user");
 	%>
 	<div id="large-header" class="large-header">
-		<canvas id="demo-canvas"></canvas>
-		<div class="logo_box">
-			<form id="regvehicle" action="/XM14/DeleteAccount" method="post"
-				onsubmit="return reg(this)">
-				<table align="center" border="0" width="330">
-					<tr>
-						<div class="input_outer">
-							<span class="us_uer"></span> <input name="password" class="text"
-								style="color: #FFFFFF !important; position:absolute; z-index:100;"
-								value="" type="password" placeholder="请输入密码">
-						</div>
-					</tr>
-					<tr>
-						<td class="td5" colspan="2"><input
-							type="submit" value="删除账户" class="act-but1 submit1"
-							onclick="document:regvehicle.submit()"> <input
+		<div class="container-table100">
+			<div class="logo_box">
+				<form id="regvehicle" action="/XM14/DeleteAccount" method="post"
+					onsubmit="return reg(this)">
+					<table align="center" border="0" width="330">
+						<tr>
+							<div class="input_outer">
+								<span class="us_uer"></span> <input name="password" class="text"
+									style="color: #FFFFFF !important; position:absolute; z-index:100;"
+									value="" type="password" placeholder="请输入密码">
+							</div>
+						</tr>
+						<tr>
+							<td class="td5" colspan="2"><input
+								type="submit" value="删除账户" class="act-but1 submit1"
+								onclick="document:regvehicle.submit()"> <input
 								type="reset" value="重置" class="act-but1 submit1"></td>
-					</tr>
-				</table>
+						</tr>
+					</table>
 
-			</form>
+				</form>
+			</div>
 		</div>
 	</div>
 

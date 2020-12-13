@@ -156,73 +156,74 @@ xt/javascript"
 		User user = (User) session.getAttribute("user");
 	%>
 	<div id="large-header" class="large-header">
-		<canvas id="demo-canvas"></canvas>
-		<div class="logo_box">
-					<form id="regdriver"action="/XM14/RegDriverServlet" method="post"
-						onsubmit="return reg(this)">
-						<table align="center" border="0" width="330">
-							<tr>
-								<td class="td1">驾驶证ID:</td>
-								<td class="td2">
-									<div class="input_outer2">
-										<input class="text1" type="text" name="driver_id"
-											style="color: #FFFFFF !important" class="box">
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td class="td1">姓名:</td>
-								<td class="td2">
-									<div class="input_outer2">
-										<input class="text1" type="text" name="name"
-											style="color: #FFFFFF !important" class="box">
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td class="td1">性别:</td>
-								<td class="td2">
-									<div class="input_outer2">
-										<input class="text1" type="text" name="sex"
-											style="color: #FFFFFF !important" class="box">
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td class="td1">生日:</td>
-								<td class="td2">
-									<div class="input_outer2">
-										<input id="datetime1" class="text1" type="text" name="birthday"
+		<div class="container-table100">
+			<div class="logo_box">
+				<form id="regdriver" action="/XM14/RegDriverServlet" method="post"
+					onsubmit="return reg(this)">
+					<table align="center" border="0" width="330">
+						<tr>
+							<td class="td1">驾驶证ID:</td>
+							<td class="td2">
+								<div class="input_outer2">
+									<input class="text1" type="text" name="driver_id"
+										style="color: #FFFFFF !important" class="box">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="td1">姓名:</td>
+							<td class="td2">
+								<div class="input_outer2">
+									<input class="text1" type="text" name="name"
+										style="color: #FFFFFF !important" class="box">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="td1">性别:</td>
+							<td class="td2">
+								<div class="input_outer2">
+									<input class="text1" type="text" name="sex"
+										style="color: #FFFFFF !important" class="box">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="td1">生日:</td>
+							<td class="td2">
+								<div class="input_outer2">
+									<input id="datetime1" class="text1" type="text" name="birthday"
 										style="BACKGROUND-COLOR: transparent;">
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td class="td1">驾驶证有效期:</td>
-								<td class="td2">
-									<div class="input_outer2">
-										<input id="datetime2" class="text1"  type="text" name="validity_period"
-										style="BACKGROUND-COLOR: transparent;">
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td class="td1">电话号码:</td>
-								<td class="td2">
-									<div class="input_outer2">
-										<input class="text1" type="text" name="phone_number"
-											style="color: #FFFFFF !important" class="box">
-									</div>
-								</td>
-							</tr>
-							<tr>
-								<td class="td5" colspan="2"><input
-									type="submit" value="注册" class="act-but1 submit1" onclick="document:regdriver.submit()"> <input
-									type="reset" value="重置" class="act-but1 submit1"></td>
-							</tr>
-						</table>
-					</form>
-				</div>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="td1">驾驶证有效期:</td>
+							<td class="td2">
+								<div class="input_outer2">
+									<input id="datetime2" class="text1" type="text"
+										name="validity_period" style="BACKGROUND-COLOR: transparent;">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="td1">电话号码:</td>
+							<td class="td2">
+								<div class="input_outer2">
+									<input class="text1" type="text" name="phone_number"
+										style="color: #FFFFFF !important" class="box">
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="td5" colspan="2"><input type="submit" value="注册"
+								class="act-but1 submit1" onclick="document:regdriver.submit()">
+								<input type="reset" value="重置" class="act-but1 submit1"></td>
+						</tr>
+					</table>
+				</form>
+			</div>
+		</div>
 	</div>
 
 	<script src="js/TweenLite.min.js"></script>
