@@ -53,6 +53,7 @@ public class SearchRecord extends HttpServlet {
 				map.put("start", rs.getString("Start"));
 				map.put("speed", rs.getString("Speed"));
 				map.put("carImg", rs.getString("carImg"));
+				map.put("direction", rs.getString("Direction"));
 				jsonList.add(map);
 			}
 			statement.close();
