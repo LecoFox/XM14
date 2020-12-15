@@ -1,4 +1,4 @@
-﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"
 	import="com.model.RegVehicle" import="com.model.User"%>
 <%
 	String path = request.getContextPath();
@@ -99,11 +99,12 @@ html, body {
 			<div class="top-nav">
 				<span class="menu"><img src="images/menu-icon.png" alt="" /></span>
 				<ul class="nav1">
-					<li><a href="SearchallRegVehicle">查看车辆注册信息</a></li>
-					<li><a href="Searchall">查看用户注册信息</a></li>
-					<li><a href="loginstatus.jsp">查看用户在线信息</a></li>
+					<li><a href="SearchallRegVehicle">车辆注册信息</a></li>
+					<li><a href="Searchall">用户注册信息</a></li>
+					<li><a href="loginstatus.jsp">用户在线信息</a></li>
 					<li><a href="overspeed.jsp">超速统计</a></li>
 					<li><a id="#b01" href="">一键提醒</a></li>
+					<li><a href="javascript:openWin('gettrack.jsp')">轨迹回放</a></li>
 				</ul>
 				<!-- script-for-menu -->
 				<script>
@@ -139,11 +140,12 @@ html, body {
 			<div class="header cbp-spmenu-push">
 				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"
 					id="cbp-spmenu-s1"> 
-					<a href="SearchallRegVehicle">查看车辆注册信息</a>
-					<a href="Searchall">查看用户注册信息</a>
-					<a href="loginstatus.jsp">查看用户在线信息</a>
+					<a href="SearchallRegVehicle">车辆注册信息</a>
+					<a href="Searchall">用户注册信息</a>
+					<a href="loginstatus.jsp">用户在线信息</a>
 					<a href="overspeed.jsp">超速统计</a>
 					<a id="#b01" href="">一键提醒</a>
+					<a href="javascript:openWin('gettrack.jsp')">轨迹回放</a>
 				</nav>
 				<!--script-nav -->
 				<script>
@@ -256,20 +258,19 @@ html, body {
 
 	}
 	//创建marker
-	function addCarMarker(lon, lat, png, title, location, status, speed) {
+	function addCarMarker(lon, lat, png, title, location, status, speed, direction) {
 		var point = new BMap.Point(lon, lat);
 		var iconImg = createMyIcon(png);
 		var marker = new BMap.Marker(point, {
-			icon : iconImg
+			icon : iconImg,
+			rotation : 0
 		});
 		var iw = createInfoWindow(title, location);
 		var label = new BMap.Label(title, {
 			"offset" : new BMap.Size(5 - 6 + 10, -20)
 		});
-		//全景
-
-
 		marker.setLabel(label);
+		marker.setRotation(direction);
 		map.addOverlay(marker);
 		label.setStyle({
 			borderColor : "#808080",
@@ -292,7 +293,6 @@ html, body {
 			label.addEventListener("click", function() {
 				_marker.openInfoWindow(_iw);
 			})
-
 			if (!!this.isOpen) {
 				label.hide();
 				_marker.openInfoWindow(_iw);
@@ -307,7 +307,9 @@ html, body {
 			"<div class='iw_poi_content'>纬度:" + lat + "</div>" +
 			"<div class='iw_poi_content'>状态:" + status + "</div>" +
 			"<div class='iw_poi_content'>速度:" + speed + "</div>" +
-			"<a type='submit' class='iw_button' href='quanjing.jsp?lo=" + lon + "&la=" + lat + "' target='blank'>查看全景</a>"
+			"<a class='iw_button' onclick=\"setCenterAndZoom(" + lon + "," + lat + ")\">跟踪</a>&nbsp;&nbsp;" +
+			"<a type='submit' class='iw_button' href='quanjing.jsp?lo=" + lon + "&la=" + lat + "' target='blank'>查看全景</a>&nbsp;&nbsp;" +
+			"<a type='submit' class='iw_button' href='gettrack2.jsp?tname=\"" + title + "\"' target='blank'>轨迹回放</a>"
 		);
 
 		return iw;
@@ -331,6 +333,14 @@ html, body {
 
 <script type="text/javascript" src="jquery-1.8.3.min.js"></script>
 <script>
+	function openWin(openjsp)
+	{
+    	window.open(openjsp,'_blank','');
+	}
+	function setCenterAndZoom(lon, lat){
+		var center = new BMap.Point(lon, lat);
+		map.centerAndZoom(center, 18);
+	}
 	function getRealtime_data() {
 		var url = "BcxData";
 		$.post(url, function(json) {
@@ -355,9 +365,10 @@ html, body {
 					var status = list[i].start;
 					var speed = Number(list[i].speed);
 					var carImg = list[i].carImg;
+					var direction = Number(list[i].direction);
 					//var warningImg = list[i].warningImg;
 
-					addCarMarker(lon.toFixed(5), lat.toFixed(5), carImg, name, location, status, speed.toFixed(2));
+					addCarMarker(lon.toFixed(5), lat.toFixed(5), carImg, name, location, status, speed.toFixed(2), direction);
 
 				}
 			}

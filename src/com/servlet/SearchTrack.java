@@ -24,22 +24,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class SearchRecord extends HttpServlet {
+public class SearchTrack extends HttpServlet {
 
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setCharacterEncoding("UTF=8");
+		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=UTF-8");
+		String req_name = null;
+		String start_time = null;
+		String end_time = null;
+		req_name = request.getParameter("tname");
+		start_time = request.getParameter("start");
+		end_time = request.getParameter("end");
+		System.out.println(start_time);
+		if(req_name == null){
+			req_name = "ÌåÑé25";
+		}
 		List jsonList = new ArrayList();
 		try {
 			Connection conn = DataBaseUtil.getConn();
 			Statement statement = conn.createStatement();
-			// ï¿½ï¿½ï¿½ï¿½sqlï¿½ï¿½ä£¬ï¿½ï¿½ï¿½Ý´ï¿½ï¿½Ý¹ï¿½ï¿½ï¿½ï¿½Ä²ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-			String sql = "select * from bcx_data order by id DESC limit 25;";
-			// System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sqlï¿½ï¿½ï¿½ï¿½Ç£ï¿½"+sql);
-			
-			
+			// ¹¹ÔìsqlÓï¾ä£¬¸ù¾Ý´«µÝ¹ýÀ´µÄ²éÑ¯Ìõ¼þ²ÎÊý
+			String sql = "select * from bcx_data where car_name=\'"+ req_name + "\'";
+			sql += "and GPS_time>=\'" + start_time + "\' and GPS_time <= \'" + end_time + "\';";
+			System.out.println("¹¹Ôì³öÀ´µÄsqlÓï¾äÊÇ£º"+sql);
 			ResultSet rs = statement.executeQuery(sql);
-			
 			int count = 0;
 			while (rs.next()) {
 				count = count + 1;
@@ -50,9 +58,9 @@ public class SearchRecord extends HttpServlet {
 				map.put("name", rs.getString("car_name"));
 				map.put("lon", rs.getString("Lon"));
 				map.put("lat", rs.getString("Lat"));
-				map.put("start", rs.getString("Start"));
+				map.put("time", rs.getString("GPS_time"));
 				map.put("speed", rs.getString("Speed"));
-				map.put("carImg", rs.getString("carImg"));
+				map.put("start", rs.getString("Start"));
 				map.put("direction", rs.getString("Direction"));
 				jsonList.add(map);
 			}
@@ -61,14 +69,14 @@ public class SearchRecord extends HttpServlet {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-		// ï¿½ï¿½ï¿½æ¿ªÊ¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Øµï¿½json
+		// ÏÂÃæ¿ªÊ¼¹¹½¨·µ»ØµÄjson
 		JSONObject json = new JSONObject();
 		try {
 			json.put("aaData", jsonList);
 			json.put("total", 25);
-			json.put("result_msg", "ok"); // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ã³ï¿½"error"ï¿½ï¿½
-			json.put("result_code", 0); // ï¿½ï¿½ï¿½ï¿½0ï¿½ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½0ï¿½Í±ï¿½Ê¾ï¿½Ð´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
-			// System.out.println("ï¿½ï¿½ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½jsonï¿½Ç£ï¿½"+json.toString());
+			json.put("result_msg", "ok"); // Èç¹û·¢Éú´íÎó¾ÍÉèÖÃ³É"error"µÈ
+			json.put("result_code", 0); // ·µ»Ø0±íÊ¾Õý³££¬²»µÈÓÚ0¾Í±íÊ¾ÓÐ´íÎó²úÉú£¬´íÎó´úÂë
+			System.out.println("×îºó¹¹ÔìµÃµ½µÄjsonÊÇ£º"+json.toString());
 			response.setContentType("application/json; charset=UTF-8");
 		} catch (JSONException e1) {
 			e1.printStackTrace();
@@ -80,7 +88,7 @@ public class SearchRecord extends HttpServlet {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		// System.out.println("ï¿½ï¿½ï¿½Ø½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò³ï¿½ï¿½ï¿½Ë¡ï¿½");
+		// System.out.println("·µ»Ø½á¹û¸øµ÷ÓÃÒ³ÃæÁË¡£");
 	}
 
 	public void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
