@@ -1,4 +1,4 @@
-﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"
 	import="com.model.RegVehicle" import="com.model.User"%>
 <%
 	String path = request.getContextPath();
@@ -12,13 +12,13 @@
 <head>
 <title>车辆管理（普通用户）</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-	<meta name="keywords"
-		content="Architect Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="keywords"
+	content="Architect Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
 
-	<!--引用百度地图API-->
-	<style type="text/css">
+<!--引用百度地图API-->
+<style type="text/css">
 html, body {
 	margin: 0;
 	padding: 0;
@@ -40,17 +40,26 @@ html, body {
 	white-space: -moz-pre-wrap;
 	word-wrap: break-word
 }
-</style>
-	<script type="text/javascript"
-		src="http://api.map.baidu.com/getscript?v=3.0&ak=awORzYNz3svIeWeQ9pGPLnmZletmqfog"></script>
 
-	<script type="application/x-javascript">addEventListener("load", function() {
-			setTimeout(hideURLbar, 0);
-		}, false);
-		function hideURLbar() {
-			window.scrollTo(0, 1);
-		}
-	</script>
+.iw_button {
+	font: 13px arial, sans-serif;
+	color: #CC5522;
+	overflow: visible;
+	padding-top: 4px;
+	white-space: -moz-pre-wrap;
+	word-wrap: break-word
+}
+</style>
+<script type="text/javascript"
+	src="http://api.map.baidu.com/getscript?v=3.0&ak=awORzYNz3svIeWeQ9pGPLnmZletmqfog"></script>
+
+<script type="application/x-javascript">addEventListener("load", function() {
+		setTimeout(hideURLbar, 0);
+	}, false);
+	function hideURLbar() {
+		window.scrollTo(0, 1);
+	}
+</script>
 	<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
 	<link href="css/style.css" rel='stylesheet' type='text/css' />
 	<script src="js/jquery-1.11.0.min.js"></script>
@@ -60,21 +69,21 @@ html, body {
 		<!---- start-smoth-scrolling---->
 		<script type="text/javascript" src="js/move-top.js"></script>
 		<script type="text/javascript" src="js/easing.js"></script>
-		<script type="text/javascript">
-			jQuery(document).ready(function($) {
-				$(".scroll").click(function(event) {
-					event.preventDefault();
-					$('html,body').animate({
-						scrollTop : $(this.hash).offset().top
-					}, 1000);
-				});
-			});
-		</script>
-		<!--start-smoth-scrolling-->
-		<link rel="stylesheet" type="text/css" href="css/normalize.css" />
-		<link rel="stylesheet" type="text/css" href="css/demo.css" />
-		<!--必要样式-->
-		<link rel="stylesheet" type="text/css" href="css/component.css" />
+<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$(".scroll").click(function(event) {
+			event.preventDefault();
+			$('html,body').animate({
+				scrollTop : $(this.hash).offset().top
+			}, 1000);
+		});
+	});
+</script>
+<!--start-smoth-scrolling-->
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="css/demo.css" />
+<!--必要样式-->
+<link rel="stylesheet" type="text/css" href="css/component.css" />
 </head>
 
 
@@ -149,7 +158,7 @@ html, body {
 				<div class="clearfix"></div>
 				<!-- /script-nav -->
 				<div class="main">
-					
+
 					<button id="showLeftPush">
 						<img src="images/menu.png" /><span>Menu</span>
 					</button>
@@ -173,13 +182,12 @@ html, body {
 	</div>
 	<!--//header-->
 	<div id="large-header" class="large-header">
-	<div style="height:100%;border:#ccc solid 1px;"
-			id="dituContent"></div>
+		<div style="height:100%;border:#ccc solid 1px;" id="dituContent"></div>
 	</div>
-		<script src="js/TweenLite.min.js"></script>
-		<script src="js/EasePack.min.js"></script>
-		<script src="js/rAF.js"></script>
-		<script src="js/demo-1.js"></script>
+	<script src="js/TweenLite.min.js"></script>
+	<script src="js/EasePack.min.js"></script>
+	<script src="js/rAF.js"></script>
+	<script src="js/demo-1.js"></script>
 </body>
 
 
@@ -236,17 +244,19 @@ html, body {
 
 	}
 	//创建marker
-	function addCarMarker(lon, lat, png, title, location, status, speed) {
+	function addCarMarker(lon, lat, png, title, location, status, speed, direction) {
 		var point = new BMap.Point(lon, lat);
 		var iconImg = createMyIcon(png);
 		var marker = new BMap.Marker(point, {
-			icon : iconImg
+			icon : iconImg,
+			rotation : 0
 		});
 		var iw = createInfoWindow(title, location);
 		var label = new BMap.Label(title, {
 			"offset" : new BMap.Size(5 - 6 + 10, -20)
 		});
 		marker.setLabel(label);
+		marker.setRotation(direction);
 		map.addOverlay(marker);
 		label.setStyle({
 			borderColor : "#808080",
@@ -282,7 +292,9 @@ html, body {
 			"<div class='iw_poi_content'>经度:" + lon + "</div>" +
 			"<div class='iw_poi_content'>纬度:" + lat + "</div>" +
 			"<div class='iw_poi_content'>状态:" + status + "</div>" +
-			"<div class='iw_poi_content'>速度:" + speed + "</div>"
+			"<div class='iw_poi_content'>速度:" + speed + "</div>" +
+			"<a class='iw_button' onclick=\"setCenterAndZoom(" + lon + "," + lat + ")\">跟踪</a>&nbsp;&nbsp;" +
+			"<a type='submit' class='iw_button' href='gettrack2.jsp?tname=\"" + title + "\"' target='blank'>轨迹回放</a>"
 		);
 		return iw;
 	}
@@ -296,13 +308,18 @@ html, body {
 		return icon;
 	}
 
-
-
-	initMap(); //创建和初始化地图z
+	initMap(); //创建和初始化地图
 </script>
 </html>
 <script type="text/javascript" src="jquery-1.8.3.min.js"></script>
 <script>
+	function openWin(openjsp) {
+		window.open(openjsp, '_blank', '');
+	}
+	function setCenterAndZoom(lon, lat){
+		var center = new BMap.Point(lon, lat);
+		map.centerAndZoom(center, 18);
+	}
 	function getRealtime_data() {
 		var url = "BcxData";
 		$.post(url, function(json) {
@@ -327,15 +344,16 @@ html, body {
 					var status = list[i].start;
 					var speed = Number(list[i].speed);
 					var carImg = list[i].carImg;
+					var direction = Number(list[i].direction);
 					//var warningImg = list[i].warningImg;
 
-					addCarMarker(lon.toFixed(5), lat.toFixed(5), carImg, name, location, status, speed.toFixed(2));
+					addCarMarker(lon.toFixed(5), lat.toFixed(5), carImg, name, location, status, speed.toFixed(2), direction);
 
 				}
 			}
 		});
 		realtime = setTimeout(getRecord, 10000);
 	}
-
+	//getRealtime_data();
 	getRecord();
 </script>

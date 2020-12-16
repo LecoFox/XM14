@@ -65,7 +65,7 @@ public class SearchRecord2 extends HttpServlet {
 				map.put("start", rs.getString("Start"));
 				map.put("speed", rs.getString("Speed"));
 				map.put("carImg", rs.getString("carImg"));
-				
+				map.put("direction", rs.getString("Direction"));
 				PreparedStatement preparedStatement = conn.prepareStatement(sql1);
 				preparedStatement.setString(1,s);
 				//执行查询获取结果集
