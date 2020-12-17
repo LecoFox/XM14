@@ -96,8 +96,8 @@ public class BcxData extends HttpServlet {
 				} catch (ProtocolException e2) {
 					e2.printStackTrace();
 				}
-				System.out.println("Method: " + urlConn.getRequestMethod());
-				System.out.println("Cookie: " + urlConn.getRequestProperty("Cookie"));
+				//System.out.println("Method: " + urlConn.getRequestMethod());
+				//System.out.println("Cookie: " + urlConn.getRequestProperty("Cookie"));
 				try {
 					urlConn.connect();
 				} catch (IOException e1) {
@@ -117,9 +117,9 @@ public class BcxData extends HttpServlet {
 					}
 					randTID2 = "get randTID2...";
 					randTIDkey = "get randTIDkey...";
-					System.out.println("set-cookie loginSessionId: " + loginSessionId);
+					//System.out.println("set-cookie loginSessionId: " + loginSessionId);
 				} else {
-					System.out.println("Already set-cookie loginSessionId: " + loginSessionId);
+					//System.out.println("Already set-cookie loginSessionId: " + loginSessionId);
 				}
 
 				try {
@@ -196,7 +196,7 @@ public class BcxData extends HttpServlet {
 							String[] sessionId = sessionValue.split(";");
 							loginSessionId = sessionId[0];
 						} else {
-							System.out.println("Already log in");
+							//System.out.println("Already log in");
 							save_data(l);
 						}
 					} catch (JSONException e) {

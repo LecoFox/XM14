@@ -343,4 +343,3 @@ public class UserDao {
         return array;
 	}
 }
-

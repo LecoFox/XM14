@@ -5,7 +5,6 @@
     <servlet-name>BcxData</servlet-name>
     <servlet-class>com.servlet.BcxData</servlet-class>
   </servlet>
-
   <servlet>
     <servlet-name>SearchRecord</servlet-name>
     <servlet-class>com.servlet.SearchRecord</servlet-class>
@@ -13,6 +12,10 @@
   <servlet>
     <servlet-name>SearchRecord2</servlet-name>
     <servlet-class>com.servlet.SearchRecord2</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>SearchTrack</servlet-name>
+    <servlet-class>com.servlet.SearchTrack</servlet-class>
   </servlet>
   <servlet>
     <servlet-name>SearchallRegVehicle</servlet-name>
@@ -39,6 +42,14 @@
     <servlet-class>com.servlet.UserEmailServlet</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>Savewl</servlet-name>
+    <servlet-class>com.servlet.Savewl</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>SendYuejie</servlet-name>
+    <servlet-class>com.servlet.SendYuejie</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>PasswordUpdate</servlet-name>
     <servlet-class>com.servlet.PasswordUpdate</servlet-class>
   </servlet>
@@ -54,7 +65,6 @@
     <servlet-name>RegVehicleServlet</servlet-name>
     <servlet-class>com.servlet.RegVehicleServlet</servlet-class>
   </servlet>
-
   <servlet-mapping>
     <servlet-name>BcxData</servlet-name>
     <url-pattern>/BcxData</url-pattern>
@@ -74,6 +84,10 @@
   <servlet-mapping>
     <servlet-name>Searchall</servlet-name>
     <url-pattern>/Searchall</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SendYuejie</servlet-name>
+    <url-pattern>/SendYuejie</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>LoginServlet</servlet-name>
@@ -102,6 +116,14 @@
   <servlet-mapping>
     <servlet-name>UserEmailServlet</servlet-name>
     <url-pattern>/UserEmailServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SearchTrack</servlet-name>
+    <url-pattern>/SearchTrack</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Savewl</servlet-name>
+    <url-pattern>/Savewl</url-pattern>
   </servlet-mapping>
   <filter>
     <filter-name>LoginFilter</filter-name>
