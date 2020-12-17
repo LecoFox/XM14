@@ -324,7 +324,7 @@ html, body {
 			"<div class='iw_poi_content'>状态:" + status + "</div>" +
 			"<div class='iw_poi_content'>速度:" + speed + "</div>" +
 			"<a class='iw_button' onclick=\"setCenterAndZoom(" + lon + "," + lat + ")\">跟踪</a>&nbsp;&nbsp;" +
-			"<a type='submit' class='iw_button' href='quanjing.jsp?lo=" + lon + "&la=" + lat + "' target='blank'>查看全景</a>&nbsp;&nbsp;" +
+			"<a type='submit' class='iw_button' href='quanjing.jsp?lo=" + lon + "&id=" + deviceid + "&la=" + lat + "' target='blank'>查看全景</a>&nbsp;&nbsp;" +
 			"<a type='submit' class='iw_button' href='gettrack2.jsp?tname=\"" + title + "\"' target='blank'>轨迹回放</a>&nbsp;&nbsp;"+
 			"<a class='iw_button' onclick=\"openwl(" + lon + "," + lat + "," + deviceid + ")\">围栏</a>&nbsp;&nbsp;"
 		);
