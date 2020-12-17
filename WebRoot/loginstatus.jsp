@@ -77,6 +77,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<li><a href="Searchall">查看用户注册信息</a></li>
 					<li><a href="loginstatus.jsp">查看用户在线信息</a></li>
 					<li><a href="overspeed.jsp">超速统计</a></li>
+					<li><a href="mileage.jsp">里程统计</a></li>
 					<li><a href="UserEmailServlet">一键提醒</a></li>
 				</ul>
 				<!-- script-for-menu -->
@@ -114,7 +115,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"
 					id="cbp-spmenu-s1"> <a href="SearchallRegVehicle">查看车辆注册信息</a>
 				<a href="Searchall">查看用户注册信息</a> <a href="loginstatus.jsp">查看用户在线信息</a>
-				<a href="overspeed.jsp">超速统计</a> <a href="UserEmailServlet">一键提醒</a>
+				<a href="overspeed.jsp">超速统计</a><a href="mileage.jsp">里程统计</a> <a href="UserEmailServlet">一键提醒</a>
 				</nav>
 				<!--script-nav -->
 				<script>
