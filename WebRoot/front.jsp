@@ -88,7 +88,7 @@ html, body {
 
 
 
-<body>
+<body style="overflow: hidden;">
 	<!--header-->
 	<div class="header-top" id="home">
 		<div class="container">
@@ -139,14 +139,10 @@ html, body {
 		<div class="header-info-right">
 			<div class="header cbp-spmenu-push">
 				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"
-					id="cbp-spmenu-s1"> 
-					<a href="SearchallRegVehicle">车辆注册信息</a>
-					<a href="Searchall">用户注册信息</a>
-					<a href="loginstatus.jsp">用户在线信息</a>
-					<a href="overspeed.jsp">超速统计</a>
-					<a id="#b01" href="">一键提醒</a>
-					<a href="javascript:openWin('gettrack.jsp')">轨迹回放</a>
-				</nav>
+					id="cbp-spmenu-s1"> <a href="SearchallRegVehicle">车辆注册信息</a>
+				<a href="Searchall">用户注册信息</a> <a href="loginstatus.jsp">用户在线信息</a>
+				<a href="overspeed.jsp">超速统计</a> <a id="#b01" href="">一键提醒</a> <a
+					href="javascript:openWin('gettrack.jsp')">轨迹回放</a> </nav>
 				<!--script-nav -->
 				<script>
 					$("span.menu").click(function() {
@@ -166,7 +162,7 @@ html, body {
 				<div class="clearfix"></div>
 				<!-- /script-nav -->
 				<div class="main">
-					
+
 					<button id="showLeftPush">
 						<img src="images/menu.png" /><span>Menu</span>
 					</button>
@@ -189,20 +185,32 @@ html, body {
 		</div>
 	</div>
 	<!--//header-->
+
 	<div id="large-header" class="large-header">
-	<div style="height:100%;border:#ccc solid 1px;"
-			id="dituContent"></div>
+		<div style="float:right;height:100%;width:290px;border:#cccsolid 1px">
+			<div style="height:5%;width:290px">
+				<div style="float:right;width:70px;font-size:3px;color:white">锁定设备</div>
+				<div style="float:right;width:70px;font-size:3px;color:white">设备名称</div>
+				<div style="float:right;width:70px;font-size:3px;color:white">状态提醒</div>
+				<div style="float:right;width:70px;font-size:3px;color:white">轨迹红线</div>
+			</div>
+			<div style="position:absolute;height:95%;width:290px;overflow:auto" id="deviceTable"></div>
+
+		</div>
+
+		<div style="height:100%;border:#ccc solid 1px;" id="dituContent"></div>
+
 	</div>
-		<script src="js/TweenLite.min.js"></script>
-		<script src="js/EasePack.min.js"></script>
-		<script src="js/rAF.js"></script>
-		<script src="js/demo-1.js"></script>
+
+
+	<script src="js/TweenLite.min.js"></script>
+	<script src="js/EasePack.min.js"></script>
+	<script src="js/rAF.js"></script>
+	<script src="js/demo-1.js"></script>
 </body>
 
 
 <script type="text/javascript">
-
-
 
 	//创建和初始化地图函数：
 	function initMap() {
@@ -324,8 +332,6 @@ html, body {
 		return icon;
 	}
 
-
-
 	initMap(); //创建和初始化地图z
 </script>
 </html>
@@ -333,11 +339,10 @@ html, body {
 
 <script type="text/javascript" src="jquery-1.8.3.min.js"></script>
 <script>
-	function openWin(openjsp)
-	{
-    	window.open(openjsp,'_blank','');
+	function openWin(openjsp) {
+		window.open(openjsp, '_blank', '');
 	}
-	function setCenterAndZoom(lon, lat){
+	function setCenterAndZoom(lon, lat) {
 		var center = new BMap.Point(lon, lat);
 		map.centerAndZoom(center, 18);
 	}
@@ -371,10 +376,36 @@ html, body {
 					addCarMarker(lon.toFixed(5), lat.toFixed(5), carImg, name, location, status, speed.toFixed(2), direction);
 
 				}
+
+				var tableInfos = document.getElementById('deviceTable');
+				var code = '';
+				for (var i = list.length - 1; i >= 0; i--) {
+					var lon = Number(list[i].lon);
+					var lat = Number(list[i].lat);
+					var name = list[i].name;
+					var speed = Number(list[i].speed);
+					var start = list[i].start;
+					var status = start.substr(0, 2);
+					var location = list[i].location;
+					var time = list[i].GPS_time;
+
+					var row = 'row' + i;
+					code += '<div id="' + row + '" style="height:50px;overflow:auto">';
+					code += '<div style="float:left;width:50px;font-size:3px;color:white" id="column' + i + '1">&nbsp;&nbsp;' + name + '</div>';
+					code += '<div style="float:left;width:20px;font-size:3px;color:white" id="column' + i + '2">' + speed + '</div>';
+					code += '<div style="float:left;width:30px;font-size:3px;color:white" id="column' + i + '3">' + status + '</div>';
+					code += '<div style="float:left;width:80px;font-size:3px;color:white" id="column' + i + '4">' + location + '</div>';
+					code += '<div style="float:left;width:80px;font-size:3px;color:white" id="column' + i + '5">' + time + '</div>';
+					code += '</div>';
+
+				}
+				tableInfos.innerHTML = code;
+
 			}
 		});
 		realtime = setTimeout(getRecord, 10000);
 	}
+
 	getRealtime_data();
 	getRecord();
 </script>
@@ -397,7 +428,6 @@ html, body {
 				type : "get",
 				url : "/XM14/UserEmailServlet",
 				datatype : "json",
-				
 			})
 		});
 	});
