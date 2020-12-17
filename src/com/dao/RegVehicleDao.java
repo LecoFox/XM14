@@ -146,6 +146,7 @@ public class RegVehicleDao {
 		}
 		return null;
 	}
+
 	public JSONArray getMileage(String StartTime, String EndTime, String setDeviceId) throws JSONException{
 		JSONArray array = new JSONArray();
 		Connection conn = DataBaseUtil.getConn();
@@ -192,4 +193,5 @@ public class RegVehicleDao {
 		}
 		return null;
 	}
+
 }
