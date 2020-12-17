@@ -10,6 +10,7 @@ public class User {
 	private String email;
 	private String login_time;
 	private String type;
+	
 	public int getId() {
 		return id;
 	}
