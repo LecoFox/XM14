@@ -5,7 +5,6 @@
     <servlet-name>BcxData</servlet-name>
     <servlet-class>com.servlet.BcxData</servlet-class>
   </servlet>
-
   <servlet>
     <servlet-name>SearchRecord</servlet-name>
     <servlet-class>com.servlet.SearchRecord</servlet-class>
@@ -54,7 +53,6 @@
     <servlet-name>RegVehicleServlet</servlet-name>
     <servlet-class>com.servlet.RegVehicleServlet</servlet-class>
   </servlet>
-
   <servlet-mapping>
     <servlet-name>BcxData</servlet-name>
     <url-pattern>/BcxData</url-pattern>
@@ -119,4 +117,10 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>MileageServlet</display-name>
+    <servlet-name>MileageServlet</servlet-name>
+    <servlet-class>com.servlet.MileageServlet</servlet-class>
+  </servlet>
 </web-app>
