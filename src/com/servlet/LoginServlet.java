@@ -35,7 +35,7 @@ public class LoginServlet extends HttpServlet {
 				HttpSession session =req.getSession();
 				session.setAttribute("user", user);
 				session.setAttribute("username", username);
-				session.setAttribute("auth",user.getType());
+				req.setAttribute("auth",user.getType());
 				req.setAttribute("flag", "1");
 				//转发到result.jsp页面
 			}else {

@@ -34,6 +34,7 @@
     					String type = (String) request.getAttribute("type");
     					String flag = (String) request.getAttribute("flag");
     					String auth = (String) request.getAttribute("auth");
+    					System.out.println(auth);
     					if (info != null) {
     				%>
 							<h3><%=info%></h3>
@@ -82,9 +83,10 @@
 <script>
 	function access12041701(){
 		var source = "<%=type%>";
+		var type = "<%=auth%>";
 		if(source=="login"){
-			var type = "<%=auth%>";
-			console.log(auth);
+		console.log("js");
+			console.log(type);
 			if(type!=null && type=="n"){
 				$("#jump").attr("href","front2.jsp");
 			}
