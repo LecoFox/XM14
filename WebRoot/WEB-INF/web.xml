@@ -141,4 +141,10 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <description></description>
+    <display-name>MileageServlet</display-name>
+    <servlet-name>MileageServlet</servlet-name>
+    <servlet-class>com.servlet.MileageServlet</servlet-class>
+  </servlet>
 </web-app>

@@ -72,7 +72,7 @@
 								id="email" style="color: #FFFFFF !important" type="text"
 								placeholder="邮箱"><span id="Email-attention"></span>
 						</div>
-						<button id="b01" type="button">发送验证码</button>					
+						<button id="b01" type="button" style="background: pink;color: #fefefe">发送验证码</button>					
 						<!-- 验证码-->
 						<div class="input_outer1">
 							<input name="ver" class="text1" "
