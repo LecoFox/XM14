@@ -31,6 +31,7 @@ public class RegDriverServlet extends HttpServlet {
 		String birthday = req.getParameter("birthday");
 		String validity_period = req.getParameter("validity_period");
 		String phone_number = req.getParameter("phone_number");
+		String engine_id = req.getParameter("engine_id");
 		System.out.println("获取用户注册信息成功");
 		//实例化DriverDao对象
 		DriverDao driverDao = new DriverDao();
@@ -46,6 +47,7 @@ public class RegDriverServlet extends HttpServlet {
 					driver.setBirthday(birthday);
 					driver.setValidityPeriod(validity_period);
 					driver.setPhoneNumber(phone_number);
+					driver.setEngineId(engine_id);
 					if(driverDao.DriverIdAvailable(driver_id)){
 						driverDao.saveDriver(driver);
 						req.setAttribute("info", "注册成功！ <br>");
