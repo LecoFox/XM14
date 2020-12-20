@@ -88,7 +88,7 @@ html, body {
 
 
 
-<body>
+<body style="overflow: hidden;">
 	<!--header-->
 	<div class="header-top" id="home">
 		<div class="container">
@@ -103,8 +103,10 @@ html, body {
 					<li><a href="Searchall">用户注册信息</a></li>
 					<li><a href="loginstatus.jsp">用户在线信息</a></li>
 					<li><a href="overspeed.jsp">超速统计</a></li>
+					<li><a href="mileage.jsp">里程统计</a></li>
 					<li><a id="#b01" href="">一键提醒</a></li>
 					<li><a href="javascript:openWin('gettrack.jsp')">轨迹回放</a></li>
+					<li><a href="SendYuejie">越界提醒</a></li>
 				</ul>
 				<!-- script-for-menu -->
 				<script>
@@ -144,6 +146,7 @@ html, body {
 					<a href="Searchall">用户注册信息</a>
 					<a href="loginstatus.jsp">用户在线信息</a>
 					<a href="overspeed.jsp">超速统计</a>
+					<a href="mileage.jsp">里程统计</a>
 					<a id="#b01" href="">一键提醒</a>
 					<a href="javascript:openWin('gettrack.jsp')">轨迹回放</a>
 				</nav>
@@ -166,7 +169,7 @@ html, body {
 				<div class="clearfix"></div>
 				<!-- /script-nav -->
 				<div class="main">
-					
+
 					<button id="showLeftPush">
 						<img src="images/menu.png" /><span>Menu</span>
 					</button>
@@ -189,20 +192,32 @@ html, body {
 		</div>
 	</div>
 	<!--//header-->
+
 	<div id="large-header" class="large-header">
-	<div style="height:100%;border:#ccc solid 1px;"
-			id="dituContent"></div>
+		<div style="float:right;height:100%;width:290px;border:#cccsolid 1px">
+			<div style="height:5%;width:290px">
+				<div style="float:right;width:70px;font-size:3px;color:white">锁定设备</div>
+				<div style="float:right;width:70px;font-size:3px;color:white">设备名称</div>
+				<div style="float:right;width:70px;font-size:3px;color:white">状态提醒</div>
+				<div style="float:right;width:70px;font-size:3px;color:white">轨迹红线</div>
+			</div>
+			<div style="position:absolute;height:95%;width:290px;overflow:auto" id="deviceTable"></div>
+
+		</div>
+
+		<div style="height:100%;border:#ccc solid 1px;" id="dituContent"></div>
+
 	</div>
-		<script src="js/TweenLite.min.js"></script>
-		<script src="js/EasePack.min.js"></script>
-		<script src="js/rAF.js"></script>
-		<script src="js/demo-1.js"></script>
+
+
+	<script src="js/TweenLite.min.js"></script>
+	<script src="js/EasePack.min.js"></script>
+	<script src="js/rAF.js"></script>
+	<script src="js/demo-1.js"></script>
 </body>
 
 
 <script type="text/javascript">
-
-
 
 	//创建和初始化地图函数：
 	function initMap() {
@@ -217,6 +232,7 @@ html, body {
 		var point = new BMap.Point(104.989321, 36.063785); //定义一个中心点坐标
 		map.centerAndZoom(point, 5); //设定地图的中心点和坐标并将地图显示在地图容器中
 		window.map = map; //将map变量存储在全局
+		
 	}
 
 	//地图事件设置函数：
@@ -225,7 +241,7 @@ html, body {
 		map.enableScrollWheelZoom(); //启用地图滚轮放大缩小
 		map.enableDoubleClickZoom(); //启用鼠标双击放大，默认启用(可不写)
 		map.enableKeyboard(); //启用键盘上下左右键移动地图
-
+		Polyline.disableMassClear();
 
 	}
 
@@ -258,7 +274,7 @@ html, body {
 
 	}
 	//创建marker
-	function addCarMarker(lon, lat, png, title, location, status, speed, direction) {
+	function addCarMarker(lon, lat, png, title, location, status, speed, direction,deviceid) {
 		var point = new BMap.Point(lon, lat);
 		var iconImg = createMyIcon(png);
 		var marker = new BMap.Marker(point, {
@@ -279,7 +295,7 @@ html, body {
 		});
 		(function() {
 			var index = 0;
-			var _iw = createInfoWindow(lon, lat, title, location, status, speed);
+			var _iw = createInfoWindow(lon, lat, title, location, status, speed,deviceid);
 			var _marker = marker;
 			_marker.addEventListener("click", function() {
 				this.openInfoWindow(_iw);
@@ -300,7 +316,7 @@ html, body {
 		})()
 	}
 	//创建InfoWindow
-	function createInfoWindow(lon, lat, title, location, status, speed) {
+	function createInfoWindow(lon, lat, title, location, status, speed,deviceid) {
 		var iw = new BMap.InfoWindow("<b class='iw_poi_title'>" + title + "</b>" +
 			"<div class='iw_poi_content'>位置:" + location + "</div>" +
 			"<div class='iw_poi_content'>经度:" + lon + "</div>" +
@@ -308,8 +324,9 @@ html, body {
 			"<div class='iw_poi_content'>状态:" + status + "</div>" +
 			"<div class='iw_poi_content'>速度:" + speed + "</div>" +
 			"<a class='iw_button' onclick=\"setCenterAndZoom(" + lon + "," + lat + ")\">跟踪</a>&nbsp;&nbsp;" +
-			"<a type='submit' class='iw_button' href='quanjing.jsp?lo=" + lon + "&la=" + lat + "' target='blank'>查看全景</a>&nbsp;&nbsp;" +
-			"<a type='submit' class='iw_button' href='gettrack2.jsp?tname=\"" + title + "\"' target='blank'>轨迹回放</a>"
+			"<a type='submit' class='iw_button' href='quanjing.jsp?lo=" + lon + "&id=" + deviceid + "&la=" + lat + "' target='blank'>查看全景</a>&nbsp;&nbsp;" +
+			"<a type='submit' class='iw_button' href='gettrack2.jsp?tname=\"" + title + "\"' target='blank'>轨迹回放</a>&nbsp;&nbsp;"+
+			"<a class='iw_button' onclick=\"openwl(" + lon + "," + lat + "," + deviceid + ")\">围栏</a>&nbsp;&nbsp;"
 		);
 
 		return iw;
@@ -324,8 +341,6 @@ html, body {
 		return icon;
 	}
 
-
-
 	initMap(); //创建和初始化地图z
 </script>
 </html>
@@ -333,11 +348,10 @@ html, body {
 
 <script type="text/javascript" src="jquery-1.8.3.min.js"></script>
 <script>
-	function openWin(openjsp)
-	{
-    	window.open(openjsp,'_blank','');
+	function openWin(openjsp) {
+		window.open(openjsp, '_blank', '');
 	}
-	function setCenterAndZoom(lon, lat){
+	function setCenterAndZoom(lon, lat) {
 		var center = new BMap.Point(lon, lat);
 		map.centerAndZoom(center, 18);
 	}
@@ -366,25 +380,52 @@ html, body {
 					var speed = Number(list[i].speed);
 					var carImg = list[i].carImg;
 					var direction = Number(list[i].direction);
+					var deviceid = list[i].device_id;
 					//var warningImg = list[i].warningImg;
 
-					addCarMarker(lon.toFixed(5), lat.toFixed(5), carImg, name, location, status, speed.toFixed(2), direction);
+					addCarMarker(lon.toFixed(5), lat.toFixed(5), carImg, name, location, status, speed.toFixed(2), direction,deviceid);
+					
+					
+				}
+
+				var tableInfos = document.getElementById('deviceTable');
+				var code = '';
+				for (var i = list.length - 1; i >= 0; i--) {
+					var lon = Number(list[i].lon);
+					var lat = Number(list[i].lat);
+					var name = list[i].name;
+					var speed = Number(list[i].speed);
+					var start = list[i].start;
+					var status = start.substr(0, 2);
+					var location = list[i].location;
+					var time = list[i].GPS_time;
+
+					var row = 'row' + i;
+					code += '<div id="' + row + '" style="height:50px;overflow:auto">';
+					code += '<div style="float:left;width:50px;font-size:3px;color:white" id="column' + i + '1">&nbsp;&nbsp;' + name + '</div>';
+					code += '<div style="float:left;width:20px;font-size:3px;color:white" id="column' + i + '2">' + speed + '</div>';
+					code += '<div style="float:left;width:30px;font-size:3px;color:white" id="column' + i + '3">' + status + '</div>';
+					code += '<div style="float:left;width:80px;font-size:3px;color:white" id="column' + i + '4">' + location + '</div>';
+					code += '<div style="float:left;width:80px;font-size:3px;color:white" id="column' + i + '5">' + time + '</div>';
+					code += '</div>';
 
 				}
+				tableInfos.innerHTML = code;
+
 			}
 		});
+		
 		realtime = setTimeout(getRecord, 10000);
 	}
+
 	getRealtime_data();
 	getRecord();
+	
 </script>
 
 <script>
 	function sendMessage() {
-		var url = "UserEmailServlet";
-		$.post(url, function(json) {
-			console.log("running sendMessage()");
-		});
+		
 		realtime = setTimeout(sendMessage, 50000);
 	}
 	sendMessage();
@@ -397,9 +438,32 @@ html, body {
 				type : "get",
 				url : "/XM14/UserEmailServlet",
 				datatype : "json",
-				
 			})
 		});
 	});
 </script>
+<script>
+	function openwl(lon,lat,deviceid)
+	{
+		var itop = (window.screen.availHeight-530)/2;
+	    var ileft = (window.screen.availWidth-810)/2;
+		console.log("----open weilan----");
+		var setweilan = "setwl.jsp?" + "lon=" + lon + "&lat=" + lat + "&deviceid=" + deviceid;
+		window.open(setweilan,'设置围栏',"fullscreen=0,height=500,width=800,toolbar=0,location=0,directories=0,status=0,menubar=0,resizable=0,top="+itop+",left="+ileft+",scrollbars=yes")
+	}
+</script>
+<script>
+	function sendYuejieMessage() {
+		var url = "UserEmailServlet";
+		$.get(url, function(json) {
+			console.log("running sendMessage()");
+		});
+		var url = "SendYuejie";
+		$.get(url, function(json) {
+			console.log("running sendYuejieMessage()");
+		});
+	}
+	window.setInterval(sendYuejieMessage,300000);
+</script>
+
 

@@ -216,6 +216,15 @@ xt/javascript"
 							</td>
 						</tr>
 						<tr>
+							<td class="td1">发动机号:</td>
+							<td class="td2">
+								<div class="input_outer2">
+									<input class="text1" type="text" name="engine_id"
+										style="color: #FFFFFF !important" class="box">
+								</div>
+							</td>
+						</tr>
+						<tr>
 							<td class="td5" colspan="2"><input type="submit" value="注册"
 								class="act-but1 submit1" onclick="document:regdriver.submit()">
 								<input type="reset" value="重置" class="act-but1 submit1"></td>

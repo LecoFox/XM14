@@ -120,6 +120,7 @@ public class UserDao {
                 user.setAnswer(rs.getString("answer"));
                 user.setEmail(rs.getString("email"));
                 user.setType(rs.getString("type"));
+                
                 newps.executeUpdate();
                 thirdps.executeUpdate();
             }
@@ -132,7 +133,7 @@ public class UserDao {
         } finally {
             DataBaseUtil.closeConn(conn);
         }
-
+        
         return user;
     }
     
@@ -343,4 +344,3 @@ public class UserDao {
         return array;
 	}
 }
-
