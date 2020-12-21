@@ -119,6 +119,7 @@ html, body {
 					<li><a href="#"><span class="fb"> </span></a></li>
 					<li><a href="#"><span class="g"> </span></a></li>
 				</ul>
+				<li id="remainTime" style="color:white;">平台将于<span style="color:red">10</span>s后刷新</li>
 			</div>
 			<div class="clearfix"></div>
 		</div>
@@ -226,10 +227,7 @@ html, body {
 		});
 		map.addControl(ctrl_nav);
 		//向地图中添加缩略图控件
-		var ctrl_ove = new BMap.OverviewMapControl({
-			anchor : BMAP_ANCHOR_BOTTOM_RIGHT,
-			isOpen : 1
-		});
+		var ctrl_ove = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:1});
 		map.addControl(ctrl_ove);
 		//向地图中添加比例尺控件
 		var ctrl_sca = new BMap.ScaleControl({
@@ -293,7 +291,7 @@ html, body {
 			"<div class='iw_poi_content'>纬度:" + lat + "</div>" +
 			"<div class='iw_poi_content'>状态:" + status + "</div>" +
 			"<div class='iw_poi_content'>速度:" + speed + "</div>" +
-			"<a class='iw_button' onclick=\"setCenterAndZoom(" + lon + "," + lat + ")\">跟踪</a>&nbsp;&nbsp;" +
+			"<a class='iw_button' onclick=\"setCenterAndZoom(" + lon + "," + lat + "," + speed + ")\">跟踪</a>&nbsp;&nbsp;" +
 			"<a type='submit' class='iw_button' href='gettrack2.jsp?tname=\"" + title + "\"' target='blank'>轨迹回放</a>"
 		);
 		return iw;
@@ -313,18 +311,17 @@ html, body {
 </html>
 <script type="text/javascript" src="jquery-1.8.3.min.js"></script>
 <script>
-	function openWin(openjsp) {
-		window.open(openjsp, '_blank', '');
-	}
-	function setCenterAndZoom(lon, lat){
-		var center = new BMap.Point(lon, lat);
-		map.centerAndZoom(center, 18);
-	}
-	function getRealtime_data() {
-		var url = "BcxData";
-		$.post(url, function(json) {
-			console.log("running getRealtime_data()");
-		});
+	var second = 10;
+	function setRemainTime(){
+		if(second > 0){
+			second -= 1;
+		}
+		else{
+			getRecord();
+			second = 10;
+		}
+		setTimeout(setRemainTime, 1000);
+		$("#remainTime").html("平台将于 <span style='color:red'>"+ second + "</span>s后刷新");
 	}
 	function getRecord() {
 		var url = "SearchRecord2";
@@ -346,14 +343,24 @@ html, body {
 					var carImg = list[i].carImg;
 					var direction = Number(list[i].direction);
 					//var warningImg = list[i].warningImg;
-
 					addCarMarker(lon.toFixed(5), lat.toFixed(5), carImg, name, location, status, speed.toFixed(2), direction);
-
 				}
 			}
 		});
-		realtime = setTimeout(getRecord, 10000);
 	}
-	//getRealtime_data();
-	getRecord();
+	setTimeout("getRecord()", 4000);
+	setRemainTime();
+	function openWin(openjsp) {
+		window.open(openjsp, '_blank', '');
+	}
+	function setCenterAndZoom(lon, lat, speed) {
+		var center = new BMap.Point(lon, lat);
+		var size = 18;
+		if(speed>80){
+			size = 15;
+		} else if(50 < speed < 80){
+			size = 16;
+		}
+		map.centerAndZoom(center, size);
+	}
 </script>
