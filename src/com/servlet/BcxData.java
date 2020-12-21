@@ -96,8 +96,8 @@ public class BcxData extends HttpServlet {
 				} catch (ProtocolException e2) {
 					e2.printStackTrace();
 				}
-				//System.out.println("Method: " + urlConn.getRequestMethod());
-				//System.out.println("Cookie: " + urlConn.getRequestProperty("Cookie"));
+				System.out.println("Method: " + urlConn.getRequestMethod());
+				System.out.println("Cookie: " + urlConn.getRequestProperty("Cookie"));
 				try {
 					urlConn.connect();
 				} catch (IOException e1) {
@@ -117,9 +117,9 @@ public class BcxData extends HttpServlet {
 					}
 					randTID2 = "get randTID2...";
 					randTIDkey = "get randTIDkey...";
-					//System.out.println("set-cookie loginSessionId: " + loginSessionId);
+					System.out.println("set-cookie loginSessionId: " + loginSessionId);
 				} else {
-					//System.out.println("Already set-cookie loginSessionId: " + loginSessionId);
+					System.out.println("Already set-cookie loginSessionId: " + loginSessionId);
 				}
 
 				try {
@@ -195,8 +195,10 @@ public class BcxData extends HttpServlet {
 							// sessionValue);
 							String[] sessionId = sessionValue.split(";");
 							loginSessionId = sessionId[0];
+							randTID2 = null;
+							randTIDkey = null;
 						} else {
-							//System.out.println("Already log in");
+							System.out.println("Already log in");
 							save_data(l);
 						}
 					} catch (JSONException e) {
@@ -208,7 +210,7 @@ public class BcxData extends HttpServlet {
 
 				urlConn.disconnect();
 			}
-		}, 0, 5000);
+		}, 0, 2000);
 	}
 
 	// 保存到数据库
@@ -232,6 +234,7 @@ public class BcxData extends HttpServlet {
 				String carname = jj.getString("tname");
 				String carimg = "carImg.png";
 				String warningimg = "warningImg.png";
+				String stopimg = "stopImg.png";
 				int speed1 = 0;
 				try {
 				    speed1 = Integer.parseInt(speed);
@@ -241,6 +244,9 @@ public class BcxData extends HttpServlet {
 				String sql = "insert into bcx_data(Device_id, GPS_time, Rev_time, Lon, Lat, oldLon, oldLat, Direction, Location, Speed, Start, car_name, carImg)";
 				if(speed1 > 15){
 					carimg = warningimg;
+				}
+				else if(speed1 == 0){
+					carimg = stopimg;
 				}
 				sql = sql + "values('" + deviceId + "','" + gpsTime + "','" + recvTime + "','" + lon + "','" + lat
 						+ "','" + oldlon + "','" + oldlat + "','" + direction + "','" + location + "','" + speed + "','"
