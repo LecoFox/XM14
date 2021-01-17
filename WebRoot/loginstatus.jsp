@@ -72,13 +72,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="top-nav">
 				<span class="menu"><img src="images/menu-icon.png" alt="" /></span>
 				<ul class="nav1">
-
-					<li><a href="SearchallRegVehicle">查看车辆注册信息</a></li>
-					<li><a href="Searchall">查看用户注册信息</a></li>
-					<li><a href="loginstatus.jsp">查看用户在线信息</a></li>
+					<li><a href="SearchallRegVehicle">车辆注册信息</a></li>
+					<li><a href="Searchall">用户注册信息</a></li>
+					<li><a href="loginstatus.jsp">用户在线信息</a></li>
 					<li><a href="overspeed.jsp">超速统计</a></li>
 					<li><a href="mileage.jsp">里程统计</a></li>
-					<li><a href="UserEmailServlet">一键提醒</a></li>
+					<li><a id="#b01" href="">一键提醒</a></li>
+					<li><a href="javascript:openWin('gettrack.jsp')">轨迹回放</a></li>
+					<li><a href="SendYuejie">越界提醒</a></li>
 				</ul>
 				<!-- script-for-menu -->
 				<script>
@@ -113,9 +114,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="header-info-right">
 			<div class="header cbp-spmenu-push">
 				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"
-					id="cbp-spmenu-s1"> <a href="SearchallRegVehicle">查看车辆注册信息</a>
-				<a href="Searchall">查看用户注册信息</a> <a href="loginstatus.jsp">查看用户在线信息</a>
-				<a href="overspeed.jsp">超速统计</a><a href="mileage.jsp">里程统计</a> <a href="UserEmailServlet">一键提醒</a>
+					id="cbp-spmenu-s1"> <a href="SearchallRegVehicle">车辆注册信息</a>
+					<a href="Searchall">用户注册信息</a>
+					<a href="loginstatus.jsp">用户在线信息</a>
+					<a href="overspeed.jsp">超速统计</a>
+					<a href="mileage.jsp">里程统计</a>
+					<a id="#b01" href="">一键提醒</a>
+					<a href="javascript:openWin('gettrack.jsp')">轨迹回放</a>
+					<a href="SendYuejie">越界提醒</a>
 				</nav>
 				<!--script-nav -->
 				<script>
