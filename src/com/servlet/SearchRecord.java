@@ -29,6 +29,8 @@ public class SearchRecord extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setCharacterEncoding("UTF=8");
 		response.setContentType("text/html;charset=UTF-8");
+		String show=request.getParameter("show");
+		System.out.println("-------"+show+"---------");
 		List jsonList = new ArrayList();
 		try {
 			Connection conn = DataBaseUtil.getConn();
@@ -42,20 +44,23 @@ public class SearchRecord extends HttpServlet {
 			
 			int count = 0;
 			while (rs.next()) {
-				count = count + 1;
-				Map map = new HashMap();
-				map.put("index", count);
-				map.put("device_id", rs.getString("Device_id"));
-				map.put("location", rs.getString("Location"));
-				map.put("name", rs.getString("car_name"));
-				map.put("lon", rs.getString("Lon"));
-				map.put("lat", rs.getString("Lat"));
-				map.put("start", rs.getString("Start"));
-				map.put("speed", rs.getString("Speed"));
-				map.put("carImg", rs.getString("carImg"));
-				map.put("direction", rs.getString("Direction"));
-				map.put("GPS_time", rs.getString("GPS_time"));
-				jsonList.add(map);
+				if(show.equals("全部")||rs.getString("Start").substring(0, 2).equals(show)){
+					count = count + 1;
+					Map map = new HashMap();
+					map.put("index", count);
+					map.put("device_id", rs.getString("Device_id"));
+					map.put("location", rs.getString("Location"));
+					map.put("name", rs.getString("car_name"));
+					map.put("lon", rs.getString("Lon"));
+					map.put("lat", rs.getString("Lat"));
+					map.put("start", rs.getString("Start"));
+					map.put("speed", rs.getString("Speed"));
+					map.put("carImg", rs.getString("carImg"));
+					map.put("direction", rs.getString("Direction"));
+					map.put("GPS_time", rs.getString("GPS_time"));
+					jsonList.add(map);
+				}
+				
 			}
 			statement.close();
 			conn.close();
@@ -66,7 +71,7 @@ public class SearchRecord extends HttpServlet {
 		JSONObject json = new JSONObject();
 		try {
 			json.put("aaData", jsonList);
-			json.put("total", 25);
+			json.put("total", jsonList.size());
 			json.put("result_msg", "ok"); // ���������������ó�"error"��
 			json.put("result_code", 0); // ����0��ʾ������������0�ͱ�ʾ�д���������������
 			// System.out.println("�����õ���json�ǣ�"+json.toString());

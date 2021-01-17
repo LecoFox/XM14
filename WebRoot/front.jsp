@@ -34,7 +34,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link href="css/style.css" rel='stylesheet' type='text/css' />
 <script src="js/jquery-1.11.0.min.js"></script>
 <link
-	href='http://fonts.useso.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+	href='http://fonts.lug.ustc.edu.cn/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
 	rel='stylesheet' type='text/css'>
 <!---- start-smoth-scrolling---->
 <script type="text/javascript" src="js/move-top.js"></script>
@@ -171,15 +171,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<div id="large-header" class="large-header">
 		<div style="float:right;height:100%;width:290px;border:#cccsolid 1px">
 
-			<div style="height:17px;width:290px">
+			<div style="height:10%;width:290px">
 				<div class="dropdown" style="float:left">
 					<button class="dropbtn">排序</button>
 					<div class="dropdown-content">
 						<div>
-							<input type="radio" id="times" name="pages"> <label for="times">按时间</label>
+							<input type="radio" id="speeds" name="pages" onclick = "sorttable()"> <label for="times">按速度</label>
 						</div>
 						<div>
-							<input type="radio" id="letters" name="pages"> <label for="letters">按字母</label>
+							<input type="radio" id="letters" name="pages" onclick = "sorttable()"> <label for="letters">按字母</label>
 						</div>
 					</div>
 				</div>
@@ -188,13 +188,13 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<button class="dropbtn">状态</button>
 					<div class="dropdown-content">
 						<div>
-							<input type="radio" id="showall" name="pages"> <label for="showall">显示全部</label>
+							<input type="radio" id="showall" name="pages" checked="true" onclick = "getRecord()"> <label for="showall">显示全部</label>
 						</div>
 						<div>
-							<input type="radio" id="showonline" name="pages"> <label for="10rows">显示行驶</label>
+							<input type="radio" id="showonline" name="pages" onclick = "getRecord()"> <label for="10rows">显示行驶</label>
 						</div>
 						<div>
-							<input type="radio" id="showoffline" name="pages"> <label for="5rows">显示离线</label>
+							<input type="radio" id="showoffline" name="pages" onclick = "getRecord()"> <label for="5rows">显示离线</label>
 						</div>
 					</div>
 				</div>
@@ -223,10 +223,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				</div>
 			</div>
 			
-				<div style="position:relative;height:75%;width:290px;overflow:auto;" id="deviceTable"></div>
+				<div style="position:relative;height:-webkit-calc(100% - 100px);width:290px;overflow:auto;" id="deviceTable"></div>
 			
-			<div class="page_btn clear" style="position:relative;height:30px;width:290px;font-size:3px;color:white;float:center;visibility: visible;display:block;"> 
-            	<span class="page_box" style="clear:both"> 
+			<div class="page_btn clear" style="position:relative;height:20px;width:290px;font-size:3px;color:white;float:center;visibility: visible;display:block;"> 
+            	<span class="page_box" style="clear:both height:100%"> 
                 	<a class="prev" style="margin-left:25%">上一页</a>
                 	<span class="num"><span class="current_page">1</span><span style="padding:0 3px;">/</span><span class="total"></span></span>
                 	<a class="next">下一页</a> 
@@ -330,7 +330,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		map.addControl(stCtrl); //添加全景控件
 	}
 	//创建marker
-	function addCarMarker(lon, lat, png, title, location, status, speed, direction, deviceid) {
+	function addCarMarker(lon, lat, png, title, location, status, speed, direction, deviceid,_index) {
 		var point = new BMap.Point(lon, lat);
 		var iconImg = createMyIcon(png);
 		var marker = new BMap.Marker(point, {
@@ -375,7 +375,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			var _marker = marker;
 			var index = title.substring(2);
 			//console.log(index);
-			var id = 'row'+index;
+			var id = 'row'+_index;
 			//console.log(id);
 			markers.unshift(marker);
 			infos.unshift(_iw);
@@ -407,6 +407,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	//创建InfoWindow
 	function createInfoWindow(lon, lat, title, location, status, speed, deviceid) {
 		var iw = new BMap.InfoWindow("<b class='iw_poi_title'>" + title + "</b>" +
+			"<div class='iw_poi_content'>防护:" + " " + "</div>" +
+			"<div class='iw_poi_content'>GPS:" + " " + "</div>" +
+			"<div class='iw_poi_content'>GSM:" + " " + "</div>" +
 			"<div class='iw_poi_content'>位置:" + location + "</div>" +
 			"<div class='iw_poi_content'>经度:" + lon + "</div>" +
 			"<div class='iw_poi_content'>纬度:" + lat + "</div>" +
@@ -454,7 +457,17 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	}
 	function getRecord() {
 		var url = "SearchRecord";
-		$.post(url, function(json) {
+		var type= "0";
+		if(document.getElementById("showall").checked){
+			type="全部";
+		}
+		else if(document.getElementById("showonline").checked){
+			type="行驶";
+		}
+		else if(document.getElementById("showoffline").checked){
+			type="停止";
+		}
+		$.post(url, {show:type},function(json) {
 			console.log("running getRecord()");
 			//window.map.clearOverlays();
 			var poly_old = [];
@@ -493,7 +506,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					var direction = Number(list[i].direction);
 					var deviceid = list[i].device_id;
 					//var warningImg = list[i].warningImg;
-					addCarMarker(lon.toFixed(5), lat.toFixed(5), carImg, name, location, status, speed.toFixed(2), direction, deviceid);
+					addCarMarker(lon.toFixed(5), lat.toFixed(5), carImg, name, location, status, speed.toFixed(2), direction, deviceid,list.length-i);
 					setDeviceTrack();
 					if (have_old && show_track) {
 						var young = new BMap.Point(lon, lat);
@@ -515,10 +528,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					var location = list[i].location;
 
 					var time = list[i].GPS_time;				
-					var index = 25-i;
+					var index = list.length-i;
 					var row = 'row' + index;
 					//1~25
-					code += '<div id="' + row + '" data-id = "'+location+'" class = "devicelist" style="height:50px;" index = "' + index + '" onmouseover=rowchange("'+ row +'",'+true+') onmouseout = rowchange("'+row+'",'+false+')>';
+					code += '<div id="' + row + '" data-s = "'+speed+'" data-n = "'+ name +'" class = "devicelist" style="height:50px;" index = "' + index + '" onmouseover=rowchange("'+ row +'",'+true+') onmouseout = rowchange("'+row+'",'+false+')>';
 					code += '<div style="float:left;width:50px;font-size:3px;color:white" id="column' + index + '-1">' + name + '</div>';
 					code += '<div style="float:left;width:20px;font-size:3px;color:white" id="column' + index + '-2">' + speed + '</div>';
 					code += '<div style="float:left;width:30px;font-size:3px;color:white" id="column' + index + '-3">' + status + '</div>';
@@ -534,12 +547,12 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					 //var info = createInfoWindow(Number(list[i].lon).toFixed(5), Number(list[i].lat).toFixed(5), list[i].name, list[i].location, list[i].start.substr(0, 2), Number(list[i].speed).toFixed(2),list[i].device_id);
 					//利用在第一个问题中的markerArr数组设置触发函数，但注意数组的索引值不能用i，因为函数运行时i已不存在，因此在构造结果面板时，每个节点我添加了一个index属性，并用下面的代码获取，设置属性的代码类似于：<div id='poi5' index='5'></div>                        
 					var index = $(this).attr("index")-1;
-					setLock(Number(list[24-index].lon).toFixed(5), Number(list[24-index].lat).toFixed(5)); 
+					setLock(Number(list[list.length-1-index].lon).toFixed(5), Number(list[list.length-1-index].lat).toFixed(5)); 
 					markers[index].openInfoWindow(infos[index]);
 					})
 				}
 				sorttable();
-				fenye(25);
+				fenye(10);
 			}
 		});
 		document.getElementById("label").checked = false;
@@ -698,9 +711,10 @@ function rowchange(id,flag){
 <<script type="text/javascript">
 function sorttable(){
 	//console.log("sorttable2");
-	var test = document.getElementById("device").checked;
+	var test1 = document.getElementById("speeds").checked;
+	var test2 = document.getElementById("letters").checked;
 	//console.log(test);
-    if(test){
+    if(test1){
     	var aDiv = document.getElementsByClassName('devicelist');
     	    var arr = [];
     	    for(var i=0;i<aDiv.length;i++)
@@ -709,7 +723,7 @@ function sorttable(){
     	        arr.push(aDiv[i]);  //aDiv是元素的集合，并不是数组bai，所以不能直接用数组的sort进行排序。
     	    }
     		arr = arr.sort(function compareFunction(a, b) {
-    		    return a.getAttribute('data-id').localeCompare(b.getAttribute('data-id'));
+    		    return a.getAttribute('data-s')-b.getAttribute('data-s');
     		});
     	    for(var i=0;i<arr.length;i++)
     	    {
@@ -717,7 +731,23 @@ function sorttable(){
     	        document.getElementById('deviceTable').appendChild(arr[i]); //将排好序的元素，重新塞到body里面显示。
     	    }
      }else{
-        //dosomething
+        if(test2){
+        	var aDiv = document.getElementsByClassName('devicelist');
+        	    var arr = [];
+        	    for(var i=0;i<aDiv.length;i++)
+        	    {
+        			//console.log(aDiv[i].getAttribute('data-id'));
+        	        arr.push(aDiv[i]);  //aDiv是元素的集合，并不是数组bai，所以不能直接用数组的sort进行排序。
+        	    }
+        		arr = arr.sort(function compareFunction(a, b) {
+        		    return a.getAttribute('data-n').localeCompare(b.getAttribute('data-n'));
+        		});
+        	    for(var i=0;i<arr.length;i++)
+        	    {
+        			//console.log(aDiv[i].getAttribute('data-id'));
+        	        document.getElementById('deviceTable').appendChild(arr[i]); //将排好序的元素，重新塞到body里面显示。
+        	    }
+        }
       }
     }
 </script>
@@ -731,7 +761,7 @@ function sorttable(){
 		//var totalSize=$("#devicelist").index(); //获取总数据
 		var aDiv = document.getElementsByClassName('devicelist');
 		var totalSize=aDiv.length;
-		var totalPage=Math.round(totalSize/pageSize); //计算总页数
+		var totalPage=Math.ceil(totalSize/pageSize); //计算总页数
 		console.log(totalSize);
 		//$(".devicelist:gt(9)").hide(); //设置首页显示10条数据
 		$(".total").text(totalPage);  //设置总页数

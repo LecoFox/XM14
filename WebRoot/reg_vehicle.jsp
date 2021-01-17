@@ -158,7 +158,7 @@ src="http://api.map.baidu.com/getscript?v=3.0&ak=awORzYNz3svIeWeQ9pGPLnmZletmqfo
 					<div class="container-table100">
 						<div class="logo_box">
 							<form id="regvehicle" action="/XM14/RegVehicleServlet"
-								method="post" onsubmit="return reg(this)">
+								method="post">
 								<table align="center" border="0" width="330">
 								<tr>
 									<td class="td1">设备ID：</td>
@@ -214,7 +214,7 @@ src="http://api.map.baidu.com/getscript?v=3.0&ak=awORzYNz3svIeWeQ9pGPLnmZletmqfo
 								<tr>
 									<td class="td5" colspan="2"><input
 										type="submit" value="注册" class="act-but1 submit1"
-										onclick="document:regvehicle.submit()"> <input
+										> <input
 											type="reset" value="重置" class="act-but1 submit1">
 									</td>
 								</tr>
