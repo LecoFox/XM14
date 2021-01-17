@@ -100,7 +100,7 @@ html, body {
 
 
 
-<body style="overflow: hidden;">
+<body style="overflow:hidden">
 	<!--header-->
 	<div class="header-top" id="home">
 		<div class="container">
@@ -218,15 +218,17 @@ html, body {
 					<input class="checkbox_func" type="checkbox" id="device" onclick = "sorttable();">状态提醒</div>
 				<div style="float:left;width:70px;font-size:3px;color:white">
 					<input class="checkbox_func" type="checkbox" id="track" onclick="setDeviceTrack();">轨迹红线</div>
+				
 			</div>
-			<div style="position:absolute;height:95%;width:290px;overflow:auto" id="deviceTable"></div>
-			<div class="page_btn clear"> 
+			<div class="page_btn clear" style="position:relative;height:5%;width:290px;font-size:3px;color:white;float:center;visibility: visible;"> 
             	<span class="page_box"> 
                 	<a class="prev">上一页</a>
                 	<span class="num"><span class="current_page">1</span><span style="padding:0 3px;">/</span><span class="total"></span></span>
                 	<a class="next">下一页</a> 
             	</span> 
         	</div>
+			<div style="position:relative;height:90%;width:290px;overflow:auto;" id="deviceTable"></div>
+			
 		</div>
 		<div style="height:100%;border:#ccc solid 1px;" id="dituContent"></div>
 	</div>
@@ -259,6 +261,8 @@ html, body {
 		window.infos=infos;
 		var oldid = 'row1';
 		window.oldid=oldid;
+		var cpage=1;
+		window.cpage=cpage;
 	}
 
 	//地图事件设置函数：
@@ -475,7 +479,7 @@ html, body {
 					var index = 25-i;
 					var row = 'row' + index;
 					//1~25
-					code += '<div id="' + row + '" data-id = "'+location+'" class = "devicelist" style="height:50px;overflow:auto" index = "' + index + '" onmouseover=rowchange("'+ row +'",'+true+') onmouseout = rowchange("'+row+'",'+false+')>';
+					code += '<div id="' + row + '" data-id = "'+location+'" class = "devicelist" style="height:50px;" index = "' + index + '" onmouseover=rowchange("'+ row +'",'+true+') onmouseout = rowchange("'+row+'",'+false+')>';
 					code += '<div style="float:left;width:50px;font-size:3px;color:white" id="column' + index + '-1">&nbsp;&nbsp;' + name + '</div>';
 					code += '<div style="float:left;width:20px;font-size:3px;color:white" id="column' + index + '-2">' + speed + '</div>';
 					code += '<div style="float:left;width:30px;font-size:3px;color:white" id="column' + index + '-3">' + status + '</div>';
@@ -483,7 +487,6 @@ html, body {
 					code += '<div style="float:left;width:80px;font-size:3px;color:white" id="column' + index + '-5">' + time + '</div>';
 					code += '</div>';
 				}
-				code
 				tableInfos.innerHTML = code;
 				for (var i =1; i<=list.length; i++){
 					$("#row" + i).click(function(){
@@ -496,6 +499,7 @@ html, body {
 					})
 				}
 				sorttable();
+				fenye(10);
 			}
 		});
 		document.getElementById("label").checked = false;
@@ -648,7 +652,7 @@ function rowchange(id,flag){
 		document.getElementById(id).style.backgroundColor="grey";
 	}
 	else if(flag==false){
-		document.getElementById(id).style.backgroundColor="black";
+		document.getElementById(id).style.backgroundColor="#383a3c";
 	}
 }
 </script>
@@ -679,76 +683,32 @@ function sorttable(){
       }
     }
 </script>
-<script>
-        //分页
-        $(function() {
 
-            $('.setPageDiv').change(function() {
-
-                getMsg(parseInt($(this).val()))
-            })
-
-            function getMsg(num) {
-                $.ajax({
-                    url: 'data/bussiness.json',
-                    type: 'GET',
-                    dataType: 'json',
-                    success: function(data) {
-                        //1.计算分页数量
-                        var showNum = num;
-                        var dataL = data.list.length;
-                        var pageNum = Math.ceil(dataL / showNum);
-                        $('.Pagination').pagination(pageNum, {
-                            num_edge_entries: 1, //边缘页数
-                            num_display_entries: 4, //主体页数
-                            items_per_page: 1, //每页显示1项
-                            prev_text: "上一页",
-                            next_text: "下一页",
-                            callback: function(index) {
-                                //console.log(index);
-                                var html = '<ul>'
-
-                                console.log(showNum * index + '~' + parseInt(showNum * index) + parseInt(showNum))
-                                for(var i = showNum * index; i < showNum * index + showNum; i++) {
-                                    //console.log(i)
-                                    if(i < dataL) {
-
-                                        var img = data.list[i].img;
-                                        var manager = data.list[i].manager; //交易类型
-                                        html += "<div class='row'>";
-                                        html += "<div class='col-md-1   col-xs-1'>"
-                                        html += "<img src='" + img + "'/   class='img-responsive'>"
-                                        html += "</div>"
-                                        html += "<div class='col-md-3   col-xs-3'>"
-                                        html += "<p>" + manager + "</p>"
-                                        html += "</div></div>";
-
-                                    }
-                                }
-                                html += '</ul>';
-                                $('.list').html(html)
-                            }
-                        })
-
-                    }
-                })
-            }
-            getMsg(6)
-
-        })
- </script>
  <script type="text/javascript" >
-	$(function(){
+	function fenye(size){
 
 		//实现分页思路:
-		var pageSize=10;      //每页显示数据条数
-		var currentPage=1;   //当前页数
-		var totalSize=$("#devicelist").index(); //获取总数据
+		var pageSize=size;      //每页显示数据条数
+		var currentPage=cpage;   //当前页数
+		//var totalSize=$("#devicelist").index(); //获取总数据
+		var aDiv = document.getElementsByClassName('devicelist');
+		var totalSize=aDiv.length;
 		var totalPage=Math.round(totalSize/pageSize); //计算总页数
-		$("#devicelist:gt(9)").hide(); //设置首页显示4条数据
+		console.log(totalSize);
+		//$(".devicelist:gt(9)").hide(); //设置首页显示10条数据
 		$(".total").text(totalPage);  //设置总页数
-		$(".current_page").text(currentPage); //设置当前页数
-		
+		//$(".current_page").text(currentPage); //设置当前页数
+		$(".current_page").text(cpage);  //当前页数先-1
+		 var start=pageSize*(currentPage-1);
+		 var end=pageSize*currentPage;
+		 $.each($('.devicelist'),function(index,item){
+			   if(index >=start && index < end){
+					$(this).show();
+					}
+					else{
+						$(this).hide();
+						}
+			 });
 		//实现下一页
 		$(".next").click(function(){
 			if(currentPage ==totalPage){ //当前页数==最后一页，禁止下一页
@@ -757,7 +717,7 @@ function sorttable(){
 				    $(".current_page").text(++currentPage);  //当前页数先+1
 					var start=pageSize*(currentPage-1);
 					var end=pageSize*currentPage;
-					$.each($('#devicelist'),function(index,item){
+					$.each($('.devicelist'),function(index,item){
 							if(index >=start && index < end){
 								$(this).show();
 								}
@@ -765,7 +725,7 @@ function sorttable(){
 									$(this).hide();
 									}
 						});
-					
+					cpage=currentPage;
 					}
 			});
 			
@@ -777,7 +737,7 @@ function sorttable(){
 					 $(".current_page").text(--currentPage);  //当前页数先-1
 					 var start=pageSize*(currentPage-1);
 					 var end=pageSize*currentPage;
-					 $.each($('#devicelist'),function(index,item){
+					 $.each($('.devicelist'),function(index,item){
 						   if(index >=start && index < end){
 								$(this).show();
 								}
@@ -785,12 +745,13 @@ function sorttable(){
 									$(this).hide();
 									}
 						 });
+					 cpage=currentPage;
 					}
 			
 			});
 		
 		
-		});
+		};
 
 </script>
 
