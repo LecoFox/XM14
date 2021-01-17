@@ -1,22 +1,63 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<!DOCTYPE HTML>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <title>Untitled Document</title>
-        <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-        <script type="text/javascript">
-            $(function(){
-                var div = $('div').toArray().sort(function(a,b){
-                        return parseInt($(a).html()) - parseInt($(b).html())
-                });
-                $(div).appendTo('body')
-            });        
-        </script>
-    </head>
-    <body>
-        <div>11</div>
-        <div>33</div>
-        <div>55</div>
-        <div>22</div>
-    </body>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>无标题文档</title>
+<style type="text/css">
+      .content{
+          width:100px;
+          height:100px;
+          border:2px solid #999;
+          border-radius:10px;
+       }
+       .active{
+        background:red;
+       }
+       .onbackground{
+        background:green;
+       }
+</style>
+
+
+<script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+</head>
+<body >
+<div class="content">
+     <button class="seemore">查看</button>
+  </div>
+    <script>
+       
+      $('.content').mouseover(function(){
+           
+           var a = $(".content").data("flag");
+             console.log(a);
+             if(a==1){
+              
+             }else{
+               $(this).addClass("onbackground");
+             }
+           
+        });
+
+
+        $(".content").mouseout(function(){
+
+
+              $(this).removeClass("onbackground");
+          })
+        
+        $(".seemore").click(function(){
+           $(this).parent().addClass("active");
+           $(".content").data("flag","1");
+        })
+
+
+        
+          
+        
+    </script>
+    
+
+
+</body>
 </html>
