@@ -71,6 +71,7 @@ body a:hover{
 .dropdown {
     position: relative;
     display: inline-block;
+    
 }
 
 .dropdown-content {
@@ -80,6 +81,7 @@ body a:hover{
     font-size: 10px;
     min-width: 100px;
     box-shadow: 0px 4px 8px 0px rgba(0,0,0,0.2);
+    z-index:1;
 }
 
 .dropdown-content a {
