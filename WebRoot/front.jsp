@@ -12,72 +12,33 @@
 <head>
 <title>车辆管理</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
-	<meta name="keywords"
-		content="Architect Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<meta name="keywords"
+	content="Architect Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
 
-	<!--引用百度地图API-->
-	<style type="text/css">
-html, body {
-	margin: 0;
-	padding: 0;
-}
 
-.iw_poi_title {
-	color: #CC5522;
-	font-size: 14px;
-	font-weight: bold;
-	overflow: hidden;
-	padding-right: 13px;
-	white-space: nowrap
-}
 
-.iw_poi_content {
-	font: 12px arial, sans-serif;
-	overflow: visible;
-	padding-top: 4px;
-	white-space: -moz-pre-wrap;
-	word-wrap: break-word
-}
+<script type="text/javascript"
+	src="http://api.map.baidu.com/getscript?v=3.0&ak=awORzYNz3svIeWeQ9pGPLnmZletmqfog"></script>
 
-.iw_button {
-	font: 13px arial, sans-serif;
-	color: #CC5522;
-	overflow: visible;
-	padding-top: 4px;
-	white-space: -moz-pre-wrap;
-	word-wrap: break-word
-}
-
-.checkbox_func {
-    width: 14px;
-    height: 14px;
-    display: inline-block;
-    position: relative;
-    top: 3px;
-}
-</style>
-	<script type="text/javascript"
-		src="http://api.map.baidu.com/getscript?v=3.0&ak=awORzYNz3svIeWeQ9pGPLnmZletmqfog"></script>
-
-	<script type="application/x-javascript">addEventListener("load", function() {
+<script type="application/x-javascript">addEventListener("load", function() {
 			setTimeout(hideURLbar, 0);
 		}, false);
 		function hideURLbar() {
 			window.scrollTo(0, 1);
 		}
 	</script>
-	<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
-	<link href="css/style.css" rel='stylesheet' type='text/css' />
-	<script src="js/jquery-1.11.0.min.js"></script>
-	<link
-		href='http://fonts.useso.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
-		rel='stylesheet' type='text/css'>
-		<!---- start-smoth-scrolling---->
-		<script type="text/javascript" src="js/move-top.js"></script>
-		<script type="text/javascript" src="js/easing.js"></script>
-		<script type="text/javascript">
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<script src="js/jquery-1.11.0.min.js"></script>
+<link
+	href='http://fonts.useso.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+	rel='stylesheet' type='text/css'>
+<!---- start-smoth-scrolling---->
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>
+<script type="text/javascript">
 			jQuery(document).ready(function($) {
 				$(".scroll").click(function(event) {
 					event.preventDefault();
@@ -87,16 +48,16 @@ html, body {
 				});
 			});
 		</script>
-		<!--start-smoth-scrolling-->
-		<link rel="stylesheet" type="text/css" href="css/normalize.css" />
-		<link rel="stylesheet" type="text/css" href="css/demo.css" />
-		<!--必要样式-->
-		<link rel="stylesheet" type="text/css" href="css/component.css" />
+<!--start-smoth-scrolling-->
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="css/demo.css" />
+<!--必要样式-->
+<link rel="stylesheet" type="text/css" href="css/component.css" />
 </head>
 
 
 
-<body style="overflow: hidden;">
+<body style="overflow: hidden;height:100%">
 	<!--header-->
 	<div class="header-top" id="home">
 		<div class="container">
@@ -132,7 +93,9 @@ html, body {
 					<li><a href="#"><span class="fb"> </span></a></li>
 					<li><a href="#"><span class="g"> </span></a></li>
 				</ul>
-				<li id="remainTime" style="color:white;">平台将于<span style="color:red">10</span>s后刷新</li>
+				<li id="remainTime" style="color:white;">平台将于<span
+					style="color:red">10</span>s后刷新
+				</li>
 			</div>
 			<div class="clearfix"></div>
 		</div>
@@ -143,23 +106,19 @@ html, body {
 						placeholder="Enter your search term..." type="search"
 						name="search" id="search"> <input class="sb-search-submit"
 						type="submit" value=""> <span class="sb-icon-search">
-						</span>
+					</span>
 				</form>
 			</div>
 		</div>
 		<div class="header-info-right">
 			<div class="header cbp-spmenu-push">
 				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"
-					id="cbp-spmenu-s1"> 
-					<a href="SearchallRegVehicle">车辆注册信息</a>
-					<a href="Searchall">用户注册信息</a>
-					<a href="loginstatus.jsp">用户在线信息</a>
-					<a href="overspeed.jsp">超速统计</a>
-					<a href="mileage.jsp">里程统计</a>
-					<a id="#b01" href="">一键提醒</a>
-					<a href="javascript:openWin('gettrack.jsp')">轨迹回放</a>
-					<a href="SendYuejie">越界提醒</a>
-				</nav>
+					id="cbp-spmenu-s1"> <a href="SearchallRegVehicle">车辆注册信息</a>
+				<a href="Searchall">用户注册信息</a> <a href="loginstatus.jsp">用户在线信息</a>
+				<a href="overspeed.jsp">超速统计</a> <a href="mileage.jsp">里程统计</a> <a
+					id="#b01" href="">一键提醒</a> <a
+					href="javascript:openWin('gettrack.jsp')">轨迹回放</a> <a
+					href="SendYuejie">越界提醒</a> </nav>
 				<!--script-nav -->
 				<script>
 					$("span.menu").click(function() {
@@ -205,17 +164,65 @@ html, body {
 
 	<div id="large-header" class="large-header">
 		<div style="float:right;height:100%;width:290px;border:#cccsolid 1px">
-			<div style="height:5%;width:290px">
-				<div style="float:left;width:70px;font-size:3px;color:white">
-					<input class="checkbox_func" type="checkbox" id="lock" onclick="setDeviceStatus();">锁定设备</div>
-				<div style="float:left;width:70px;font-size:3px;color:white">
-					<input class="checkbox_func" type="checkbox" id="label">设备名称</div>
-				<div style="float:left;width:70px;font-size:3px;color:white">
-					<input class="checkbox_func" type="checkbox" id="device">状态提醒</div>
-				<div style="float:left;width:70px;font-size:3px;color:white">
-					<input class="checkbox_func" type="checkbox" id="track" onclick="setDeviceTrack();">轨迹红线</div>
+			<div style="height:17px;width:290px">
+				<div class="dropdown" style="float:left">
+					<button class="dropbtn">排序</button>
+					<div class="dropdown-content">
+						<div>
+							<input type="radio" id="times" name="pages"> <label for="times">按时间</label>
+						</div>
+						<div>
+							<input type="radio" id="letters" name="pages"> <label for="letters">按字母</label>
+						</div>
+					</div>
+				</div>
+
+				<div class="dropdown" style="float:left">
+					<button class="dropbtn">状态</button>
+					<div class="dropdown-content">
+						<div>
+							<input type="radio" id="showall" name="pages"> <label for="showall">显示全部</label>
+						</div>
+						<div>
+							<input type="radio" id="showonline" name="pages"> <label for="10rows">显示行驶</label>
+						</div>
+						<div>
+							<input type="radio" id="showoffline" name="pages"> <label for="5rows">显示离线</label>
+						</div>
+					</div>
+				</div>
+				
+				<div class="dropdown" style="float:left">
+					<button class="dropbtn">显示</button>
+					<div class="dropdown-content">
+						<div>
+							<input class="checkbox_func" type="checkbox" id="lock"
+								onclick="setDeviceStatus();"> <label for="lock">锁定设备</label>
+						</div>
+						<div>
+							<input class="checkbox_func" type="checkbox" id="label">
+								<label for="label">设备名称</label>
+						</div>
+						<div>
+							<input class="checkbox_func" type="checkbox" id="device">
+								<label for="device">状态提醒</label>
+						</div>
+						<div>
+							<input class="checkbox_func" type="checkbox" id="track"
+								onclick="setDeviceTrack();"> <label for="track">轨迹红线</label>
+						</div>
+
+					</div>
+				</div>
 			</div>
-			<div style="position:absolute;height:95%;width:290px;overflow:auto" id="deviceTable"></div>
+			<div style="height:600px;width:290px;overflow:auto" id="deviceTable">
+				<div style="margin:0px;border:2px solid white;">
+					<table id="record_list" data-pagination="true" data-side-pagination="client" data-page-size="3">
+						
+					
+					</table>
+				</div>
+			</div>
 		</div>
 		<div style="height:100%;border:#ccc solid 1px;" id="dituContent"></div>
 	</div>
@@ -224,10 +231,38 @@ html, body {
 	<script src="js/EasePack.min.js"></script>
 	<script src="js/rAF.js"></script>
 	<script src="js/demo-1.js"></script>
+
+	<script type="text/javascript" src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap-table.js"></script>
+	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+	
+	
 </body>
 
 
+
+
 <script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$('#record_list').bootstrapTable({
+		columns: [{
+			field: 'name',
+			title: 'name'
+		}, {
+			field: 'speed',
+			title: 'speed'
+		}, {
+			field: 'status',
+			title: 'status'
+		}, {
+			field: 'location',
+			title: 'location'
+		}, {
+			field: 'time',
+			title: 'time'
+		},]
+	});
+});
 
 	//创建和初始化地图函数：
 	function initMap() {
@@ -239,7 +274,7 @@ html, body {
 	//创建地图函数：
 	function createMap() {
 		var map = new BMap.Map("dituContent"); //在百度地图容器中创建一个地图
-		var point = new BMap.Point(108.946465,34.347269); //定义一个中心点坐标
+		var point = new BMap.Point(108.946465, 34.347269); //定义一个中心点坐标
 		map.centerAndZoom(point, 5); //设定地图的中心点和坐标并将地图显示在地图容器中
 		window.map = map; //将map变量存储在全局
 	}
@@ -249,7 +284,7 @@ html, body {
 		map.enableDragging(); //启用地图拖拽事件，默认启用(可不写)
 		map.enableScrollWheelZoom(); //启用地图滚轮放大缩小
 		map.enableDoubleClickZoom(); //启用鼠标双击放大，默认启用104.989321, 36.063785yboard(); //启用键盘上下左右键移动地图
-		//Polyline.disableMassClear();
+	//Polyline.disableMassClear();
 	}
 
 	//地图控件添加函数：
@@ -278,7 +313,7 @@ html, body {
 		map.addControl(stCtrl); //添加全景控件
 	}
 	//创建marker
-	function addCarMarker(lon, lat, png, title, location, status, speed, direction,deviceid) {
+	function addCarMarker(lon, lat, png, title, location, status, speed, direction, deviceid) {
 		var point = new BMap.Point(lon, lat);
 		var iconImg = createMyIcon(png);
 		var marker = new BMap.Marker(point, {
@@ -289,22 +324,26 @@ html, body {
 			"offset" : new BMap.Size(9, -20)
 		});
 		label.setStyle({
-        	display:"none",
-            color: "red",
-            fontSize: "12px",
-            height: "20px",
-            lineHeight: "20px",
-            fontFamily: "微软雅黑"
-        });
+			display : "none",
+			color : "red",
+			fontSize : "12px",
+			height : "20px",
+			lineHeight : "20px",
+			fontFamily : "微软雅黑"
+		});
 		marker.setLabel(label);
 		marker.addEventListener("mouseover", function(e) {
-           var label = this.getLabel();
-           label.setStyle({ display: "block" });
-           });
-        marker.addEventListener("mouseout", function(e) {
-           var label = this.getLabel();
-           label.setStyle({ display: "none" });
-        });
+			var label = this.getLabel();
+			label.setStyle({
+				display : "block"
+			});
+		});
+		marker.addEventListener("mouseout", function(e) {
+			var label = this.getLabel();
+			label.setStyle({
+				display : "none"
+			});
+		});
 		marker.setRotation(direction);
 		map.addOverlay(marker);
 		label.setStyle({
@@ -314,7 +353,7 @@ html, body {
 		});
 		(function() {
 			var index = 0;
-			var _iw = createInfoWindow(lon, lat, title, location, status, speed,deviceid);
+			var _iw = createInfoWindow(lon, lat, title, location, status, speed, deviceid);
 			var _marker = marker;
 			_marker.addEventListener("click", function() {
 				setLock(lon, lat);
@@ -337,7 +376,7 @@ html, body {
 		})()
 	}
 	//创建InfoWindow
-	function createInfoWindow(lon, lat, title, location, status, speed,deviceid) {
+	function createInfoWindow(lon, lat, title, location, status, speed, deviceid) {
 		var iw = new BMap.InfoWindow("<b class='iw_poi_title'>" + title + "</b>" +
 			"<div class='iw_poi_content'>位置:" + location + "</div>" +
 			"<div class='iw_poi_content'>经度:" + lon + "</div>" +
@@ -346,7 +385,7 @@ html, body {
 			"<div class='iw_poi_content'>速度:" + speed + "</div>" +
 			"<a class='iw_button' onclick=\"setCenterAndZoom(" + lon + "," + lat + "," + speed + ")\">跟踪</a>&nbsp;&nbsp;" +
 			"<a type='submit' class='iw_button' href='quanjing.jsp?lo=" + lon + "&id=" + deviceid + "&la=" + lat + "' target='blank'>查看全景</a>&nbsp;&nbsp;" +
-			"<a type='submit' class='iw_button' href='gettrack2.jsp?tname=\"" + title + "\"' target='blank'>轨迹回放</a>&nbsp;&nbsp;"+
+			"<a type='submit' class='iw_button' href='gettrack2.jsp?tname=\"" + title + "\"' target='blank'>轨迹回放</a>&nbsp;&nbsp;" +
 			"<a class='iw_button' onclick=\"openwl(" + lon + "," + lat + "," + deviceid + ")\">围栏</a>&nbsp;&nbsp;"
 		);
 
@@ -367,23 +406,22 @@ html, body {
 </html>
 
 
-<script type="text/javascript" src="jquery-1.8.3.min.js"></script>
+
 <script>
 	var second = 10;
 	var lock_device = false;
 	var horizen = false;
 	var show_track = false;
 	var have_old = false;
-	function setRemainTime(){
-		if(second > 0){
+	function setRemainTime() {
+		if (second > 0) {
 			second -= 1;
-		}
-		else{
+		} else {
 			getRecord();
 			second = 10;
 		}
 		setTimeout(setRemainTime, 1000);
-		$("#remainTime").html("平台将于 <span style='color:red'>"+ second + "</span>s后刷新");
+		$("#remainTime").html("平台将于 <span style='color:red'>" + second + "</span>s后刷新");
 	}
 	function getRecord() {
 		var url = "SearchRecord";
@@ -392,18 +430,18 @@ html, body {
 			//window.map.clearOverlays();
 			var poly_old = [];
 			var allOverlay = map.getOverlays();
-			for(var i = 0 ; i < allOverlay.length ; i++){
-		    	if (allOverlay[i] instanceof BMap.Marker) {
-		    		//体验25,24,...1
-		    		if(have_old){
-		    			var marker = allOverlay[i];
-		    			//console.log(marker.getLabel().content);
-		    			var lon = marker.point.lng;
-		    			var lat = marker.point.lat;
-		    			poly_old.push(new BMap.Point(lon, lat));
-		    		}
-		    		map.removeOverlay(allOverlay[i]);
-            	}
+			for (var i = 0; i < allOverlay.length; i++) {
+				if (allOverlay[i] instanceof BMap.Marker) {
+					//体验25,24,...1
+					if (have_old) {
+						var marker = allOverlay[i];
+						//console.log(marker.getLabel().content);
+						var lon = marker.point.lng;
+						var lat = marker.point.lat;
+						poly_old.push(new BMap.Point(lon, lat));
+					}
+					map.removeOverlay(allOverlay[i]);
+				}
 			}
 			var list = json.aaData;
 			if (list.length == 0) {
@@ -422,14 +460,15 @@ html, body {
 					var direction = Number(list[i].direction);
 					var deviceid = list[i].device_id;
 					//var warningImg = list[i].warningImg;
-					addCarMarker(lon.toFixed(5), lat.toFixed(5), carImg, name, location, status, speed.toFixed(2), direction,deviceid);
+					addCarMarker(lon.toFixed(5), lat.toFixed(5), carImg, name, location, status, speed.toFixed(2), direction, deviceid);
 					setDeviceTrack();
-					if(have_old && show_track){
+					if (have_old && show_track) {
 						var young = new BMap.Point(lon, lat);
 						drawTrack(poly_old[i], young);
 					}
 				}
-				var tableInfos = document.getElementById('deviceTable');
+				
+				var tableInfos = document.getElementById('record_list');
 				var code = '';
 				for (var i = list.length - 1; i >= 0; i--) {
 					var lon = Number(list[i].lon);
@@ -441,13 +480,13 @@ html, body {
 					var location = list[i].location;
 					var time = list[i].GPS_time;
 					var row = 'row' + i;
-					code += '<div id="' + row + '" style="height:50px;overflow:auto">';
-					code += '<div style="float:left;width:50px;font-size:3px;color:white" id="column' + i + '1">&nbsp;&nbsp;' + name + '</div>';
-					code += '<div style="float:left;width:20px;font-size:3px;color:white" id="column' + i + '2">' + speed + '</div>';
-					code += '<div style="float:left;width:30px;font-size:3px;color:white" id="column' + i + '3">' + status + '</div>';
-					code += '<div style="float:left;width:80px;font-size:3px;color:white" id="column' + i + '4">' + location + '</div>';
-					code += '<div style="float:left;width:80px;font-size:3px;color:white" id="column' + i + '5">' + time + '</div>';
-					code += '</div>';
+					code += '<tr id="' + row + '" style="height:50px;overflow:auto">';
+					code += '<td style="float:left;width:50px;font-size:3px;color:white" id="column' + i + '1">&nbsp;&nbsp;' + name + '</td>';
+					code += '<td style="float:left;width:20px;font-size:2px;color:white" id="column' + i + '2">' + speed + '</td>';
+					code += '<td style="float:left;width:30px;font-size:3px;color:white" id="column' + i + '3">' + status + '</td>';
+					code += '<td style="float:left;width:80px;font-size:3px;color:white" id="column' + i + '4">' + location + '</td>';
+					code += '<td style="float:left;width:80px;font-size:3px;color:white" id="column' + i + '5">' + time + '</td>';
+					code += '</tr>';
 				}
 				tableInfos.innerHTML = code;
 			}
@@ -463,9 +502,9 @@ html, body {
 	function setCenterAndZoom(lon, lat, speed) {
 		var center = new BMap.Point(lon, lat);
 		var size = 18;
-		if(speed>80){
+		if (speed > 80) {
 			size = 15;
-		} else if(50 <= speed <= 80){
+		} else if (50 <= speed <= 80) {
 			size = 16;
 		}
 		lock_device = true;
@@ -473,77 +512,77 @@ html, body {
 		setLock(lon, lat);
 		map.centerAndZoom(center, size);
 	}
-	function setDeviceStatus(){
-		if(document.getElementById("lock").checked){
+	function setDeviceStatus() {
+		if (document.getElementById("lock").checked) {
 			alert("Invalid! Please select the target device.");
 			lock_device = false;
 			document.getElementById("lock").checked = lock_device;
-		} else{
+		} else {
 			unlockDevice();
 		}
 	}
-	function setLock(lon, lat){
+	function setLock(lon, lat) {
 		lock_device = true;
 		document.getElementById("lock").checked = lock_device;
-		var point = new BMap.Point(lon,lat);
-		if(!horizen){
+		var point = new BMap.Point(lon, lat);
+		if (!horizen) {
 			map.panTo(point);
 		}
 	}
-	function unlockDevice(){
-		var point = new BMap.Point(108.946465,34.347269);
-		if(horizen){
+	function unlockDevice() {
+		var point = new BMap.Point(108.946465, 34.347269);
+		if (horizen) {
 			map.centerAndZoom(point, 5);
 			horizen = false;
-		} else{
+		} else {
 			map.panTo(point);
 		}
 	}
-	function setLabelStatus(){
-		if(document.getElementById("label").checked){
+	function setLabelStatus() {
+		if (document.getElementById("label").checked) {
 			showDeviceLabel();
-		} else{
+		} else {
 			hideDeviceLabel();
 		}
-		setTimeout(setLabelStatus,500);
+		setTimeout(setLabelStatus, 500);
 	}
-	function showDeviceLabel(){
+	function showDeviceLabel() {
 		var allOverlay = map.getOverlays();
-		for(var i = 0 ; i < allOverlay.length ; i++){
-		    if (allOverlay[i] instanceof BMap.Marker) {
-		    	allOverlay[i].getLabel().show();
-            }
+		for (var i = 0; i < allOverlay.length; i++) {
+			if (allOverlay[i] instanceof BMap.Marker) {
+				allOverlay[i].getLabel().show();
+			}
 		}
 	}
-	function hideDeviceLabel(){
+	function hideDeviceLabel() {
 		var allOverlay = map.getOverlays();
-		for(var i = 0 ; i < allOverlay.length ; i++){
-		    if (allOverlay[i] instanceof BMap.Marker) {
-		    	allOverlay[i].getLabel().hide();
-            }
+		for (var i = 0; i < allOverlay.length; i++) {
+			if (allOverlay[i] instanceof BMap.Marker) {
+				allOverlay[i].getLabel().hide();
+			}
 		}
 	}
 	setLabelStatus();
-	
-	function alertDevice(){
+
+	function alertDevice() {
 		console.log("alert device status");
 	}
-	function setDeviceTrack(){
-		if(document.getElementById("track").checked){
+	function setDeviceTrack() {
+		if (document.getElementById("track").checked) {
 			show_track = true;
-		} else{
+		} else {
 			show_track = false;
 		}
 	}
 	function drawTrack(old, young) {
-		var polyline = new BMap.Polyline([old, young], {
+		var polyline = new BMap.Polyline([ old, young ], {
 			strokeWeight : 3,
 			strokeColor : "red",
 			strokeStyle : "solid"
 		});
 		map.addOverlay(polyline);
 	}
-	
+
 	function getRealtime_data() {
 		var url = "BcxData";
 		$.post(url, function(json) {
@@ -551,7 +590,6 @@ html, body {
 		});
 	}
 	getRealtime_data();
-	
 </script>
 
 <script>
@@ -574,13 +612,12 @@ html, body {
 	});
 </script>
 <script>
-	function openwl(lon,lat,deviceid)
-	{
-		var itop = (window.screen.availHeight-530)/2;
-	    var ileft = (window.screen.availWidth-810)/2;
+	function openwl(lon, lat, deviceid) {
+		var itop = (window.screen.availHeight - 530) / 2;
+		var ileft = (window.screen.availWidth - 810) / 2;
 		console.log("----open weilan----");
 		var setweilan = "setwl.jsp?" + "lon=" + lon + "&lat=" + lat + "&deviceid=" + deviceid;
-		window.open(setweilan,'设置围栏',"fullscreen=0,height=500,width=800,toolbar=0,location=0,directories=0,status=0,menubar=0,resizable=0,top="+itop+",left="+ileft+",scrollbars=yes")
+		window.open(setweilan, '设置围栏', "fullscreen=0,height=500,width=800,toolbar=0,location=0,directories=0,status=0,menubar=0,resizable=0,top=" + itop + ",left=" + ileft + ",scrollbars=yes")
 	}
 </script>
 <script>
