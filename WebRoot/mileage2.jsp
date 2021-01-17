@@ -187,7 +187,7 @@ xt/javascript"
 						<div>
 								<select class="input_outer2" id="sel" name="setDeviceId"
 									class="box"><option>选择设备ID</option>
-									<option></option></select>
+								</select>
 
 						</div>
 
@@ -272,7 +272,7 @@ xt/javascript"
 </script>
 <script>
 $(document).ready(function () {
-    var url="/XM14/SelectVehicleServlet"; //访问后台去数据库查询select的选项,此处需填写后台接口路径
+    var url="/XM14/SelectOnesDevice"; //访问后台去数据库查询select的选项,此处需填写后台接口路径
     $.ajax({
         type:"get",
         url:url,
@@ -284,7 +284,7 @@ $(document).ready(function () {
             if(parsedJson!=null){ //后台传回来的select选项
                 for(var i=0;i<parsedJson.length;i++){
                     //遍历后台传回的结果，一项项往select中添加option
-                    unitObj.append("<option>"+parsedJson[i].Device_id+"</option>");
+                    unitObj.append("<option>"+parsedJson[i].device_id+"</option>");
                 }
             }
         },

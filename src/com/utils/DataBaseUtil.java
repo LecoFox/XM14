@@ -19,7 +19,7 @@ public class DataBaseUtil {
         try {
             conn = DriverManager.getConnection(url);
             if (conn != null) {
-                System.out.println(1123);
+                //System.out.println(1123);
             }
         } catch (SQLException e) {
             e.printStackTrace();

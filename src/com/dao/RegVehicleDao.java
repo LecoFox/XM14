@@ -198,7 +198,7 @@ public class RegVehicleDao {
 				+ " ROUND(Max(speed), 2) as maxspeed,MIN(GPS_time) as btime,MAX(GPS_time) as etime, "
 				+ "ROUND((AVG(speed) / 60 * TIMESTAMPDIFF(MINUTE,MIN(GPS_time),MAX(GPS_time)) + 123.67), 2) as total_mile, "
 				+ "ROUND(((AVG(speed) / 60 * TIMESTAMPDIFF(MINUTE,MIN(GPS_time),MAX(GPS_time)) + 123.67)*0.08), 2) as total_gasoline"
-				+ "from bcx_data where device_id = ? AND GPS_time>=? AND GPS_time<=? group by device_id";
+				+ " from bcx_data where device_id = ? AND GPS_time>=? AND GPS_time<=? group by device_id";
 		System.out.println("sql语句是： " + sql);
 		try {
 			PreparedStatement preparedStatement = conn.prepareStatement(sql);
@@ -233,6 +233,69 @@ public class RegVehicleDao {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public JSONArray SelectOnesDevice(String username) throws JSONException {
+		// TODO Auto-generated method stub
+		JSONArray array = new JSONArray();
+        Connection conn = DataBaseUtil.getConn();
+        String sql = "SELECT DISTINCT car_name,device_id FROM bcx_data natural join reg_device WHERE owner=?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, username);
+            //执行查询获取结果集
+            ResultSet rs = ps.executeQuery();
+            
+            ResultSetMetaData metaData = rs.getMetaData(); 
+            int columnCount = metaData.getColumnCount();
+            
+            //将结果集转换为jsonarray
+            while (rs.next()) {
+            	JSONObject jsonObj = new JSONObject();
+            	for (int i = 1; i <= columnCount; i++) { 
+                    String columnName =metaData.getColumnLabel(i); 
+                    String value = rs.getString(columnName); 
+                    jsonObj.put(columnName, value);
+                }  
+                array.put(jsonObj); 
+            }
+            //释放资源
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DataBaseUtil.closeConn(conn);
+        }
+
+        return array;
+	}
+
+	public boolean engineAvailable(String engine_id) {
+		Connection conn = DataBaseUtil.getConn();
+        //根据指定的用户名查询信息
+        String sql = "select * from reg_device where engine_id = ?";
+
+        try {
+            //获取PreparedStatement对象，用于执行数据库查询
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, engine_id);
+            //执行查询获取结果集
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (!resultSet.next()) {
+                //如果没有此数据，证明该用户名可用
+                return true;
+            }
+            //释放资源,后创建的先销毁
+            resultSet.close();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DataBaseUtil.closeConn(conn);
+        }
+
+        return false;
 	}
 
 }

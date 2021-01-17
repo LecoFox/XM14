@@ -192,7 +192,7 @@ xt/javascript"
 					</div>
 
 					<center>
-						<button class="act-but1 submit1"style="color: #FFFFFF">确认</button>
+						<button id = "queren" class="act-but1 submit1"style="color: #FFFFFF">确认</button>
 					</center>
 					<br></br>
 
@@ -239,7 +239,7 @@ xt/javascript"
 </html>
 <script>
 	$(document).ready(function() {
-		$("button").click(function() {
+		$("#queren").click(function() {
 			var speed = $('#speed').val();
 			var Time1 = $('#datetime1').val();
 			var Time2 = $('#datetime2').val();

@@ -68,6 +68,9 @@ src="http://api.map.baidu.com/getscript?v=3.0&ak=awORzYNz3svIeWeQ9pGPLnmZletmqfo
 			<div class="top-nav">
 				<span class="menu"><img src="images/menu-icon.png" alt="" /></span>
 				<ul class="nav1">
+					<li><a href="overspeed2.jsp">超速统计</a></li>
+					<li><a href="mileage2.jsp">里程统计</a></li>
+					<li><a href="javascript:openWin('normalgettrack.jsp')">轨迹回放</a></li>
 					<li><a href="reg_vehicle.jsp">车辆注册</a></li>
 					<li><a href="delete_account.jsp">删除账号</a></li>
 					<li><a href="reg_driver.jsp">驾驶员信息注册</a></li>
@@ -88,6 +91,9 @@ src="http://api.map.baidu.com/getscript?v=3.0&ak=awORzYNz3svIeWeQ9pGPLnmZletmqfo
 					<li><a href="#"><span class="fb"> </span></a></li>
 					<li><a href="#"><span class="g"> </span></a></li>
 				</ul>
+				<li id="remainTime" style="color:white;">平台将于<span
+					style="color:red">10</span>s后刷新
+				</li>
 			</div>
 			<div class="clearfix"></div>
 		</div>
@@ -98,15 +104,19 @@ src="http://api.map.baidu.com/getscript?v=3.0&ak=awORzYNz3svIeWeQ9pGPLnmZletmqfo
 						placeholder="Enter your search term..." type="search"
 						name="search" id="search"> <input class="sb-search-submit"
 						type="submit" value=""> <span class="sb-icon-search">
-						</span>
+					</span>
 				</form>
 			</div>
 		</div>
 		<div class="header-info-right">
 			<div class="header cbp-spmenu-push">
-				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"
-					id="cbp-spmenu-s1"> <a href="reg_vehicle.jsp">车辆注册</a> <a
-					href="delete_account.jsp">删除账号</a> <a href="reg_driver.jsp">驾驶员信息注册</a>
+				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1"> 
+					<a href="overspeed2.jsp">超速统计</a>
+					<a href="mileage2.jsp">里程统计</a>
+					<a href="javascript:openWin('normalgettrack.jsp')">轨迹回放</a>
+					<a href="reg_vehicle.jsp">车辆注册</a>
+					<a href="delete_account.jsp">删除账号</a>
+					<a href="reg_driver.jsp">驾驶员信息注册</a>
 				</nav>
 				<!--script-nav -->
 				<script>
@@ -127,6 +137,7 @@ src="http://api.map.baidu.com/getscript?v=3.0&ak=awORzYNz3svIeWeQ9pGPLnmZletmqfo
 				<div class="clearfix"></div>
 				<!-- /script-nav -->
 				<div class="main">
+
 					<button id="showLeftPush">
 						<img src="images/menu.png" /><span>Menu</span>
 					</button>
@@ -178,9 +189,7 @@ src="http://api.map.baidu.com/getscript?v=3.0&ak=awORzYNz3svIeWeQ9pGPLnmZletmqfo
 									<td class="td1">车主：</td>
 									<td class="td2">
 										<div class="input_outer2">
-											<input class="text1" type="text" name="owner"
-												value=<%=user.getUsername()%>
-												style="color: #FFFFFF !important" class="box">
+										<input class="text1" type="text" readonly="readonly" name="owner" value=<%=user.getUsername()%> style="color: #FFFFFF !important" class="box">
 										</div>
 									</td>
 								</tr>
