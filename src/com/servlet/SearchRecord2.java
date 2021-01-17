@@ -33,7 +33,7 @@ public class SearchRecord2 extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 		List jsonList = new ArrayList();
 		int cnt=0;
-		
+		String show=request.getParameter("show");
 		HttpSession session =request.getSession(false);
 		String s = (String) session.getAttribute("username");
 		System.out.println(s);
@@ -54,31 +54,31 @@ public class SearchRecord2 extends HttpServlet {
 			
 			int count = 0;
 			while (rs.next()) {
-				count = count + 1;
-				Map map = new HashMap();
-				map.put("index", count);
-				map.put("device_id", rs.getString("Device_id"));
-				map.put("location", rs.getString("Location"));
-				map.put("name", rs.getString("car_name"));
-				map.put("lon", rs.getString("Lon"));
-				map.put("lat", rs.getString("Lat"));
-				map.put("start", rs.getString("Start"));
-				map.put("speed", rs.getString("Speed"));
-				map.put("carImg", rs.getString("carImg"));
-				map.put("direction", rs.getString("Direction"));
-				PreparedStatement preparedStatement = conn.prepareStatement(sql1);
-				preparedStatement.setString(1,s);
-				//执行查询获取结果集
-				ResultSet resultSet = preparedStatement.executeQuery();
-				
-				while(resultSet.next()){
-					if((rs.getString("Device_id")).equals(resultSet.getString("Device_id"))){
-						cnt=cnt+1;
-						jsonList.add(map);
+				if(show.equals("全部")||rs.getString("Start").substring(0, 2).equals(show)){
+					count = count + 1;
+					Map map = new HashMap();
+					map.put("index", count);
+					map.put("device_id", rs.getString("Device_id"));
+					map.put("location", rs.getString("Location"));
+					map.put("name", rs.getString("car_name"));
+					map.put("lon", rs.getString("Lon"));
+					map.put("lat", rs.getString("Lat"));
+					map.put("start", rs.getString("Start"));
+					map.put("speed", rs.getString("Speed"));
+					map.put("carImg", rs.getString("carImg"));
+					map.put("direction", rs.getString("Direction"));
+					PreparedStatement preparedStatement = conn.prepareStatement(sql1);
+					preparedStatement.setString(1,s);
+					//执行查询获取结果集
+					ResultSet resultSet = preparedStatement.executeQuery();
+					
+					while(resultSet.next()){
+						if((rs.getString("Device_id")).equals(resultSet.getString("Device_id"))){
+							cnt=cnt+1;
+							jsonList.add(map);
+						}
 					}
 				}
-				
-				
 			}
 			statement.close();
 			conn.close();
