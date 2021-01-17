@@ -71,6 +71,9 @@ html, body {
 	<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
 	<link href="css/style.css" rel='stylesheet' type='text/css' />
 	<script src="js/jquery-1.11.0.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.css">
+  	<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.js"></script>
+	
 	<link
 		href='http://fonts.useso.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
 		rel='stylesheet' type='text/css'>
@@ -92,6 +95,7 @@ html, body {
 		<link rel="stylesheet" type="text/css" href="css/demo.css" />
 		<!--必要样式-->
 		<link rel="stylesheet" type="text/css" href="css/component.css" />
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.5/pagination.min.js"></script>
 </head>
 
 
@@ -211,11 +215,18 @@ html, body {
 				<div style="float:left;width:70px;font-size:3px;color:white">
 					<input class="checkbox_func" type="checkbox" id="label">设备名称</div>
 				<div style="float:left;width:70px;font-size:3px;color:white">
-					<input class="checkbox_func" type="checkbox" id="device">状态提醒</div>
+					<input class="checkbox_func" type="checkbox" id="device" onclick = "sorttable();">状态提醒</div>
 				<div style="float:left;width:70px;font-size:3px;color:white">
 					<input class="checkbox_func" type="checkbox" id="track" onclick="setDeviceTrack();">轨迹红线</div>
 			</div>
 			<div style="position:absolute;height:95%;width:290px;overflow:auto" id="deviceTable"></div>
+			<div class="page_btn clear"> 
+            	<span class="page_box"> 
+                	<a class="prev">上一页</a>
+                	<span class="num"><span class="current_page">1</span><span style="padding:0 3px;">/</span><span class="total"></span></span>
+                	<a class="next">下一页</a> 
+            	</span> 
+        	</div>
 		</div>
 		<div style="height:100%;border:#ccc solid 1px;" id="dituContent"></div>
 	</div>
@@ -242,6 +253,12 @@ html, body {
 		var point = new BMap.Point(108.946465,34.347269); //定义一个中心点坐标
 		map.centerAndZoom(point, 5); //设定地图的中心点和坐标并将地图显示在地图容器中
 		window.map = map; //将map变量存储在全局
+		var Markers=[];
+		window.markers=Markers;
+		var infos=[];
+		window.infos=infos;
+		var oldid = 'row1';
+		window.oldid=oldid;
 	}
 
 	//地图事件设置函数：
@@ -283,8 +300,9 @@ html, body {
 		var iconImg = createMyIcon(png);
 		var marker = new BMap.Marker(point, {
 			icon : iconImg,
-			rotation : 0
+			rotation : 0,
 		});
+		
 		var label = new BMap.Label(title, {
 			"offset" : new BMap.Size(9, -20)
 		});
@@ -316,9 +334,19 @@ html, body {
 			var index = 0;
 			var _iw = createInfoWindow(lon, lat, title, location, status, speed,deviceid);
 			var _marker = marker;
+			var index = title.substring(2);
+			//console.log(index);
+			var id = 'row'+index;
+			//console.log(id);
+			markers.unshift(marker);
+			infos.unshift(_iw);
 			_marker.addEventListener("click", function() {
 				setLock(lon, lat);
 				this.openInfoWindow(_iw);
+				rowchange(oldid,false);
+				rowchange(id,true);
+				oldid=id;
+				console.log(oldid);
 			});
 			_iw.addEventListener("open", function() {
 				_marker.getLabel().hide();
@@ -334,7 +362,8 @@ html, body {
 				label.hide();
 				_marker.openInfoWindow(_iw);
 			}
-		})()
+		})	()
+		
 	}
 	//创建InfoWindow
 	function createInfoWindow(lon, lat, title, location, status, speed,deviceid) {
@@ -403,6 +432,8 @@ html, body {
 		    			poly_old.push(new BMap.Point(lon, lat));
 		    		}
 		    		map.removeOverlay(allOverlay[i]);
+		    		markers = [];
+		    		infos=[];
             	}
 			}
 			var list = json.aaData;
@@ -429,9 +460,10 @@ html, body {
 						drawTrack(poly_old[i], young);
 					}
 				}
+				
 				var tableInfos = document.getElementById('deviceTable');
 				var code = '';
-				for (var i = list.length - 1; i >= 0; i--) {
+				for (var i = list.length-1; i >=0; i--) {
 					var lon = Number(list[i].lon);
 					var lat = Number(list[i].lat);
 					var name = list[i].name;
@@ -439,17 +471,31 @@ html, body {
 					var start = list[i].start;
 					var status = start.substr(0, 2);
 					var location = list[i].location;
-					var time = list[i].GPS_time;
-					var row = 'row' + i;
-					code += '<div id="' + row + '" style="height:50px;overflow:auto">';
-					code += '<div style="float:left;width:50px;font-size:3px;color:white" id="column' + i + '1">&nbsp;&nbsp;' + name + '</div>';
-					code += '<div style="float:left;width:20px;font-size:3px;color:white" id="column' + i + '2">' + speed + '</div>';
-					code += '<div style="float:left;width:30px;font-size:3px;color:white" id="column' + i + '3">' + status + '</div>';
-					code += '<div style="float:left;width:80px;font-size:3px;color:white" id="column' + i + '4">' + location + '</div>';
-					code += '<div style="float:left;width:80px;font-size:3px;color:white" id="column' + i + '5">' + time + '</div>';
+					var time = list[i].GPS_time;				
+					var index = 25-i;
+					var row = 'row' + index;
+					//1~25
+					code += '<div id="' + row + '" data-id = "'+location+'" class = "devicelist" style="height:50px;overflow:auto" index = "' + index + '" onmouseover=rowchange("'+ row +'",'+true+') onmouseout = rowchange("'+row+'",'+false+')>';
+					code += '<div style="float:left;width:50px;font-size:3px;color:white" id="column' + index + '-1">&nbsp;&nbsp;' + name + '</div>';
+					code += '<div style="float:left;width:20px;font-size:3px;color:white" id="column' + index + '-2">' + speed + '</div>';
+					code += '<div style="float:left;width:30px;font-size:3px;color:white" id="column' + index + '-3">' + status + '</div>';
+					code += '<div style="float:left;width:80px;font-size:3px;color:white" id="column' + index + '-4">' + location + '</div>';
+					code += '<div style="float:left;width:80px;font-size:3px;color:white" id="column' + index + '-5">' + time + '</div>';
 					code += '</div>';
 				}
+				code
 				tableInfos.innerHTML = code;
+				for (var i =1; i<=list.length; i++){
+					$("#row" + i).click(function(){
+					//这里用前面title、address、telephone三个数组中存放的值来拼信息窗里的html代码，存在变量content中，然后：
+					 //var info = createInfoWindow(Number(list[i].lon).toFixed(5), Number(list[i].lat).toFixed(5), list[i].name, list[i].location, list[i].start.substr(0, 2), Number(list[i].speed).toFixed(2),list[i].device_id);
+					//利用在第一个问题中的markerArr数组设置触发函数，但注意数组的索引值不能用i，因为函数运行时i已不存在，因此在构造结果面板时，每个节点我添加了一个index属性，并用下面的代码获取，设置属性的代码类似于：<div id='poi5' index='5'></div>                        
+					var index = $(this).attr("index")-1;
+					setLock(Number(list[24-index].lon).toFixed(5), Number(list[24-index].lat).toFixed(5)); 
+					markers[index].openInfoWindow(infos[index]);
+					})
+				}
+				sorttable();
 			}
 		});
 		document.getElementById("label").checked = false;
@@ -595,6 +641,157 @@ html, body {
 		});
 	}
 	window.setInterval(sendYuejieMessage,300000);
+</script>
+<script>
+function rowchange(id,flag){
+	if(flag==true){
+		document.getElementById(id).style.backgroundColor="grey";
+	}
+	else if(flag==false){
+		document.getElementById(id).style.backgroundColor="black";
+	}
+}
+</script>
+
+<<script type="text/javascript">
+function sorttable(){
+	//console.log("sorttable2");
+	var test = document.getElementById("device").checked;
+	//console.log(test);
+    if(test){
+    	var aDiv = document.getElementsByClassName('devicelist');
+    	    var arr = [];
+    	    for(var i=0;i<aDiv.length;i++)
+    	    {
+    			//console.log(aDiv[i].getAttribute('data-id'));
+    	        arr.push(aDiv[i]);  //aDiv是元素的集合，并不是数组bai，所以不能直接用数组的sort进行排序。
+    	    }
+    		arr = arr.sort(function compareFunction(a, b) {
+    		    return a.getAttribute('data-id').localeCompare(b.getAttribute('data-id'));
+    		});
+    	    for(var i=0;i<arr.length;i++)
+    	    {
+    			//console.log(aDiv[i].getAttribute('data-id'));
+    	        document.getElementById('deviceTable').appendChild(arr[i]); //将排好序的元素，重新塞到body里面显示。
+    	    }
+     }else{
+        //dosomething
+      }
+    }
+</script>
+<script>
+        //分页
+        $(function() {
+
+            $('.setPageDiv').change(function() {
+
+                getMsg(parseInt($(this).val()))
+            })
+
+            function getMsg(num) {
+                $.ajax({
+                    url: 'data/bussiness.json',
+                    type: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        //1.计算分页数量
+                        var showNum = num;
+                        var dataL = data.list.length;
+                        var pageNum = Math.ceil(dataL / showNum);
+                        $('.Pagination').pagination(pageNum, {
+                            num_edge_entries: 1, //边缘页数
+                            num_display_entries: 4, //主体页数
+                            items_per_page: 1, //每页显示1项
+                            prev_text: "上一页",
+                            next_text: "下一页",
+                            callback: function(index) {
+                                //console.log(index);
+                                var html = '<ul>'
+
+                                console.log(showNum * index + '~' + parseInt(showNum * index) + parseInt(showNum))
+                                for(var i = showNum * index; i < showNum * index + showNum; i++) {
+                                    //console.log(i)
+                                    if(i < dataL) {
+
+                                        var img = data.list[i].img;
+                                        var manager = data.list[i].manager; //交易类型
+                                        html += "<div class='row'>";
+                                        html += "<div class='col-md-1   col-xs-1'>"
+                                        html += "<img src='" + img + "'/   class='img-responsive'>"
+                                        html += "</div>"
+                                        html += "<div class='col-md-3   col-xs-3'>"
+                                        html += "<p>" + manager + "</p>"
+                                        html += "</div></div>";
+
+                                    }
+                                }
+                                html += '</ul>';
+                                $('.list').html(html)
+                            }
+                        })
+
+                    }
+                })
+            }
+            getMsg(6)
+
+        })
+ </script>
+ <script type="text/javascript" >
+	$(function(){
+
+		//实现分页思路:
+		var pageSize=10;      //每页显示数据条数
+		var currentPage=1;   //当前页数
+		var totalSize=$("#devicelist").index(); //获取总数据
+		var totalPage=Math.round(totalSize/pageSize); //计算总页数
+		$("#devicelist:gt(9)").hide(); //设置首页显示4条数据
+		$(".total").text(totalPage);  //设置总页数
+		$(".current_page").text(currentPage); //设置当前页数
+		
+		//实现下一页
+		$(".next").click(function(){
+			if(currentPage ==totalPage){ //当前页数==最后一页，禁止下一页
+				   return false;
+				}else{//不是最后一页，显示应该显示的数据.
+				    $(".current_page").text(++currentPage);  //当前页数先+1
+					var start=pageSize*(currentPage-1);
+					var end=pageSize*currentPage;
+					$.each($('#devicelist'),function(index,item){
+							if(index >=start && index < end){
+								$(this).show();
+								}
+								else{
+									$(this).hide();
+									}
+						});
+					
+					}
+			});
+			
+			//实现上一页
+		$(".prev").click(function(){
+			if(currentPage == 1){//当前页数==1，禁止上一页
+			     return false;
+				}else{
+					 $(".current_page").text(--currentPage);  //当前页数先-1
+					 var start=pageSize*(currentPage-1);
+					 var end=pageSize*currentPage;
+					 $.each($('#devicelist'),function(index,item){
+						   if(index >=start && index < end){
+								$(this).show();
+								}
+								else{
+									$(this).hide();
+									}
+						 });
+					}
+			
+			});
+		
+		
+		});
+
 </script>
 
 
