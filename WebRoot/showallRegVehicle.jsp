@@ -173,6 +173,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<th class="column4">品牌</th>
 								<th class="column5">模型</th>
 								<th class="column6">发动机号</th>
+								<th class="column6">驾驶证号</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -186,6 +187,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 										<td class="column4">${U.brand}</td>
 										<td class="column5">${U.model}</td>
 										<td class="column6">${U.engine_id}</td>
+										<td class="column6">${U.driver_id}</td>
 									</tr>
 								</form>
 							</c:forEach>

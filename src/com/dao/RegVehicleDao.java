@@ -71,6 +71,7 @@ public class RegVehicleDao {
 				regVehicle.setBrand(resultSet.getString("brand"));
 				regVehicle.setModel(resultSet.getString("model"));
 				regVehicle.setEngine_id(resultSet.getString("engine_id"));
+				regVehicle.setDriver_id(resultSet.getString("driver_id"));
 				list.add(regVehicle);
 			}
 			//释放资源,后创建的先销毁
@@ -88,7 +89,7 @@ public class RegVehicleDao {
         Connection conn = DataBaseUtil.getConn();
         //插入信息的sql语句
         //String sql = "insert into reg_device(carimg,owner,chepai,brand,device_id,engine_id,model) values(?,?,?,?,?,?,?)";
-        String sql = "insert into reg_device(owner,chepai,brand,device_id,engine_id,model) values(?,?,?,?,?,?)";
+        String sql = "insert into reg_device(owner,chepai,brand,device_id,engine_id,model,driver_id) values(?,?,?,?,?,?,?)";
         try {
             PreparedStatement ps = conn.prepareStatement(sql);
             //ps.setString(1, vehicle.getCarImg());
@@ -96,8 +97,9 @@ public class RegVehicleDao {
             ps.setString(2, vehicle.getChepai());
             ps.setString(3, vehicle.getBrand());
             ps.setString(4, vehicle.getDevice_id());
-            ps.setString(5,vehicle.getEngine_id());
+            ps.setString(5, vehicle.getEngine_id());
             ps.setString(6, vehicle.getModel());
+            ps.setString(7, vehicle.getDriver_id());
             //执行更新操作
             System.out.println(sql);
             ps.executeUpdate();
@@ -156,7 +158,7 @@ public class RegVehicleDao {
 				+ " ROUND(((AVG(speed) / 60 * TIMESTAMPDIFF(MINUTE,MIN(GPS_time),MAX(GPS_time)))*0.08), 2) as refer_gasoline ,"
 				+ " ROUND(Max(speed), 2) as maxspeed,MIN(GPS_time) as btime,MAX(GPS_time) as etime, "
 				+ "ROUND((AVG(speed) / 60 * TIMESTAMPDIFF(MINUTE,MIN(GPS_time),MAX(GPS_time)) + 123.67), 2) as total_mile, "
-				+ "ROUND(((AVG(speed) / 60 * TIMESTAMPDIFF(MINUTE,MIN(GPS_time),MAX(GPS_time)) + 123.67)*0.08), 2) as total_gasoline"
+				+ "ROUND(((AVG(speed) / 60 * TIMESTAMPDIFF(MINUTE,MIN(GPS_time),MAX(GPS_time)) + 123.67)*0.08), 2) as total_gasoline "
 				+ "from bcx_data where device_id = ? AND GPS_time>=? AND GPS_time<=? group by device_id";
 		System.out.println("sql语句是： " + sql);
 		try {

@@ -212,6 +212,15 @@ src="http://api.map.baidu.com/getscript?v=3.0&ak=awORzYNz3svIeWeQ9pGPLnmZletmqfo
 									</td>
 								</tr>
 								<tr>
+									<td class="td1">驾驶证号：</td>
+									<td class="td2">
+										<div class="input_outer2">
+											<input class="text1" type="text" name="driverid"
+												style="color: #FFFFFF !important" class="box">
+										</div>
+									</td>
+								</tr>
+								<tr>
 									<td class="td5" colspan="2"><input
 										type="submit" value="注册" class="act-but1 submit1"
 										onclick="document:regvehicle.submit()"> <input

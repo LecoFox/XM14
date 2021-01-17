@@ -56,7 +56,7 @@ public class DriverDao {
 		//获取数据库连接
 		Connection conn = DataBaseUtil.getConn();
 		//插入信息的sql语句
-		String sql = "insert into driver(driver_id,name,sex,birthday,validity_period,phone_number,engine_id) values(?,?,?,?,?,?,?)";
+		String sql = "insert into driver(driver_id,name,sex,birthday,validity_period,phone_number) values(?,?,?,?,?,?)";
 		try {
 			PreparedStatement ps = conn.prepareStatement(sql);
 			ps.setObject(1, driver.getDriverId());
@@ -65,7 +65,7 @@ public class DriverDao {
 			ps.setObject(4, driver.getBirthday());
 			ps.setObject(5, driver.getValidityPeriod());
 			ps.setObject(6, driver.getPhoneNumber());
-			ps.setObject(7, driver.getEngineId());
+			//ps.setObject(7, driver.getEngineId());
 			//执行更新操作
 			System.out.println(sql);
 			ps.executeUpdate();
