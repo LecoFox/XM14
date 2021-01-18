@@ -63,20 +63,18 @@ xt/javascript"
 	<div class="header-top" id="home">
 		<div class="container">
 			<div class="header-logo">
-				<a href="front.jsp"><img src="images/logo.png" alt="" /></a>
+				<a href="front2.jsp"><img src="images/logo.png" alt="" /></a>
 			</div>
 
 			<div class="top-nav">
 				<span class="menu"><img src="images/menu-icon.png" alt="" /></span>
 				<ul class="nav1">
-					<li><a href="SearchallRegVehicle">车辆注册信息</a></li>
-					<li><a href="Searchall">用户注册信息</a></li>
-					<li><a href="loginstatus.jsp">用户在线信息</a></li>
-					<li><a href="overspeed.jsp">超速统计</a></li>
-					<li><a href="mileage.jsp">里程统计</a></li>
-					<li><a id="#b01" href="">一键提醒</a></li>
-					<li><a href="javascript:openWin('gettrack.jsp')">轨迹回放</a></li>
-					<li><a href="SendYuejie">越界提醒</a></li>
+					<li><a href="overspeed2.jsp">超速统计</a></li>
+					<li><a href="mileage2.jsp">里程统计</a></li>
+					<li><a href="javascript:openWin('normalgettrack.jsp')">轨迹回放</a></li>
+					<li><a href="reg_vehicle.jsp">车辆注册</a></li>
+					<li><a href="delete_account.jsp">删除账号</a></li>
+					<li><a href="reg_driver.jsp">驾驶员信息注册</a></li>
 				</ul>
 				<!-- script-for-menu -->
 				<script>
@@ -112,14 +110,12 @@ xt/javascript"
 			<div class="header cbp-spmenu-push">
 				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"
 					id="cbp-spmenu-s1">
-					<a href="SearchallRegVehicle">车辆注册信息</a>
-					<a href="Searchall">用户注册信息</a>
-					<a href="loginstatus.jsp">用户在线信息</a>
-					<a href="overspeed.jsp">超速统计</a>
-					<a href="mileage.jsp">里程统计</a>
-					<a id="#b01" href="">一键提醒</a>
-					<a href="javascript:openWin('gettrack.jsp')">轨迹回放</a>
-					<a href="SendYuejie">越界提醒</a>
+					<a href="overspeed2.jsp">超速统计</a>
+					<a href="mileage2.jsp">里程统计</a>
+					<a href="javascript:openWin('normalgettrack.jsp')">轨迹回放</a>
+					<a href="reg_vehicle.jsp">车辆注册</a>
+					<a href="delete_account.jsp">删除账号</a>
+					<a href="reg_driver.jsp">驾驶员信息注册</a>
 				</nav>
 				<!--script-nav -->
 				<script>
