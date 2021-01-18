@@ -36,7 +36,7 @@ public class SearchRecord2 extends HttpServlet {
 		String show=request.getParameter("show");
 		HttpSession session =request.getSession(false);
 		String s = (String) session.getAttribute("username");
-		System.out.println(s);
+		//System.out.println(s);
 		
 		try {
 			Connection conn = DataBaseUtil.getConn();
@@ -67,8 +67,11 @@ public class SearchRecord2 extends HttpServlet {
 					map.put("speed", rs.getString("Speed"));
 					map.put("carImg", rs.getString("carImg"));
 					map.put("direction", rs.getString("Direction"));
+					map.put("GPS_time", rs.getString("GPS_time"));
 					PreparedStatement preparedStatement = conn.prepareStatement(sql1);
-					preparedStatement.setString(1,s);
+					if(s!=null){
+						preparedStatement.setString(1,s);
+					}
 					//执行查询获取结果集
 					ResultSet resultSet = preparedStatement.executeQuery();
 					

@@ -30,7 +30,7 @@ public class SearchRecord extends HttpServlet {
 		response.setCharacterEncoding("UTF=8");
 		response.setContentType("text/html;charset=UTF-8");
 		String show=request.getParameter("show");
-		System.out.println("-------"+show+"---------");
+		//System.out.println("-------"+show+"---------");
 		List jsonList = new ArrayList();
 		try {
 			Connection conn = DataBaseUtil.getConn();
