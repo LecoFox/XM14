@@ -69,8 +69,8 @@ xt/javascript"
 			<div class="top-nav">
 				<span class="menu"><img src="images/menu-icon.png" alt="" /></span>
 				<ul class="nav1">
-					<li><a href="SearchallRegVehicle">车辆注册信息</a></li>
-					<li><a href="Searchall">用户注册信息</a></li>
+					<li><a href="showallRegVehicle.jsp">车辆注册信息</a></li>
+					<li><a href="showall.jsp">用户注册信息</a></li>
 					<li><a href="loginstatus.jsp">用户在线信息</a></li>
 					<li><a href="overspeed.jsp">超速统计</a></li>
 					<li><a href="mileage.jsp">里程统计</a></li>
@@ -112,8 +112,8 @@ xt/javascript"
 			<div class="header cbp-spmenu-push">
 				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"
 					id="cbp-spmenu-s1"> 
-					<a href="SearchallRegVehicle">车辆注册信息</a>
-					<a href="Searchall">用户注册信息</a>
+					<a href="showallRegVehicle.jsp">车辆注册信息</a>
+					<a href="showall.jsp">用户注册信息</a>
 					<a href="loginstatus.jsp">用户在线信息</a>
 					<a href="overspeed.jsp">超速统计</a>
 					<a href="mileage.jsp">里程统计</a>

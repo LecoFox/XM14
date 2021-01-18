@@ -299,5 +299,83 @@ public class RegVehicleDao {
 
         return false;
 	}
+	
+	public JSONArray GetAllReg() throws JSONException {
+		// TODO Auto-generated method stub
+		JSONArray array = new JSONArray();
+        Connection conn = DataBaseUtil.getConn();
+        String sql = "select * from reg_device";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            
+            //执行查询获取结果集
+            ResultSet rs = ps.executeQuery();
+            
+            ResultSetMetaData metaData = rs.getMetaData(); 
+            int columnCount = metaData.getColumnCount();
+            
+            //将结果集转换为jsonarray
+            while (rs.next()) {
+            	JSONObject jsonObj = new JSONObject();
+            	for (int i = 1; i <= columnCount; i++) { 
+                    String columnName =metaData.getColumnLabel(i); 
+                    String value = rs.getString(columnName); 
+                    jsonObj.put(columnName, value);
+                }  
+                array.put(jsonObj); 
+            }
+            //释放资源
+            rs.close();
+            ps.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DataBaseUtil.closeConn(conn);
+        }
 
+        return array;
+	}
+	public boolean delete(String deviceid){
+        Connection conn = DataBaseUtil.getConn();
+        String sql = "delete from reg_device where device_id = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, deviceid);
+            //执行更新操作
+            System.out.println(sql);
+            ps.executeUpdate();
+            //释放资源
+            ps.close();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DataBaseUtil.closeConn(conn);
+        }
+        return false;
+    }
+	public boolean UpdateReg(String engineid, String driverid,String deviceid) {
+        //实例化一个用户对象
+        Connection conn = DataBaseUtil.getConn();
+        //String sql = "select * from tb_user where username = ? and password = ?";
+        String sql= "update reg_device set engine_id = ?, driver_id = ? where device_id = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, engineid);
+            ps.setString(2, driverid);
+            ps.setString(3, deviceid);
+            //执行查询获取结果集
+            int rs = ps.executeUpdate();
+
+            //判断结果集是否有效,如果有效，则准备对密码进行修改
+            //释放资源
+            ps.close();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DataBaseUtil.closeConn(conn);
+        }
+        return false;
+    }
 }

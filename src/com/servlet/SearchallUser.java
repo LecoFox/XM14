@@ -25,7 +25,7 @@ import com.model.RegVehicle;
 import com.utils.DataBaseUtil;
 
 
-public class SearchallRegVehicle extends HttpServlet {
+public class SearchallUser extends HttpServlet {
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doPost(request, response);
@@ -38,8 +38,8 @@ public class SearchallRegVehicle extends HttpServlet {
 		
 		String tmp1=request.getParameter("limit");
 		String tmp2=request.getParameter("offset");
-		String owner=request.getParameter("owner");
-		String driver=request.getParameter("driver");
+		String username=request.getParameter("username");
+		String type=request.getParameter("type");
 		String order=request.getParameter("order");
 		String ordername=request.getParameter("ordername");
 		int limit=0;
@@ -56,8 +56,8 @@ public class SearchallRegVehicle extends HttpServlet {
 		}
 		System.out.println("limit:"+limit);
 		System.out.println("offset:"+offset);
-		System.out.println("owner:"+owner);
-		System.out.println("driver:"+driver);
+		System.out.println("username:"+username);
+		System.out.println("type:"+type);
 		System.out.println("order:"+order);
 		System.out.println("ordername:"+ordername);
 		//String show=request.getParameter("show");
@@ -70,37 +70,37 @@ public class SearchallRegVehicle extends HttpServlet {
 			// ����sql��䣬���ݴ��ݹ����Ĳ�ѯ��������
 			String sql="";
 			PreparedStatement preparedStatement=null;
-			sql="select * from reg_device";
+			sql="select * from tb_user";
 			preparedStatement = conn.prepareStatement(sql);
 			ResultSet tmprs = preparedStatement.executeQuery();
 			
 			while (tmprs.next()) {
 				size = size + 1;	
 			}
-			if(owner.equals("") && driver.equals(""))
+			if(username.equals("") && type.equals(""))
 			{
-				sql = "select * from reg_device order by "+ ordername + " "+ order +" limit ?,?";
+				sql = "select * from tb_user order by "+ ordername + " "+ order +" limit ?,?";
 				System.out.println("1");
 				preparedStatement = conn.prepareStatement(sql);
 				preparedStatement.setInt(1, offset);
 				preparedStatement.setInt(2, limit);
 				
 			}
-			else if(!owner.equals("")&&driver.equals("")){
-				sql = "select * from reg_device where owner=? order by "+ ordername + " "+ order +" limit ?,?";
+			else if(!username.equals("")&&type.equals("")){
+				sql = "select * from tb_user where username=? order by "+ ordername + " "+ order +" limit ?,?";
 				System.out.println("2");
 				preparedStatement = conn.prepareStatement(sql);
-				preparedStatement.setString(1, owner);
+				preparedStatement.setString(1, username);
 				//preparedStatement.setString(2, ordername);
 				//preparedStatement.setString(3, order);
 				preparedStatement.setInt(2, offset);
 				preparedStatement.setInt(3, limit);
 			}
-			else if(!driver.equals("")&&owner.equals("")){
-				sql = "select * from reg_device where driver_id=? order by "+ ordername + " "+ order +" limit ?,?";
+			else if(!type.equals("")&&username.equals("")){
+				sql = "select * from tb_user where type=? order by "+ ordername + " "+ order +" limit ?,?";
 				System.out.println("3");
 				preparedStatement = conn.prepareStatement(sql);
-				preparedStatement.setString(1, driver);
+				preparedStatement.setString(1, type);
 				//preparedStatement.setString(2, ordername);
 				//preparedStatement.setString(3, order);
 				preparedStatement.setInt(2, offset);
@@ -108,10 +108,10 @@ public class SearchallRegVehicle extends HttpServlet {
 			}
 			else{
 				System.out.println("4");
-				sql = "select * from reg_device where driver_id=? and owner=? order by "+ ordername + " "+ order +" limit ?,?";
+				sql = "select * from tb_user where type=? and username=? order by "+ ordername + " "+ order +" limit ?,?";
 				preparedStatement = conn.prepareStatement(sql);
-				preparedStatement.setString(1, driver);
-				preparedStatement.setString(2, owner);
+				preparedStatement.setString(1, type);
+				preparedStatement.setString(2, username);
 				//preparedStatement.setString(3, ordername);
 				//preparedStatement.setString(4, order);
 				preparedStatement.setInt(3, offset);
@@ -126,13 +126,11 @@ public class SearchallRegVehicle extends HttpServlet {
 					count = count + 1;
 					Map map = new HashMap();
 					map.put("index", count);
-					map.put("device_id", rs.getString("Device_id"));
-					map.put("owner", rs.getString("owner"));
-					map.put("chepai", rs.getString("chepai"));
-					map.put("brand", rs.getString("brand"));
-					map.put("engine_id", rs.getString("engine_id"));
-					map.put("model", rs.getString("model"));
-					map.put("driver_id", rs.getString("driver_id"));
+					map.put("username", rs.getString("username"));
+					map.put("sex", rs.getString("sex"));
+					map.put("question", rs.getString("question"));
+					map.put("email", rs.getString("email"));
+					map.put("type", rs.getString("type"));
 					jsonList.add(map);
 			}
 			statement.close();

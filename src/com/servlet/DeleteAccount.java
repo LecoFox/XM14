@@ -64,7 +64,7 @@ public class DeleteAccount extends HttpServlet {
         	System.out.println("-----未能删除账号-----");
         	request.setAttribute("delete", "0");          // 设置错误属性
         	System.out.println("-----未能删除账号-----");
-        	request.getRequestDispatcher("front.jsp").forward(request, response);
+        	request.getRequestDispatcher("front2.jsp").forward(request, response);
         }
 	}
 
