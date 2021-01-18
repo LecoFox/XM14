@@ -8,17 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import com.dao.RegVehicleDao;
 import com.dao.UserDao;
 import com.model.RegVehicle;
 import com.model.User;
 
-public class RegVehicleServlet extends HttpServlet {
+public class TableRegVeh extends HttpServlet {
 
 	/**
 		 * Constructor of the object.
 		 */
-	public RegVehicleServlet() {
+	public TableRegVeh() {
 		super();
 	}
 
@@ -69,9 +72,8 @@ public class RegVehicleServlet extends HttpServlet {
 		 */
 	public void doPost(HttpServletRequest req, HttpServletResponse response) throws ServletException, IOException {
 
-		response.setContentType("text/html;charset=utf-8");
         req.setCharacterEncoding("utf-8");
-
+        response.setContentType("application/json; charset=UTF-8");
         //获取车辆登记信息
         String device_id = req.getParameter("deviceid");
         String engine_id = req.getParameter("engineid");
@@ -83,10 +85,10 @@ public class RegVehicleServlet extends HttpServlet {
         System.out.println("获取车辆登记信息成功");
         //实例化RegVehicleDao对象
         RegVehicleDao vehicleDao = new RegVehicleDao();
-        
+        JSONObject json = new JSONObject();
         if (!device_id.equals("请选择")) {
-			if(engine_id !=""){
-				
+        	if (!owner.equals("请选择")) {
+        		if(engine_id !=""){
 					//实例化一个User对象
 					RegVehicle vehicle = new RegVehicle();
 		            //对用户对象的属性赋值
@@ -99,27 +101,66 @@ public class RegVehicleServlet extends HttpServlet {
 		            vehicle.setDriver_id(driver_id);
 					if(vehicleDao.engineAvailable(engine_id)){
 						vehicleDao.saveVehicle(vehicle);
-						req.setAttribute("info", "注册成功！ <br>");
-						req.setAttribute("flag","1");
+						try {
+							json.put("result_msg", "注册成功"); // ���������������ó�"error"��
+							json.put("result_code", 200); // ����0��ʾ������������0�ͱ�ʾ�д���������������
+							// System.out.println("�����õ���json�ǣ�"+json.toString());
+							
+						} catch (JSONException e1) {
+							e1.printStackTrace();
+						}
 					}
 					else {
-						req.setAttribute("info", "此车辆已绑定！<br>注册失败！<br>");
-						req.setAttribute("flag","0");
+						try {
+							json.put("result_msg", "车辆已绑定！注册失败"); // ���������������ó�"error"��
+							json.put("result_code", 0); // ����0��ʾ������������0�ͱ�ʾ�д���������������
+							// System.out.println("�����õ���json�ǣ�"+json.toString());
+							
+						} catch (JSONException e1) {
+							e1.printStackTrace();
+						}
 					}
-			}
-			else{
-				req.setAttribute("info", "发动机号为空！<br>注册失败！<br>");
-				req.setAttribute("flag","0");
-			}
-		}
-        else{
-        	req.setAttribute("info", "选择非法设备号！<br>注册失败！<br>");
-			req.setAttribute("flag","0");
+        		}
+        	
+        		else{
+        			try {
+        				json.put("result_msg", "发动机号为空！<br>注册失败！<br>"); // ���������������ó�"error"��
+        				json.put("result_code", 0); // ����0��ʾ������������0�ͱ�ʾ�д���������������
+        				// System.out.println("�����õ���json�ǣ�"+json.toString());
+					
+        			} catch (JSONException e1) {
+        				e1.printStackTrace();
+        			}
+        		}
+        	}
+        	else{
+        		try {
+    				json.put("result_msg", "选择非法用户名！<br>注册失败！<br>"); // ���������������ó�"error"��
+    				json.put("result_code", 0); // ����0��ʾ������������0�ͱ�ʾ�д���������������
+    				// System.out.println("�����õ���json�ǣ�"+json.toString());
+    				
+    			} catch (JSONException e1) {
+    				e1.printStackTrace();
+    			}
+        	}
         }
-		
-		//转发到message.jsp页面
-		req.setAttribute("type", "register");
-		req.getRequestDispatcher("regvehmsg.jsp").forward(req, response);
+        else{
+        	try {
+				json.put("result_msg", "选择非法设备号！<br>注册失败！<br>"); // ���������������ó�"error"��
+				json.put("result_code", 0); // ����0��ʾ������������0�ͱ�ʾ�д���������������
+				// System.out.println("�����õ���json�ǣ�"+json.toString());
+				
+			} catch (JSONException e1) {
+				e1.printStackTrace();
+			}
+        }
+        try {
+			response.getWriter().print(json);
+			response.getWriter().flush();
+			response.getWriter().close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

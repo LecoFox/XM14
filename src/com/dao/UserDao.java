@@ -343,4 +343,30 @@ public class UserDao {
 
         return array;
 	}
+
+	public boolean UpdateUsr(String question, String email, String type, String username) {
+		// TODO Auto-generated method stub
+		Connection conn = DataBaseUtil.getConn();
+        //String sql = "select * from tb_user where username = ? and password = ?";
+        String sql= "update tb_user set question = ?, email = ?, type=? where username = ?";
+        try {
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, question);
+            ps.setString(2, email);
+            ps.setString(3, type);
+            ps.setString(4,username);
+            //执行查询获取结果集
+            int rs = ps.executeUpdate();
+
+            //判断结果集是否有效,如果有效，则准备对密码进行修改
+            //释放资源
+            ps.close();
+            return true;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DataBaseUtil.closeConn(conn);
+        }
+        return false;
+	}
 }

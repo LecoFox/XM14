@@ -8,6 +8,7 @@ public class Vehicle {
 	private String status;
 	private String speed;
 	private String loca;
+	private String Driver_id;
 	public String getDevice_id() {
 		return device_id;
 	}
@@ -49,6 +50,12 @@ public class Vehicle {
 	}
 	public void setLoca(String loca) {
 		this.loca = loca;
+	}
+	public String getDriver_id() {
+		return Driver_id;
+	}
+	public void setDriver_id(String driver_id) {
+		Driver_id = driver_id;
 	}
 	
 }
