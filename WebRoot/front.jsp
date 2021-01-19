@@ -656,6 +656,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	function closeBox() {
 		var popBox = document.getElementById("popBox");
 		var popLayer = document.getElementById("popLayer");
+		document.getElementById('result').innerHTML="";
 		popBox.style.display = "none";
 		popLayer.style.display = "none";
 	}
