@@ -69,6 +69,9 @@ xt/javascript"
 			<div class="top-nav">
 				<span class="menu"><img src="images/menu-icon.png" alt="" /></span>
 				<ul class="nav1">
+					<li><a href="overspeed2.jsp">超速统计</a></li>
+					<li><a href="mileage2.jsp">里程统计</a></li>
+					<li><a href="javascript:openWin('normalgettrack.jsp')">轨迹回放</a></li>
 					<li><a href="reg_vehicle.jsp">车辆注册</a></li>
 					<li><a href="delete_account.jsp">删除账号</a></li>
 					<li><a href="reg_driver.jsp">驾驶员信息注册</a></li>
@@ -106,8 +109,13 @@ xt/javascript"
 		<div class="header-info-right">
 			<div class="header cbp-spmenu-push">
 				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"
-					id="cbp-spmenu-s1"> <a href="reg_vehicle.jsp">车辆注册</a> <a
-					href="delete_account.jsp">删除账号</a> <a href="reg_driver.jsp">驾驶员信息注册</a>
+					id="cbp-spmenu-s1"> 
+					<a href="overspeed2.jsp">超速统计</a>
+					<a href="mileage2.jsp">里程统计</a>
+					<a href="javascript:openWin('normalgettrack.jsp')">轨迹回放</a>
+					<a href="reg_vehicle.jsp">车辆注册</a>
+					<a href="delete_account.jsp">删除账号</a>
+					<a href="reg_driver.jsp">驾驶员信息注册</a>
 				</nav>
 				<!--script-nav -->
 				<script>
