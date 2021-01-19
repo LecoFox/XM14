@@ -103,17 +103,6 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			</div>
 			<div class="clearfix"></div>
 		</div>
-		<div class="search-box">
-			<div id="sb-search" class="sb-search">
-				<form>
-					<input class="sb-search-input"
-						placeholder="Enter your search term..." type="search"
-						name="search" id="search"> <input class="sb-search-submit"
-						type="submit" value=""> <span class="sb-icon-search">
-					</span>
-				</form>
-			</div>
-		</div>
 		<div class="header-info-right">
 			<div class="header cbp-spmenu-push">
 				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1"> 
@@ -210,8 +199,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 								<label for="label">设备名称</label>
 						</div>
 						<div>
-							<input class="checkbox_func" type="checkbox" id="device" onclick = "sorttable();">
-								<label for="device">状态提醒</label>
+							<input class="checkbox_func" type="checkbox" id="device"
+								onclick="statusAlert();"><label for="device">状态提醒</label>
 						</div>
 						<div>
 							<input class="checkbox_func" type="checkbox" id="track"
@@ -379,7 +368,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			markers.unshift(marker);
 			infos.unshift(_iw);
 			_marker.addEventListener("click", function() {
-				setLock(lon, lat);
+				setLock(lon, lat, title, status);
 				this.openInfoWindow(_iw);
 				rowchange(oldid,false);
 				rowchange(id,true);
@@ -393,7 +382,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				_marker.getLabel().show();
 			})
 			label.addEventListener("click", function() {
-				setLock(lon, lat);
+				setLock(lon, lat, title, status);
 				_marker.openInfoWindow(_iw);
 			})
 			if (!!this.isOpen) {
@@ -442,6 +431,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	var second = 10;
 	var lock_device = false;
 	var horizen = false;
+	var alert_device = false;
+	var alert_name = null;
+	var alert_status = null;
 	var show_track = false;
 	var have_old = false;
 	function setRemainTime() {
@@ -510,6 +502,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					if (have_old && show_track) {
 						var young = new BMap.Point(lon, lat);
 						drawTrack(poly_old[i], young);
+					}
+					if (name == alert_name && status != alert_status) {
+						alert("状态变化!\n" + name + ": " + alert_status + "变为" + status);
+						alert_status = status;
 					}
 				}
 				
@@ -584,13 +580,15 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			unlockDevice();
 		}
 	}
-	function setLock(lon, lat) {
+		function setLock(lon, lat, title, status) {
 		lock_device = true;
 		document.getElementById("lock").checked = lock_device;
 		var point = new BMap.Point(lon, lat);
 		if (!horizen) {
 			map.panTo(point);
 		}
+		alert_name = title;
+		alert_status = status;
 	}
 	function unlockDevice() {
 		var point = new BMap.Point(108.946465, 34.347269);
@@ -600,6 +598,10 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		} else {
 			map.panTo(point);
 		}
+		document.getElementById("device").checked = false;
+		alert_device = false;
+		alert_name = null;
+		alert_status = null;
 	}
 	function setLabelStatus() {
 		if (document.getElementById("label").checked) {
@@ -627,8 +629,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	}
 	setLabelStatus();
 
-	function alertDevice() {
-		console.log("alert device status");
+	function statusAlert() {
+		if (document.getElementById("device").checked) {
+			if (document.getElementById("lock").checked) {
+				alert_device = true;
+				alert_msg = "锁定设备:" + alert_name + " 当前状态:" + alert_status + "\n状态变化将通知您";
+				alert(alert_msg);
+			} else {
+				alert("未锁定设备! ");
+				document.getElementById("device").checked = false;
+			}
+		} else {
+			alert_device = false;
+		}
 	}
 	function setDeviceTrack() {
 		if (document.getElementById("track").checked) {
