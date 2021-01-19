@@ -10,85 +10,60 @@
 
 <html>
 <head>
-<title>车辆管理（普通用户）</title>
+<title>车辆管理(普通用户)</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 <meta name="keywords"
 	content="Architect Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
 
-<!--引用百度地图API-->
-<style type="text/css">
-html, body {
-	margin: 0;
-	padding: 0;
-}
 
-.iw_poi_title {
-	color: #CC5522;
-	font-size: 14px;
-	font-weight: bold;
-	overflow: hidden;
-	padding-right: 13px;
-	white-space: nowrap
-}
 
-.iw_poi_content {
-	font: 12px arial, sans-serif;
-	overflow: visible;
-	padding-top: 4px;
-	white-space: -moz-pre-wrap;
-	word-wrap: break-word
-}
-
-.iw_button {
-	font: 13px arial, sans-serif;
-	color: #CC5522;
-	overflow: visible;
-	padding-top: 4px;
-	white-space: -moz-pre-wrap;
-	word-wrap: break-word
-}
-</style>
 <script type="text/javascript"
 	src="http://api.map.baidu.com/getscript?v=3.0&ak=awORzYNz3svIeWeQ9pGPLnmZletmqfog"></script>
 
 <script type="application/x-javascript">addEventListener("load", function() {
-		setTimeout(hideURLbar, 0);
-	}, false);
-	function hideURLbar() {
-		window.scrollTo(0, 1);
-	}
-</script>
-	<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
-	<link href="css/style.css" rel='stylesheet' type='text/css' />
-	<script src="js/jquery-1.11.0.min.js"></script>
-	<link
-		href='http://fonts.useso.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
-		rel='stylesheet' type='text/css'>
-		<!---- start-smoth-scrolling---->
-		<script type="text/javascript" src="js/move-top.js"></script>
-		<script type="text/javascript" src="js/easing.js"></script>
+			setTimeout(hideURLbar, 0);
+		}, false);
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
+
+<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
+<link href="css/style.css" rel='stylesheet' type='text/css' />
+<script src="js/jquery-1.11.0.min.js"></script>
+<link
+	href='http://fonts.lug.ustc.edu.cn/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+	rel='stylesheet' type='text/css'>
+<!---- start-smoth-scrolling---->
+<script type="text/javascript" src="js/move-top.js"></script>
+<script type="text/javascript" src="js/easing.js"></script>
 <script type="text/javascript">
-	jQuery(document).ready(function($) {
-		$(".scroll").click(function(event) {
-			event.preventDefault();
-			$('html,body').animate({
-				scrollTop : $(this.hash).offset().top
-			}, 1000);
-		});
-	});
-</script>
+
+			jQuery(document).ready(function($) {
+				$(".scroll").click(function(event) {
+					event.preventDefault();
+					$('html,body').animate({
+						scrollTop : $(this.hash).offset().top
+					}, 1000);
+				});
+			});
+		</script>
+
 <!--start-smoth-scrolling-->
 <link rel="stylesheet" type="text/css" href="css/normalize.css" />
 <link rel="stylesheet" type="text/css" href="css/demo.css" />
 <!--必要样式-->
 <link rel="stylesheet" type="text/css" href="css/component.css" />
+
 </head>
 
 
 
-<body>
+
+<body style="overflow: hidden;height:100%">
+
 	<!--header-->
 	<div class="header-top" id="home">
 		<div class="container">
@@ -99,6 +74,9 @@ html, body {
 			<div class="top-nav">
 				<span class="menu"><img src="images/menu-icon.png" alt="" /></span>
 				<ul class="nav1">
+					<li><a href="overspeed2.jsp">超速统计</a></li>
+					<li><a href="mileage2.jsp">里程统计</a></li>
+					<li><a href="javascript:openWin('normalgettrack.jsp')">轨迹回放</a></li>
 					<li><a href="reg_vehicle.jsp">车辆注册</a></li>
 					<li><a href="delete_account.jsp">删除账号</a></li>
 					<li><a href="reg_driver.jsp">驾驶员信息注册</a></li>
@@ -119,7 +97,9 @@ html, body {
 					<li><a href="#"><span class="fb"> </span></a></li>
 					<li><a href="#"><span class="g"> </span></a></li>
 				</ul>
-				<li id="remainTime" style="color:white;">平台将于<span style="color:red">10</span>s后刷新</li>
+				<li id="remainTime" style="color:white;">平台将于<span
+					style="color:red">10</span>s后刷新
+				</li>
 			</div>
 			<div class="clearfix"></div>
 		</div>
@@ -130,15 +110,19 @@ html, body {
 						placeholder="Enter your search term..." type="search"
 						name="search" id="search"> <input class="sb-search-submit"
 						type="submit" value=""> <span class="sb-icon-search">
-						</span>
+					</span>
 				</form>
 			</div>
 		</div>
 		<div class="header-info-right">
 			<div class="header cbp-spmenu-push">
-				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"
-					id="cbp-spmenu-s1"> <a href="reg_vehicle.jsp">车辆注册</a> <a
-					href="delete_account.jsp">删除账号</a> <a href="reg_driver.jsp">驾驶员信息注册</a>
+				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1"> 
+					<a href="overspeed2.jsp">超速统计</a>
+					<a href="mileage2.jsp">里程统计</a>
+					<a href="javascript:openWin('normalgettrack.jsp')">轨迹回放</a>
+					<a href="reg_vehicle.jsp">车辆注册</a>
+					<a href="delete_account.jsp">删除账号</a>
+					<a href="reg_driver.jsp">驾驶员信息注册</a>
 				</nav>
 				<!--script-nav -->
 				<script>
@@ -182,17 +166,112 @@ html, body {
 		</div>
 	</div>
 	<!--//header-->
+
 	<div id="large-header" class="large-header">
+		<div style="float:right;height:100%;width:290px;border:#cccsolid 1px">
+
+			<div style="height:10%;width:290px">
+				<div class="dropdown" style="float:left">
+					<button class="dropbtn">排序</button>
+					<div class="dropdown-content">
+						<div>
+							<input type="radio" id="speeds" name="pages" onclick = "sorttable()"> <label for="times">按速度</label>
+						</div>
+						<div>
+							<input type="radio" id="letters" name="pages" onclick = "sorttable()"> <label for="letters">按字母</label>
+						</div>
+					</div>
+				</div>
+
+				<div class="dropdown" style="float:left">
+					<button class="dropbtn">状态</button>
+					<div class="dropdown-content">
+						<div>
+							<input type="radio" id="showall" name="pages" checked="true" onclick = "getRecord()"> <label for="showall">显示全部</label>
+						</div>
+						<div>
+							<input type="radio" id="showonline" name="pages" onclick = "getRecord()"> <label for="10rows">显示行驶</label>
+						</div>
+						<div>
+							<input type="radio" id="showoffline" name="pages" onclick = "getRecord()"> <label for="5rows">显示离线</label>
+						</div>
+					</div>
+				</div>
+				
+				<div class="dropdown" style="float:left">
+					<button class="dropbtn">显示</button>
+					<div class="dropdown-content">
+						<div>
+							<input class="checkbox_func" type="checkbox" id="lock"
+								onclick="setDeviceStatus();"> <label for="lock">锁定设备</label>
+						</div>
+						<div>
+							<input class="checkbox_func" type="checkbox" id="label">
+								<label for="label">设备名称</label>
+						</div>
+						<div>
+							<input class="checkbox_func" type="checkbox" id="device" onclick = "sorttable();">
+								<label for="device">状态提醒</label>
+						</div>
+						<div>
+							<input class="checkbox_func" type="checkbox" id="track"
+								onclick="setDeviceTrack();"> <label for="track">轨迹红线</label>
+						</div>
+
+					</div>
+				</div>
+			</div>
+			
+				<div style="position:relative;height:-webkit-calc(100% - 100px);width:290px;overflow:auto;" id="deviceTable"></div>
+			
+			<div class="page_btn clear" style="position:relative;height:20px;width:290px;font-size:3px;color:white;float:center;visibility: visible;display:block;"> 
+            	<span class="page_box" style="clear:both height:100%"> 
+                	<a class="prev" style="margin-left:25%">上一页</a>
+                	<span class="num"><span class="current_page">1</span><span style="padding:0 3px;">/</span><span class="total"></span></span>
+                	<a class="next">下一页</a> 
+            	</span> 
+        	</div>
+		</div>
 		<div style="height:100%;border:#ccc solid 1px;" id="dituContent"></div>
 	</div>
+
 	<script src="js/TweenLite.min.js"></script>
 	<script src="js/EasePack.min.js"></script>
 	<script src="js/rAF.js"></script>
 	<script src="js/demo-1.js"></script>
+
+	<script type="text/javascript" src="//cdn.bootcss.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap-table.js"></script>
+	<link rel="stylesheet" href="//cdn.bootcss.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+	
+	
 </body>
 
 
+
+
 <script type="text/javascript">
+	jQuery(document).ready(function($) {
+		$('#record_list').bootstrapTable({
+		columns: [{
+			field: 'name',
+			title: 'name'
+		}, {
+			field: 'speed',
+			title: 'speed'
+		}, {
+			field: 'status',
+			title: 'status'
+		}, {
+			field: 'location',
+			title: 'location'
+		}, {
+			field: 'time',
+			title: 'time'
+		},]
+	});
+});
+
 	//创建和初始化地图函数：
 	function initMap() {
 		createMap(); //创建地图
@@ -203,19 +282,25 @@ html, body {
 	//创建地图函数：
 	function createMap() {
 		var map = new BMap.Map("dituContent"); //在百度地图容器中创建一个地图
-		var point = new BMap.Point(104.989321, 36.063785); //定义一个中心点坐标
+		var point = new BMap.Point(108.946465, 34.347269); //定义一个中心点坐标
 		map.centerAndZoom(point, 5); //设定地图的中心点和坐标并将地图显示在地图容器中
 		window.map = map; //将map变量存储在全局
+		var Markers=[];
+		window.markers=Markers;
+		var infos=[];
+		window.infos=infos;
+		var oldid = 'row1';
+		window.oldid=oldid;
+		var cpage=1;
+		window.cpage=cpage;
 	}
 
 	//地图事件设置函数：
 	function setMapEvent() {
 		map.enableDragging(); //启用地图拖拽事件，默认启用(可不写)
 		map.enableScrollWheelZoom(); //启用地图滚轮放大缩小
-		map.enableDoubleClickZoom(); //启用鼠标双击放大，默认启用(可不写)
-		map.enableKeyboard(); //启用键盘上下左右键移动地图
-
-
+		map.enableDoubleClickZoom(); //启用鼠标双击放大，默认启用104.989321, 36.063785yboard(); //启用键盘上下左右键移动地图
+	//Polyline.disableMassClear();
 	}
 
 	//地图控件添加函数：
@@ -227,7 +312,10 @@ html, body {
 		});
 		map.addControl(ctrl_nav);
 		//向地图中添加缩略图控件
-		var ctrl_ove = new BMap.OverviewMapControl({anchor:BMAP_ANCHOR_BOTTOM_RIGHT,isOpen:1});
+		var ctrl_ove = new BMap.OverviewMapControl({
+			anchor : BMAP_ANCHOR_BOTTOM_RIGHT,
+			isOpen : 1
+		});
 		map.addControl(ctrl_ove);
 		//向地图中添加比例尺控件
 		var ctrl_sca = new BMap.ScaleControl({
@@ -239,21 +327,40 @@ html, body {
 		}); //构造全景控件
 		stCtrl.setOffset(new BMap.Size(20, 20));
 		map.addControl(stCtrl); //添加全景控件
-
 	}
 	//创建marker
-	function addCarMarker(lon, lat, png, title, location, status, speed, direction) {
+	function addCarMarker(lon, lat, png, title, location, status, speed, direction, deviceid,_index) {
 		var point = new BMap.Point(lon, lat);
 		var iconImg = createMyIcon(png);
 		var marker = new BMap.Marker(point, {
 			icon : iconImg,
-			rotation : 0
+			rotation : 0,
 		});
-		var iw = createInfoWindow(title, location);
+		
 		var label = new BMap.Label(title, {
-			"offset" : new BMap.Size(5 - 6 + 10, -20)
+			"offset" : new BMap.Size(9, -20)
+		});
+		label.setStyle({
+			display : "none",
+			color : "red",
+			fontSize : "12px",
+			height : "20px",
+			lineHeight : "20px",
+			fontFamily : "微软雅黑"
 		});
 		marker.setLabel(label);
+		marker.addEventListener("mouseover", function(e) {
+			var label = this.getLabel();
+			label.setStyle({
+				display : "block"
+			});
+		});
+		marker.addEventListener("mouseout", function(e) {
+			var label = this.getLabel();
+			label.setStyle({
+				display : "none"
+			});
+		});
 		marker.setRotation(direction);
 		map.addOverlay(marker);
 		label.setStyle({
@@ -263,10 +370,21 @@ html, body {
 		});
 		(function() {
 			var index = 0;
-			var _iw = createInfoWindow(lon, lat, title, location, status, speed);
+			var _iw = createInfoWindow(lon, lat, title, location, status, speed, deviceid);
 			var _marker = marker;
+			var index = title.substring(2);
+			//console.log(index);
+			var id = 'row'+_index;
+			//console.log(id);
+			markers.unshift(marker);
+			infos.unshift(_iw);
 			_marker.addEventListener("click", function() {
+				setLock(lon, lat);
 				this.openInfoWindow(_iw);
+				rowchange(oldid,false);
+				rowchange(id,true);
+				oldid=id;
+				console.log(oldid);
 			});
 			_iw.addEventListener("open", function() {
 				_marker.getLabel().hide();
@@ -275,30 +393,38 @@ html, body {
 				_marker.getLabel().show();
 			})
 			label.addEventListener("click", function() {
+				setLock(lon, lat);
 				_marker.openInfoWindow(_iw);
 			})
 			if (!!this.isOpen) {
 				label.hide();
 				_marker.openInfoWindow(_iw);
 			}
-		})()
+		})	()
+		
 	}
 	//创建InfoWindow
-	function createInfoWindow(lon, lat, title, location, status, speed) {
+	function createInfoWindow(lon, lat, title, location, status, speed, deviceid) {
 		var iw = new BMap.InfoWindow("<b class='iw_poi_title'>" + title + "</b>" +
+			"<div class='iw_poi_content'>防护:" + " " + "</div>" +
+			"<div class='iw_poi_content'>GPS:" + " " + "</div>" +
+			"<div class='iw_poi_content'>GSM:" + " " + "</div>" +
 			"<div class='iw_poi_content'>位置:" + location + "</div>" +
 			"<div class='iw_poi_content'>经度:" + lon + "</div>" +
 			"<div class='iw_poi_content'>纬度:" + lat + "</div>" +
 			"<div class='iw_poi_content'>状态:" + status + "</div>" +
 			"<div class='iw_poi_content'>速度:" + speed + "</div>" +
 			"<a class='iw_button' onclick=\"setCenterAndZoom(" + lon + "," + lat + "," + speed + ")\">跟踪</a>&nbsp;&nbsp;" +
-			"<a type='submit' class='iw_button' href='gettrack2.jsp?tname=\"" + title + "\"' target='blank'>轨迹回放</a>"
+			"<a type='submit' class='iw_button' href='quanjing.jsp?lo=" + lon + "&id=" + deviceid + "&la=" + lat + "' target='blank'>查看全景</a>&nbsp;&nbsp;" +
+			"<a type='submit' class='iw_button' href='gettrack2.jsp?tname=\"" + title + "\"' target='blank'>轨迹回放</a>&nbsp;&nbsp;" +
+			"<a class='iw_button' onclick=\"openwl(" + lon + "," + lat + "," + deviceid + ")\">围栏</a>&nbsp;&nbsp;"
 		);
+
 		return iw;
 	}
 	//创建一个Icon
 	function createMyIcon(png) {
-		var icon = new BMap.Icon(png, new BMap.Size(32, 32), {
+		var icon = new BMap.Icon(png, new BMap.Size(16, 32), {
 			imageOffset : new BMap.Size(0, 0),
 			infoWindowOffset : new BMap.Size(10, 1),
 			offset : new BMap.Size(6, 32)
@@ -306,34 +432,69 @@ html, body {
 		return icon;
 	}
 
-	initMap(); //创建和初始化地图
+	initMap(); //创建和初始化地图z
 </script>
 </html>
-<script type="text/javascript" src="jquery-1.8.3.min.js"></script>
+
+
+
 <script>
 	var second = 10;
-	function setRemainTime(){
-		if(second > 0){
+	var lock_device = false;
+	var horizen = false;
+	var show_track = false;
+	var have_old = false;
+	function setRemainTime() {
+		if (second > 0) {
 			second -= 1;
-		}
-		else{
+		} else {
 			getRecord();
 			second = 10;
 		}
 		setTimeout(setRemainTime, 1000);
-		$("#remainTime").html("平台将于 <span style='color:red'>"+ second + "</span>s后刷新");
+		$("#remainTime").html("平台将于 <span style='color:red'>" + second + "</span>s后刷新");
 	}
 	function getRecord() {
 		var url = "SearchRecord2";
-		$.post(url, function(json) {
+		var type= "0";
+		if(document.getElementById("showall").checked){
+			type="全部";
+		}
+		else if(document.getElementById("showonline").checked){
+			type="行驶";
+		}
+		else if(document.getElementById("showoffline").checked){
+			type="停止";
+		}
+		$.post(url, {show:type},function(json) {
 			console.log("running getRecord()");
-			window.map.clearOverlays();
+			//window.map.clearOverlays();
+			var poly_old = [];
+			var allOverlay = map.getOverlays();
+
+			for(var i = 0 ; i < allOverlay.length ; i++){
+		    	if (allOverlay[i] instanceof BMap.Marker) {
+		    		//体验25,24,...1
+		    		if(have_old){
+		    			var marker = allOverlay[i];
+		    			//console.log(marker.getLabel().content);
+		    			var lon = marker.point.lng;
+		    			var lat = marker.point.lat;
+		    			poly_old.push(new BMap.Point(lon, lat));
+		    		}
+		    		map.removeOverlay(allOverlay[i]);
+		    		markers = [];
+		    		infos=[];
+            	}
+
+			}
 			var list = json.aaData;
 			if (list.length == 0) {
 				console.log("Connecting--bcxgps.com");
 			} else {
 				//console.log(list);
 				for (var i = 0; i < list.length; i++) {
+					//体验25,24,...1
 					var location = list[i].location;
 					var lon = Number(list[i].lon);
 					var lat = Number(list[i].lat);
@@ -342,25 +503,321 @@ html, body {
 					var speed = Number(list[i].speed);
 					var carImg = list[i].carImg;
 					var direction = Number(list[i].direction);
+					var deviceid = list[i].device_id;
 					//var warningImg = list[i].warningImg;
-					addCarMarker(lon.toFixed(5), lat.toFixed(5), carImg, name, location, status, speed.toFixed(2), direction);
+					addCarMarker(lon.toFixed(5), lat.toFixed(5), carImg, name, location, status, speed.toFixed(2), direction, deviceid,list.length-i);
+					setDeviceTrack();
+					if (have_old && show_track) {
+						var young = new BMap.Point(lon, lat);
+						drawTrack(poly_old[i], young);
+					}
 				}
+				
+
+				var tableInfos = document.getElementById('deviceTable');
+
+				var code = '';
+				for (var i = list.length-1; i >=0; i--) {
+					var lon = Number(list[i].lon);
+					var lat = Number(list[i].lat);
+					var name = list[i].name;
+					var speed = Number(list[i].speed);
+					var start = list[i].start;
+					var status = start.substr(0, 2);
+					var location = list[i].location;
+
+					var time = list[i].GPS_time;				
+					var index = list.length-i;
+					var row = 'row' + index;
+					//1~25
+					code += '<div id="' + row + '" data-s = "'+speed+'" data-n = "'+ name +'" class = "devicelist" style="height:50px;" index = "' + index + '" onmouseover=rowchange("'+ row +'",'+true+') onmouseout = rowchange("'+row+'",'+false+')>';
+					code += '<div style="float:left;width:50px;font-size:3px;color:white" id="column' + index + '-1">' + name + '</div>';
+					code += '<div style="float:left;width:20px;font-size:3px;color:white" id="column' + index + '-2">' + speed + '</div>';
+					code += '<div style="float:left;width:30px;font-size:3px;color:white" id="column' + index + '-3">' + status + '</div>';
+					code += '<div style="float:left;width:80px;font-size:3px;color:white" id="column' + index + '-4">' + location + '</div>';
+					code += '<div style="float:left;width:80px;font-size:3px;color:white" id="column' + index + '-5">' + time + '</div>';
+					code += '</div>';
+
+				}
+				tableInfos.innerHTML = code;
+				for (var i =1; i<=list.length; i++){
+					$("#row" + i).click(function(){
+					//这里用前面title、address、telephone三个数组中存放的值来拼信息窗里的html代码，存在变量content中，然后：
+					 //var info = createInfoWindow(Number(list[i].lon).toFixed(5), Number(list[i].lat).toFixed(5), list[i].name, list[i].location, list[i].start.substr(0, 2), Number(list[i].speed).toFixed(2),list[i].device_id);
+					//利用在第一个问题中的markerArr数组设置触发函数，但注意数组的索引值不能用i，因为函数运行时i已不存在，因此在构造结果面板时，每个节点我添加了一个index属性，并用下面的代码获取，设置属性的代码类似于：<div id='poi5' index='5'></div>                        
+					var index = $(this).attr("index")-1;
+					setLock(Number(list[list.length-1-index].lon).toFixed(5), Number(list[list.length-1-index].lat).toFixed(5)); 
+					markers[index].openInfoWindow(infos[index]);
+					})
+				}
+				sorttable();
+				fenye(10);
 			}
 		});
+		document.getElementById("label").checked = false;
 	}
-	setTimeout("getRecord()", 4000);
+	setTimeout("getRecord(); have_old = true;", 3000);
 	setRemainTime();
+
 	function openWin(openjsp) {
 		window.open(openjsp, '_blank', '');
 	}
 	function setCenterAndZoom(lon, lat, speed) {
 		var center = new BMap.Point(lon, lat);
 		var size = 18;
-		if(speed>80){
+		if (speed > 80) {
 			size = 15;
-		} else if(50 < speed < 80){
+		} else if (50 <= speed <= 80) {
 			size = 16;
 		}
+		lock_device = true;
+		horizen = true;
+		setLock(lon, lat);
 		map.centerAndZoom(center, size);
 	}
+	function setDeviceStatus() {
+		if (document.getElementById("lock").checked) {
+			alert("Invalid! Please select the target device.");
+			lock_device = false;
+			document.getElementById("lock").checked = lock_device;
+		} else {
+			unlockDevice();
+		}
+	}
+	function setLock(lon, lat) {
+		lock_device = true;
+		document.getElementById("lock").checked = lock_device;
+		var point = new BMap.Point(lon, lat);
+		if (!horizen) {
+			map.panTo(point);
+		}
+	}
+	function unlockDevice() {
+		var point = new BMap.Point(108.946465, 34.347269);
+		if (horizen) {
+			map.centerAndZoom(point, 5);
+			horizen = false;
+		} else {
+			map.panTo(point);
+		}
+	}
+	function setLabelStatus() {
+		if (document.getElementById("label").checked) {
+			showDeviceLabel();
+		} else {
+			hideDeviceLabel();
+		}
+		setTimeout(setLabelStatus, 500);
+	}
+	function showDeviceLabel() {
+		var allOverlay = map.getOverlays();
+		for (var i = 0; i < allOverlay.length; i++) {
+			if (allOverlay[i] instanceof BMap.Marker) {
+				allOverlay[i].getLabel().show();
+			}
+		}
+	}
+	function hideDeviceLabel() {
+		var allOverlay = map.getOverlays();
+		for (var i = 0; i < allOverlay.length; i++) {
+			if (allOverlay[i] instanceof BMap.Marker) {
+				allOverlay[i].getLabel().hide();
+			}
+		}
+	}
+	setLabelStatus();
+
+	function alertDevice() {
+		console.log("alert device status");
+	}
+	function setDeviceTrack() {
+		if (document.getElementById("track").checked) {
+			show_track = true;
+		} else {
+			show_track = false;
+		}
+	}
+	function drawTrack(old, young) {
+		var polyline = new BMap.Polyline([ old, young ], {
+			strokeWeight : 3,
+			strokeColor : "red",
+			strokeStyle : "solid"
+		});
+		map.addOverlay(polyline);
+	}
+
+	function getRealtime_data() {
+		var url = "BcxData";
+		$.post(url, function(json) {
+			console.log("running getRealtime_data()");
+		});
+	}
+	getRealtime_data();
 </script>
+
+<script>
+	function sendMessage() {
+		console.log("run sendMessage()");
+		realtime = setTimeout(sendMessage, 50000);
+	}
+	//sendMessage();
+</script>
+
+<script>
+	$(document).ready(function() {
+		$("#b01").click(function() {
+			$.ajax({
+				type : "get",
+				url : "/XM14/UserEmailServlet",
+				datatype : "json",
+			})
+		});
+	});
+</script>
+<script>
+	function openwl(lon, lat, deviceid) {
+		var itop = (window.screen.availHeight - 530) / 2;
+		var ileft = (window.screen.availWidth - 810) / 2;
+		console.log("----open weilan----");
+		var setweilan = "setwl.jsp?" + "lon=" + lon + "&lat=" + lat + "&deviceid=" + deviceid;
+		window.open(setweilan, '设置围栏', "fullscreen=0,height=500,width=800,toolbar=0,location=0,directories=0,status=0,menubar=0,resizable=0,top=" + itop + ",left=" + ileft + ",scrollbars=yes")
+	}
+</script>
+<script>
+	function sendYuejieMessage() {
+		var url = "UserEmailServlet";
+		$.get(url, function(json) {
+			console.log("running sendMessage()");
+		});
+		var url = "SendYuejie";
+		$.get(url, function(json) {
+			console.log("running sendYuejieMessage()");
+		});
+	}
+	window.setInterval(sendYuejieMessage,300000);
+</script>
+<script>
+function rowchange(id,flag){
+	if(flag==true){
+		document.getElementById(id).style.backgroundColor="grey";
+	}
+	else if(flag==false){
+		document.getElementById(id).style.backgroundColor="#383a3c";
+	}
+}
+</script>
+
+<<script type="text/javascript">
+function sorttable(){
+	//console.log("sorttable2");
+	var test1 = document.getElementById("speeds").checked;
+	var test2 = document.getElementById("letters").checked;
+	//console.log(test);
+    if(test1){
+    	var aDiv = document.getElementsByClassName('devicelist');
+    	    var arr = [];
+    	    for(var i=0;i<aDiv.length;i++)
+    	    {
+    			//console.log(aDiv[i].getAttribute('data-id'));
+    	        arr.push(aDiv[i]);  //aDiv是元素的集合，并不是数组bai，所以不能直接用数组的sort进行排序。
+    	    }
+    		arr = arr.sort(function compareFunction(a, b) {
+    		    return a.getAttribute('data-s')-b.getAttribute('data-s');
+    		});
+    	    for(var i=0;i<arr.length;i++)
+    	    {
+    			//console.log(aDiv[i].getAttribute('data-id'));
+    	        document.getElementById('deviceTable').appendChild(arr[i]); //将排好序的元素，重新塞到body里面显示。
+    	    }
+     }else{
+        if(test2){
+        	var aDiv = document.getElementsByClassName('devicelist');
+        	    var arr = [];
+        	    for(var i=0;i<aDiv.length;i++)
+        	    {
+        			//console.log(aDiv[i].getAttribute('data-id'));
+        	        arr.push(aDiv[i]);  //aDiv是元素的集合，并不是数组bai，所以不能直接用数组的sort进行排序。
+        	    }
+        		arr = arr.sort(function compareFunction(a, b) {
+        		    return a.getAttribute('data-n').localeCompare(b.getAttribute('data-n'));
+        		});
+        	    for(var i=0;i<arr.length;i++)
+        	    {
+        			//console.log(aDiv[i].getAttribute('data-id'));
+        	        document.getElementById('deviceTable').appendChild(arr[i]); //将排好序的元素，重新塞到body里面显示。
+        	    }
+        }
+      }
+    }
+</script>
+
+ <script type="text/javascript" >
+	function fenye(size){
+
+		//实现分页思路:
+		var pageSize=size;      //每页显示数据条数
+		var currentPage=cpage;   //当前页数
+		//var totalSize=$("#devicelist").index(); //获取总数据
+		var aDiv = document.getElementsByClassName('devicelist');
+		var totalSize=aDiv.length;
+		var totalPage=Math.ceil(totalSize/pageSize); //计算总页数
+		console.log(totalSize);
+		//$(".devicelist:gt(9)").hide(); //设置首页显示10条数据
+		$(".total").text(totalPage);  //设置总页数
+		//$(".current_page").text(currentPage); //设置当前页数
+		$(".current_page").text(cpage);  //当前页数先-1
+		 var start=pageSize*(currentPage-1);
+		 var end=pageSize*currentPage;
+		 $.each($('.devicelist'),function(index,item){
+			   if(index >=start && index < end){
+					$(this).show();
+					}
+					else{
+						$(this).hide();
+						}
+			 });
+		//实现下一页
+		$(".next").click(function(){
+			if(currentPage ==totalPage){ //当前页数==最后一页，禁止下一页
+				   return false;
+				}else{//不是最后一页，显示应该显示的数据.
+				    $(".current_page").text(++currentPage);  //当前页数先+1
+					var start=pageSize*(currentPage-1);
+					var end=pageSize*currentPage;
+					$.each($('.devicelist'),function(index,item){
+							if(index >=start && index < end){
+								$(this).show();
+								}
+								else{
+									$(this).hide();
+									}
+						});
+					cpage=currentPage;
+					}
+			});
+			
+			//实现上一页
+		$(".prev").click(function(){
+			if(currentPage == 1){//当前页数==1，禁止上一页
+			     return false;
+				}else{
+					 $(".current_page").text(--currentPage);  //当前页数先-1
+					 var start=pageSize*(currentPage-1);
+					 var end=pageSize*currentPage;
+					 $.each($('.devicelist'),function(index,item){
+						   if(index >=start && index < end){
+								$(this).show();
+								}
+								else{
+									$(this).hide();
+									}
+						 });
+					 cpage=currentPage;
+					}
+			
+			});	
+		};
+
+</script>
+
+

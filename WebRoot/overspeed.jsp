@@ -69,13 +69,14 @@ xt/javascript"
 			<div class="top-nav">
 				<span class="menu"><img src="images/menu-icon.png" alt="" /></span>
 				<ul class="nav1">
-
-					<li><a href="SearchallRegVehicle">查看车辆注册信息</a></li>
-					<li><a href="Searchall">查看用户注册信息</a></li>
-					<li><a href="loginstatus.jsp">查看用户在线信息</a></li>
+					<li><a href="showallRegVehicle.jsp">车辆注册信息</a></li>
+					<li><a href="showall.jsp">用户注册信息</a></li>
+					<li><a href="loginstatus.jsp">用户在线信息</a></li>
 					<li><a href="overspeed.jsp">超速统计</a></li>
 					<li><a href="mileage.jsp">里程统计</a></li>
-					<li><a href="UserEmailServlet">一键提醒</a></li>
+					<li><a id="#b01" href="">一键提醒</a></li>
+					<li><a href="javascript:openWin('gettrack.jsp')">轨迹回放</a></li>
+					<li><a href="SendYuejie">越界提醒</a></li>
 				</ul>
 				<!-- script-for-menu -->
 				<script>
@@ -110,9 +111,15 @@ xt/javascript"
 		<div class="header-info-right">
 			<div class="header cbp-spmenu-push">
 				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"
-					id="cbp-spmenu-s1"> <a href="SearchallRegVehicle">查看车辆注册信息</a>
-				<a href="Searchall">查看用户注册信息</a> <a href="loginstatus.jsp">查看用户在线信息</a>
-				<a href="overspeed.jsp">超速统计</a><a href="mileage.jsp">里程统计</a> <a href="UserEmailServlet">一键提醒</a>
+					id="cbp-spmenu-s1"> 
+					<a href="showallRegVehicle.jsp">车辆注册信息</a>
+					<a href="showall.jsp">用户注册信息</a>
+					<a href="loginstatus.jsp">用户在线信息</a>
+					<a href="overspeed.jsp">超速统计</a>
+					<a href="mileage.jsp">里程统计</a>
+					<a id="#b01" href="">一键提醒</a>
+					<a href="javascript:openWin('gettrack.jsp')">轨迹回放</a>
+					<a href="SendYuejie">越界提醒</a>
 				</nav>
 				<!--script-nav -->
 				<script>
@@ -185,7 +192,7 @@ xt/javascript"
 					</div>
 
 					<center>
-						<button class="act-but1 submit1"style="color: #FFFFFF">确认</button>
+						<button id = "queren" class="act-but1 submit1"style="color: #FFFFFF">确认</button>
 					</center>
 					<br></br>
 
@@ -232,7 +239,7 @@ xt/javascript"
 </html>
 <script>
 	$(document).ready(function() {
-		$("button").click(function() {
+		$("#queren").click(function() {
 			var speed = $('#speed').val();
 			var Time1 = $('#datetime1').val();
 			var Time2 = $('#datetime2').val();

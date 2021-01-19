@@ -96,8 +96,8 @@ public class BcxData extends HttpServlet {
 				} catch (ProtocolException e2) {
 					e2.printStackTrace();
 				}
-				System.out.println("Method: " + urlConn.getRequestMethod());
-				System.out.println("Cookie: " + urlConn.getRequestProperty("Cookie"));
+				//System.out.println("Method: " + urlConn.getRequestMethod());
+				//System.out.println("Cookie: " + urlConn.getRequestProperty("Cookie"));
 				try {
 					urlConn.connect();
 				} catch (IOException e1) {
@@ -111,20 +111,20 @@ public class BcxData extends HttpServlet {
 						if (key.equalsIgnoreCase("set-cookie")) {
 							cookieVal = urlConn.getHeaderField(i);
 							cookieVal = cookieVal.substring(0, cookieVal.indexOf(";"));
-							System.out.println("set-cookie..." + cookieVal);
+							//System.out.println("set-cookie..." + cookieVal);
 							loginSessionId += ";" + cookieVal;
 						}
 					}
 					randTID2 = "get randTID2...";
 					randTIDkey = "get randTIDkey...";
-					System.out.println("set-cookie loginSessionId: " + loginSessionId);
+					//System.out.println("set-cookie loginSessionId: " + loginSessionId);
 				} else {
-					System.out.println("Already set-cookie loginSessionId: " + loginSessionId);
+					//System.out.println("Already set-cookie loginSessionId: " + loginSessionId);
 				}
 
 				try {
 					if (urlConn.getResponseCode() == 200) {
-						System.out.println("Connect succeed");
+						//System.out.println("Connect succeed");
 
 					} else {
 						System.out.println("Connect failed");
@@ -158,7 +158,7 @@ public class BcxData extends HttpServlet {
 						e1.printStackTrace();
 					}
 					try {
-						System.out.println(sb.toString());
+						//System.out.println(sb.toString());
 						JSONObject j = new JSONObject(sb.toString());
 						JSONArray l = j.getJSONArray("list");
 						if (l.length() == 0) {
@@ -198,7 +198,7 @@ public class BcxData extends HttpServlet {
 							randTID2 = null;
 							randTIDkey = null;
 						} else {
-							System.out.println("Already log in");
+							//System.out.println("Already log in");
 							save_data(l);
 						}
 					} catch (JSONException e) {

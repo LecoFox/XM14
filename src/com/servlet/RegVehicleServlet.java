@@ -79,26 +79,47 @@ public class RegVehicleServlet extends HttpServlet {
         String chepai = req.getParameter("chepai");
         String model = req.getParameter("model");
         String brand = req.getParameter("brand");
+        String driver_id = req.getParameter("driverid");
         System.out.println("获取车辆登记信息成功");
         //实例化RegVehicleDao对象
         RegVehicleDao vehicleDao = new RegVehicleDao();
-        if (device_id != null) {
-            //实例化一个RegVehicle对象
-            RegVehicle vehicle = new RegVehicle();
-            //对用户对象的属性赋值
-            vehicle.setDevice_id(device_id);
-            vehicle.setOwner(owner);
-            vehicle.setChepai(chepai);
-            vehicle.setModel(model);
-            vehicle.setBrand(brand);
-            vehicle.setEngine_id(engine_id);
-            vehicleDao.saveVehicle(vehicle);
-            req.setAttribute("info", "登记成功 <br>");
-        } else {
-            req.setAttribute("info", "登记失败<br>");
+        
+        if (!device_id.equals("请选择")) {
+			if(engine_id !=""){
+				
+					//实例化一个User对象
+					RegVehicle vehicle = new RegVehicle();
+		            //对用户对象的属性赋值
+		            vehicle.setDevice_id(device_id);
+		            vehicle.setOwner(owner);
+		            vehicle.setChepai(chepai);
+		            vehicle.setModel(model);
+		            vehicle.setBrand(brand);
+		            vehicle.setEngine_id(engine_id);
+		            vehicle.setDriver_id(driver_id);
+					if(vehicleDao.engineAvailable(engine_id)){
+						vehicleDao.saveVehicle(vehicle);
+						req.setAttribute("info", "注册成功！ <br>");
+						req.setAttribute("flag","1");
+					}
+					else {
+						req.setAttribute("info", "此车辆已绑定！<br>注册失败！<br>");
+						req.setAttribute("flag","0");
+					}
+			}
+			else{
+				req.setAttribute("info", "发动机号为空！<br>注册失败！<br>");
+				req.setAttribute("flag","0");
+			}
+		}
+        else{
+        	req.setAttribute("info", "选择非法设备号！<br>注册失败！<br>");
+			req.setAttribute("flag","0");
         }
-        //转发到message.jsp页面
-        req.getRequestDispatcher("front2.jsp").forward(req,response);
+		
+		//转发到message.jsp页面
+		req.setAttribute("type", "register");
+		req.getRequestDispatcher("regvehmsg.jsp").forward(req, response);
 	}
 
 	/**

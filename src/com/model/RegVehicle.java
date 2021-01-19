@@ -8,13 +8,14 @@ public class RegVehicle {
 	private String brand;
 	private String model;
 	private String engine_id;
+	private String driver_id;
 	
-	/*public String getCarImg() {
-		return carImg;
+	public String getDriver_id() {
+		return driver_id;
 	}
-	public void setCarImg(String carImg) {
-		this.carImg = carImg;
-	}*/
+	public void setDriver_id(String driver_id) {
+		this.driver_id = driver_id;
+	}
 	public String getOwner() {
 		return owner;
 	}
@@ -57,7 +58,7 @@ public class RegVehicle {
 		return "RegVehicle [device_id=" + device_id + ", owner=" + owner + "]";
 	}
 
-	public RegVehicle(String device_id, String owner, String chepai, String brand, String model, String engine_id) {
+	public RegVehicle(String device_id, String owner, String chepai, String brand, String model, String engine_id, String driver_id) {
 		super();
 		this.device_id = device_id;
 		//this.carImg = carImg;
@@ -66,6 +67,7 @@ public class RegVehicle {
 		this.brand = brand;
 		this.model = model;
 		this.engine_id = engine_id;
+		this.driver_id = driver_id;
 	}
 
 	public RegVehicle() {

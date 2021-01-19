@@ -72,13 +72,14 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 			<div class="top-nav">
 				<span class="menu"><img src="images/menu-icon.png" alt="" /></span>
 				<ul class="nav1">
-
-					<li><a href="SearchallRegVehicle">查看车辆注册信息</a></li>
-					<li><a href="Searchall">查看用户注册信息</a></li>
-					<li><a href="loginstatus.jsp">查看用户在线信息</a></li>
+					<li><a href="showallRegVehicle.jsp">车辆注册信息</a></li>
+					<li><a href="showall.jsp">用户注册信息</a></li>
+					<li><a href="loginstatus.jsp">用户在线信息</a></li>
 					<li><a href="overspeed.jsp">超速统计</a></li>
 					<li><a href="mileage.jsp">里程统计</a></li>
-					<li><a href="UserEmailServlet">一键提醒</a></li>
+					<li><a id="#b01" href="">一键提醒</a></li>
+					<li><a href="javascript:openWin('gettrack.jsp')">轨迹回放</a></li>
+					<li><a href="SendYuejie">越界提醒</a></li>
 				</ul>
 				<!-- script-for-menu -->
 				<script>
@@ -96,6 +97,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<li><a href="#"><span class="fb"> </span></a></li>
 					<li><a href="#"><span class="g"> </span></a></li>
 				</ul>
+				<li id="remainTime" style="color:white;">平台将于<span
+					style="color:red">10</span>s后刷新
+				</li>
 			</div>
 			<div class="clearfix"></div>
 		</div>
@@ -106,17 +110,19 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 						placeholder="Enter your search term..." type="search"
 						name="search" id="search"> <input class="sb-search-submit"
 						type="submit" value=""> <span class="sb-icon-search">
-						</span>
+					</span>
 				</form>
 			</div>
 		</div>
 		<div class="header-info-right">
 			<div class="header cbp-spmenu-push">
 				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"
-					id="cbp-spmenu-s1"> <a href="SearchallRegVehicle">查看车辆注册信息</a>
-				<a href="Searchall">查看用户注册信息</a> <a href="loginstatus.jsp">查看用户在线信息</a>
-				<a href="overspeed.jsp">超速统计</a><a href="mileage.jsp">里程统计</a> <a href="UserEmailServlet">一键提醒</a>
-				</nav>
+					id="cbp-spmenu-s1"> <a href="showallRegVehicle.jsp">车辆注册信息</a>
+				<a href="showall.jsp">用户注册信息</a> <a href="loginstatus.jsp">用户在线信息</a>
+				<a href="overspeed.jsp">超速统计</a> <a href="mileage.jsp">里程统计</a> <a
+					id="#b01" href="">一键提醒</a> <a
+					href="javascript:openWin('gettrack.jsp')">轨迹回放</a> <a
+					href="SendYuejie">越界提醒</a> </nav>
 				<!--script-nav -->
 				<script>
 					$("span.menu").click(function() {
@@ -136,6 +142,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 				<div class="clearfix"></div>
 				<!-- /script-nav -->
 				<div class="main">
+
 					<button id="showLeftPush">
 						<img src="images/menu.png" /><span>Menu</span>
 					</button>
