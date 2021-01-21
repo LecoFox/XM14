@@ -56,7 +56,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <link rel="stylesheet" type="text/css" href="css/demo.css" />
 <!--必要样式-->
 <link rel="stylesheet" type="text/css" href="css/component.css" />
-
+<style type="text/css">
+input.form-control {-webkit-text-fill-color: #555}
+</style>
 
 </head>
 
