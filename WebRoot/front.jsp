@@ -762,15 +762,6 @@ input.form-control {-webkit-text-fill-color: #555}
 		});
 		map.addOverlay(polyline);
 	}
-
-	function getRealtime_data() {
-		var url = "BcxData";
-		$.post(url, function(json) {
-			console.log("running getRealtime_data()");
-		});
-	}
-	getRealtime_data();
-	
 	
 	function getTrack() {
 		console.log("running getTrack()");
