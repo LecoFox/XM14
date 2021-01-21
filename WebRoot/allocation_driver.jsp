@@ -1,5 +1,4 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"
-	import="com.model.RegVehicle" import="com.model.User"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String path = request.getContextPath();
@@ -11,7 +10,6 @@
 
 <html>
 <head>
-<title>车辆注册</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
 <meta name="keywords"
@@ -19,35 +17,38 @@
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
 <script type="te
 xt/javascript"
-src="http://api.map.baidu.com/getscript?v=3.0&ak=awORzYNz3svIeWeQ9pGPLnmZletmqfog">
+	src="http://api.map.baidu.com/getscript?v=3.0&ak=awORzYNz3svIeWeQ9pGPLnmZletmqfog">
 </script>
 
 <script type="application/x-javascript">addEventListener("load", function() {
-		setTimeout(hideURLbar, 0);
-	}, false);
-	function hideURLbar() {
-		window.scrollTo(0, 1);
-	}
-</script>
+			setTimeout(hideURLbar, 0);
+		}, false);
+		function hideURLbar() {
+			window.scrollTo(0, 1);
+		}
+	</script>
 <link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
 <link href="css/style.css" rel='stylesheet' type='text/css' />
 <script src="js/jquery-1.11.0.min.js"></script>
-<link href='http://fonts.useso.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+<link
+	href='http://fonts.useso.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+	rel='stylesheet' type='text/css'>
 <!---- start-smoth-scrolling---->
 <script type="text/javascript" src="js/move-top.js"></script>
 <script type="text/javascript" src="js/easing.js"></script>
 <script type="text/javascript">
-	jQuery(document).ready(function($) {
-		$(".scroll").click(function(event) {
-			event.preventDefault();
-			$('html,body').animate({
-				scrollTop : $(this.hash).offset().top
-			}, 1000);
-		});
-	});
-</script>
-		
-		
+			jQuery(document).ready(function($) {
+				$(".scroll").click(function(event) {
+					event.preventDefault();
+					$('html,body').animate({
+						scrollTop : $(this.hash).offset().top
+					}, 1000);
+				});
+			});
+		</script>
+<base href="<%=basePath%>">
+<title>里程统计</title>
+<script type="text/javascript" src="js/tableSort.js"></script>
 <link rel="stylesheet" type="text/css" href="css/normalize.css" />
 <link rel="stylesheet" type="text/css" href="css/demo.css" />
 <!--必要样式-->
@@ -91,9 +92,6 @@ src="http://api.map.baidu.com/getscript?v=3.0&ak=awORzYNz3svIeWeQ9pGPLnmZletmqfo
 					<li><a href="#"><span class="fb"> </span></a></li>
 					<li><a href="#"><span class="g"> </span></a></li>
 				</ul>
-				<li id="remainTime" style="color:white;">平台将于<span
-					style="color:red">10</span>s后刷新
-				</li>
 			</div>
 			<div class="clearfix"></div>
 		</div>
@@ -110,7 +108,8 @@ src="http://api.map.baidu.com/getscript?v=3.0&ak=awORzYNz3svIeWeQ9pGPLnmZletmqfo
 		</div>
 		<div class="header-info-right">
 			<div class="header cbp-spmenu-push">
-				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1"> 
+				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"
+					id="cbp-spmenu-s1">
 					<a href="overspeed2.jsp">超速统计</a>
 					<a href="mileage2.jsp">里程统计</a>
 					<a href="javascript:openWin('normalgettrack.jsp')">轨迹回放</a>
@@ -137,7 +136,6 @@ src="http://api.map.baidu.com/getscript?v=3.0&ak=awORzYNz3svIeWeQ9pGPLnmZletmqfo
 				<div class="clearfix"></div>
 				<!-- /script-nav -->
 				<div class="main">
-
 					<button id="showLeftPush">
 						<img src="images/menu.png" /><span>Menu</span>
 					</button>
@@ -161,91 +159,67 @@ src="http://api.map.baidu.com/getscript?v=3.0&ak=awORzYNz3svIeWeQ9pGPLnmZletmqfo
 	</div>
 	<!--//header-->
 
-
-	<%
-		User user = (User) session.getAttribute("user");
-	%>
-				<div id="large-header" class="large-header">
-					<div class="container-table100">
-						<div class="logo_box">
-							<form id="regvehicle" action="/XM14/RegVehicleServlet"
+	<div class="limiter">
+		<div class="container-table100">
+			<div class="wrap-table100">
+				<form id="updatevehicle" action="/XM14/UpdateVehicleServlet"
 								method="post">
-								<table align="center" border="0" width="330">
-								<tr>
-									<td class="td1">设备ID：</td>
-									<td class="td2"><select class="input_outer2" id="sel" style="BACKGROUND-COLOR: transparent;"
-										name="deviceid" class="box"><option class="text1">请选择</option></select></td>
-								</tr>
-								<tr>
-									<td class="td1">发动机号：</td>
-									<td class="td2">
-										<div class="input_outer2">
-											<input class="text1" type="text" name="engineid"
-												style="color: #FFFFFF !important" class="box">
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td class="td1">车辆拥有者：</td>
-									<td class="td2">
-										<div class="input_outer2">
-										<input class="text1" type="text" readonly="readonly" name="owner" value=<%=user.getUsername()%> style="color: #FFFFFF !important" class="box">
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td class="td1">车牌：</td>
-									<td class="td2">
-										<div class="input_outer2">
-											<input class="text1" type="text" name="chepai"
-												style="color: #FFFFFF !important" class="box">
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td class="td1">车型：</td>
-									<td class="td2">
-										<div class="input_outer2">
-											<input class="text1" type="text" name="model"
-												style="color: #FFFFFF !important" class="box">
-										</div>
-									</td>
-								</tr>
-								<tr>
-									<td class="td1">品牌：</td>
-									<td class="td2">
-										<div class="input_outer2">
-											<input class="text1" type="text" name="brand"
-												style="color: #FFFFFF !important" class="box">
-										</div>
-									</td>
-								</tr>
-								
-								<tr>
-									<td class="td5" colspan="2"><input
-										type="submit" value="注册" class="act-but1 submit1"
-										> <input
-											type="reset" value="重置" class="act-but1 submit1">
-									</td>
-								</tr>
-							</table>
+				<center>
+					<h1>车辆分配</h1>
+					<br>
+				</center>
+				<div>
+					<div
+						style="display: flex;justify-content: space-around;flex-wrap: wrap; flex-direction: row;">
 
-							</form>
+						<div>
+								<select class="input_outer2" id="sel1" name="driverid"
+									class="box"><option>选择驾驶证号</option>
+								</select>
+
 						</div>
+						<div>
+								<select class="input_outer2" id="sel" name="engineid"
+									class="box"><option>选择发动机号</option>
+								</select>
+
+						</div>
+
 					</div>
+
+					<center>
+						<button id="queren" class="act-but1 submit1" style="color: #FFFFFF">确认</button>
+					</center>
+					<br></br>
+
 				</div>
+				<div style="width:100%;" id="tableInfo" ; class="speedtable"></div>
+				</form>
+			</div>
+		</div>
+	</div>
 
 	<script src="js/TweenLite.min.js"></script>
 	<script src="js/EasePack.min.js"></script>
 	<script src="js/rAF.js"></script>
 	<script src="js/demo-1.js"></script>
 </body>
+
+
+
+<link
+	href="https://cdn.bootcss.com/jquery-datetimepicker/2.5.17/jquery.datetimepicker.min.css"
+	rel="stylesheet">
+
+<script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
+<script
+	src="https://cdn.bootcss.com/jquery-datetimepicker/2.5.17/jquery.datetimepicker.full.min.js"></script>
+
 </html>
 
-<script src="jquery-1.8.3.min.js"></script>
 <script>
 $(document).ready(function () {
-    var url="/XM14/SelectVehicleServlet"; //访问后台去数据库查询select的选项,此处需填写后台接口路径
+    var url="/XM14/SelectOnesCar"; //访问后台去数据库查询select的选项,此处需填写后台接口路径
     $.ajax({
         type:"get",
         url:url,
@@ -257,7 +231,32 @@ $(document).ready(function () {
             if(parsedJson!=null){ //后台传回来的select选项
                 for(var i=0;i<parsedJson.length;i++){
                     //遍历后台传回的结果，一项项往select中添加option
-                    unitObj.append("<option>"+parsedJson[i].Device_id+"</option>");
+                    unitObj.append("<option>"+parsedJson[i].engine_id+"</option>");
+                }
+            }
+        },
+        error:function(){
+            J.alert('Error');
+        }
+    })
+})
+</script>
+
+<script>
+$(document).ready(function () {
+    var url="/XM14/SelectOnesDriver"; //访问后台去数据库查询select的选项,此处需填写后台接口路径
+    $.ajax({
+        type:"get",
+        url:url,
+        datatype:"json",
+        success:function(userList){
+            var unitObj=$("#sel1"); //页面上的<html:select>元素
+            var parsedJson = jQuery.parseJSON(userList);
+            //console.log(data[0].Device_id);
+            if(parsedJson!=null){ //后台传回来的select选项
+                for(var i=0;i<parsedJson.length;i++){
+                    //遍历后台传回的结果，一项项往select中添加option
+                    unitObj.append("<option>"+parsedJson[i].driver_id+"</option>");
                 }
             }
         },

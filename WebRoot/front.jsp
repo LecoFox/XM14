@@ -145,9 +145,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 									<option value="体验24">体验24</option>
 									<option value="体验25">体验25</option>
 								</select><br> <label for="start">开始时间：</label> <input id="start"
-									name="start" value="2021/01/01 23:07" type="datetime" /><br>
+									name="start" value="2021/01/01 23:07" type="datetime" style="BACKGROUND-COLOR: transparent;" /><br>
 								<label for="end">结束时间：</label> <input id="end" name="end"
-									value="2021/01/31 23:07" type="datetime" /> <input
+									value="2021/01/31 23:07" type="datetime" style="BACKGROUND-COLOR: transparent;"/> <input
 									type="button" class="search_btn" value="详细信息查询"
 									onclick="getTrack();"><br><br>
 							</form>

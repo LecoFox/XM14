@@ -1,4 +1,5 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"
+import="com.model.RegVehicle" import="com.model.User"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String path = request.getContextPath();
@@ -67,14 +68,13 @@ input.form-control {-webkit-text-fill-color: #555}
 			<div class="top-nav">
 				<span class="menu"><img src="images/menu-icon.png" alt="" /></span>
 				<ul class="nav1">
-					<li><a href="allocation_driver.jsp">车辆分配</a></li>
-					<li><a href="showallRegVehicle.jsp">车辆信息登记</a></li>
-					<li><a href="reg_driver.jsp">驾驶员信息登记</a></li>
-					<li><a href="overspeed2.jsp">超速统计</a></li>
-					<li><a href="mileage2.jsp">里程统计</a></li>
-					<li><a href="delete_account.jsp">删除账号</a></li>
+					<li><a href="showallRegVehicle.jsp">车辆注册信息</a></li>
+					<li><a href="showall.jsp">用户注册信息</a></li>
+					<li><a href="loginstatus.jsp">用户在线信息</a></li>
+					<li><a href="overspeed.jsp">超速统计</a></li>
+					<li><a href="mileage.jsp">里程统计</a></li>
 					<li><a id="#b01" href="">一键提醒</a></li>
-					<li><a href="javascript:openWin('normalgettrack.jsp')">轨迹回放</a></li>
+					<li><a href="javascript:openWin('gettrack.jsp')">轨迹回放</a></li>
 					<li><a href="SendYuejie">越界提醒</a></li>
 				</ul>
 				<!-- script-for-menu -->
@@ -113,17 +113,12 @@ input.form-control {-webkit-text-fill-color: #555}
 		<div class="header-info-right">
 			<div class="header cbp-spmenu-push">
 				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"
-					id="cbp-spmenu-s1">
-					<a href="allocation_driver.jsp">车辆分配</a>
-					<a href="showallRegVehicle.jsp">车辆信息登记</a>
-					<a href="reg_driver.jsp">驾驶员信息登记</a>
-					<a href="overspeed2.jsp">超速统计</a>
-					<a href="mileage2.jsp">里程统计</a>
-					<a href="delete_account.jsp">删除账号</a>
-					<a id="#b01" href="">一键提醒</a>
-					<a href="javascript:openWin('normalgettrack.jsp')">轨迹回放</a> 
-					<a href="SendYuejie">越界提醒</a>
-				</nav>
+					id="cbp-spmenu-s1"> <a href="showallRegVehicle.jsp">车辆注册信息</a>
+				<a href="showall.jsp">用户注册信息</a> <a href="loginstatus.jsp">用户在线信息</a>
+				<a href="overspeed.jsp">超速统计</a> <a href="mileage.jsp">里程统计</a> <a
+					id="#b01" href="">一键提醒</a> <a
+					href="javascript:openWin('gettrack.jsp')">轨迹回放</a> <a
+					href="SendYuejie">越界提醒</a> </nav>
 				<!--script-nav -->
 				<script>
 					$("span.menu").click(function() {
@@ -173,12 +168,12 @@ input.form-control {-webkit-text-fill-color: #555}
 				<form id="formSearch" class="form-horizontal">
 					<div class="form-group" style="margin-top:15px">
 						<label class="control-label col-sm-1"
-							for="txt_search_departmentname">车主</label>
+							for="txt_search_departmentname">型号</label>
 						<div class="col-sm-3">
 							<input type="text" class="form-control"
 								id="txt_search_departmentname">
 						</div>
-						<label class="control-label col-sm-1" for="txt_search_statu">驾驶员</label>
+						<label class="control-label col-sm-1" for="txt_search_statu">发动机号</label>
 						<div class="col-sm-3">
 							<input type="text" class="form-control" id="txt_search_statu">
 						</div>
@@ -198,6 +193,9 @@ input.form-control {-webkit-text-fill-color: #555}
 		</div>
 		<table id="tb_departments"></table>
 	</div>
+	<%
+		User user = (User) session.getAttribute("user");
+	%>
 	<div class="modal fade" id="addModal" tabindex="-1" role="dialog"
 		aria-labelledby="addModalLabel" data-backdrop="false">
 		<div class="modal-dialog" role="document" style="margin-top:10%;">
@@ -242,9 +240,8 @@ input.form-control {-webkit-text-fill-color: #555}
 							</div>
 
 							<div class="col-sm-9">
-								<select class="form-control" id="selowner" name="owner">
-									<option class="form-control">请选择</option>
-								</select>
+								<input type="text" name="owner" class="form-control"
+									id="add_owner" readonly="readonly"  value=<%=user.getUsername()%>>
 							</div>
 						</div>
 
@@ -282,16 +279,6 @@ input.form-control {-webkit-text-fill-color: #555}
 							</div>
 						</div>
 
-						<div class="form-group">
-							<div class="col-sm-3">
-								<label class="control-label" for="add_driverid">驾驶证号</label>
-							</div>
-
-							<div class="col-sm-9">
-								<input type="text" name="driverid" class="form-control"
-									id="add_driverid">
-							</div>
-						</div>
 
 					</form>
 
@@ -317,6 +304,10 @@ input.form-control {-webkit-text-fill-color: #555}
 	</div>
 </body>
 </html>
+	<%
+		User user1 = (User) session.getAttribute("user");
+		String username = user.getUsername();
+	%>
 <script>
 $(function () {
 
@@ -375,18 +366,7 @@ var TableInit= function(){
                       title: '型号',
                       align: 'center',
                       sortable:true
-                  }, {
-                      field: 'driver_id',
-                      title: '驾驶员',
-                      align: 'center',
-                      sortable:true,
-                      editable: {
-                      	type:'text',
-                      	title:'驾驶员证',
-                      	validate:function (v){
-                      		if(!v) return '驾驶员号不能为空';
-                      	}
-                      }
+                  
                   }, {
                         field: 'device_id',
                         title: '操作',
@@ -399,7 +379,7 @@ var TableInit= function(){
     //初始化Table
     oTableInit.Init = function () {
     	$('#tb_departments').bootstrapTable({
-          url: 'SearchallRegVehicle',   //url一般是请求后台的url地址,调用ajax获取数据。此处我用本地的json数据来填充表格。
+          url: 'SearchallRegVehicle2',   //url一般是请求后台的url地址,调用ajax获取数据。此处我用本地的json数据来填充表格。
           method: "post",                     //使用get请求到服务器获取数据
           dataType: "json",
           contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
@@ -461,8 +441,9 @@ var TableInit= function(){
             offset: params.offset,  //页码
             order: params.order,
         	ordername: params.sort,
-            owner: $("#txt_search_departmentname").val(),
-            driver: $("#txt_search_statu").val()
+            model: $("#txt_search_departmentname").val(),
+            engine_id: $("#txt_search_statu").val(),
+            username:'<%=username%>'
         };
         return temp;
     };
@@ -551,7 +532,7 @@ function updUser(id) {
 </script>
 <script>
 $(document).ready(function () {
-    var url="/XM14/SelectVehicleServlet"; //访问后台去数据库查询select的选项,此处需填写后台接口路径
+    var url="/XM14/SelectOnesDevice2"; //访问后台去数据库查询select的选项,此处需填写后台接口路径
     $.ajax({
         type:"get",
         url:url,
@@ -563,31 +544,7 @@ $(document).ready(function () {
             if(parsedJson!=null){ //后台传回来的select选项
                 for(var i=0;i<parsedJson.length;i++){
                     //遍历后台传回的结果，一项项往select中添加option
-                    unitObj.append("<option>"+parsedJson[i].Device_id+"</option>");
-                }
-            }
-        },
-        error:function(){
-            J.alert('Error');
-        }
-    })
-})
-</script>
-<script>
-$(document).ready(function () {
-    var url="/XM14/SelectUser"; //访问后台去数据库查询select的选项,此处需填写后台接口路径
-    $.ajax({
-        type:"get",
-        url:url,
-        datatype:"json",
-        success:function(userList){
-            var unitObj=$("#selowner"); //页面上的<html:select>元素
-            var parsedJson = jQuery.parseJSON(userList);
-            //console.log(data[0].Device_id);
-            if(parsedJson!=null){ //后台传回来的select选项
-                for(var i=0;i<parsedJson.length;i++){
-                    //遍历后台传回的结果，一项项往select中添加option
-                    unitObj.append("<option>"+parsedJson[i].username+"</option>");
+                    unitObj.append("<option>"+parsedJson[i].device_id+"</option>");
                 }
             }
         },

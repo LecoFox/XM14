@@ -34,6 +34,10 @@
     <servlet-class>com.servlet.SearchallRegVehicle</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>SearchallRegVehicle2</servlet-name>
+    <servlet-class>com.servlet.SearchallRegVehicle2</servlet-class>
+  </servlet>
+  <servlet>
     <servlet-name>Searchall</servlet-name>
     <servlet-class>com.servlet.Searchall</servlet-class>
   </servlet>
@@ -96,6 +100,10 @@
   <servlet-mapping>
     <servlet-name>SearchallRegVehicle</servlet-name>
     <url-pattern>/SearchallRegVehicle</url-pattern>
+  </servlet-mapping>
+   <servlet-mapping>
+    <servlet-name>SearchallRegVehicle2</servlet-name>
+    <url-pattern>/SearchallRegVehicle2</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>Searchall</servlet-name>

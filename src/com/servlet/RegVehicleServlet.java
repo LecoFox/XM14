@@ -96,7 +96,7 @@ public class RegVehicleServlet extends HttpServlet {
 		            vehicle.setModel(model);
 		            vehicle.setBrand(brand);
 		            vehicle.setEngine_id(engine_id);
-		            vehicle.setDriver_id(driver_id);
+		            //vehicle.setDriver_id(driver_id);
 					if(vehicleDao.engineAvailable(engine_id)){
 						vehicleDao.saveVehicle(vehicle);
 						req.setAttribute("info", "注册成功！ <br>");

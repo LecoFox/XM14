@@ -81,7 +81,7 @@ public class TableRegVeh extends HttpServlet {
         String chepai = req.getParameter("chepai");
         String model = req.getParameter("model");
         String brand = req.getParameter("brand");
-        String driver_id = req.getParameter("driverid");
+        String driver_id = "";
         System.out.println("获取车辆登记信息成功");
         //实例化RegVehicleDao对象
         RegVehicleDao vehicleDao = new RegVehicleDao();
