@@ -687,6 +687,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		$("#b01").click(function() {
 			$.ajax({
 				type : "get",
+				data : "",
 				url : "/XM14/UserEmailServlet",
 				datatype : "json",
 			})
