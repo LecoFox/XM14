@@ -68,6 +68,7 @@ input.form-control {-webkit-text-fill-color: #555}
 			<div class="top-nav">
 				<span class="menu"><img src="images/menu-icon.png" alt="" /></span>
 				<ul class="nav1">
+					<li><a href="showallRegVehicle1.jsp">车辆信息登记</a></li>
 					<li><a href="showall.jsp">用户注册信息</a></li>
 					<li><a href="loginstatus.jsp">用户在线信息</a></li>
 					<li><a href="allocation_device.jsp">设备分配</a></li>
@@ -112,6 +113,7 @@ input.form-control {-webkit-text-fill-color: #555}
 			<div class="header cbp-spmenu-push">
 				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"
 					id="cbp-spmenu-s1"> 
+					<a href="showallRegVehicle1.jsp">车辆信息登记</a>
 					<a href="showall.jsp">用户注册信息</a> 
 					<a href="loginstatus.jsp">用户在线信息</a>
 					<a href="allocation_device.jsp">设备分配</a>

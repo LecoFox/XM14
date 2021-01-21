@@ -70,7 +70,7 @@ xt/javascript"
 				<span class="menu"><img src="images/menu-icon.png" alt="" /></span>
 				<ul class="nav1">
 					<li><a href="allocation_driver.jsp">车辆分配</a></li>
-					<li><a href="showallRegVehicle.jsp">车辆信息登记</a></li>
+					<li><a href="showallRegVehicle2.jsp">车辆信息登记</a></li>
 					<li><a href="reg_driver.jsp">驾驶员信息登记</a></li>
 					<li><a href="overspeed2.jsp">超速统计</a></li>
 					<li><a href="mileage2.jsp">里程统计</a></li>
@@ -114,7 +114,7 @@ xt/javascript"
 				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"
 					id="cbp-spmenu-s1">
 					<a href="allocation_driver.jsp">车辆分配</a>
-					<a href="showallRegVehicle.jsp">车辆信息登记</a>
+					<a href="showallRegVehicle2.jsp">车辆信息登记</a>
 					<a href="reg_driver.jsp">驾驶员信息登记</a>
 					<a href="overspeed2.jsp">超速统计</a>
 					<a href="mileage2.jsp">里程统计</a>
@@ -229,6 +229,23 @@ xt/javascript"
 								</div>
 							</td>
 						</tr>
+						<tr>
+							<td class="td1">邮箱:</td>
+							<td class="td2">
+								<div class="input_outer2">
+									<input class="text1" onkeyup="emailvalidate()" type="text" name="email"
+										style="color: #FFFFFF !important" class="box"><span id="Email-attention"></span>
+								</div>
+							</td>
+						</tr>
+						<tr>
+							<td class="td1">创建者：</td>
+							<td class="td2">
+								<div class="input_outer2">
+									<input class="text1" type="text" readonly="readonly" name="creator" value=<%=user.getUsername()%> style="color: #FFFFFF !important" class="box">
+								</div>
+							</td>
+						</tr>
 						
 						<tr>
 							<td class="td5" colspan="2"><input type="submit" value="注册"
@@ -262,6 +279,18 @@ xt/javascript"
 		format : 'Y-m-d',
 		lang : 'zh'
 	});
+</script>
+<script>
+	function emailvalidate() {
+		var email = document.getElementById("email").value;
+		if (/^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/.test(email)) {
+			document.getElementById("Email-attention").innerHTML = "<font color='green'>correct</font>";
+			emailflag = true;
+		} else {
+			document.getElementById("Email-attention").innerHTML = "<font color='red'>incorrect</font>";
+			emailflag = false;
+		}
+	}
 </script>
 
 </html>

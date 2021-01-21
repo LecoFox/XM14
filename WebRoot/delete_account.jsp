@@ -69,8 +69,9 @@ xt/javascript"
 			<div class="top-nav">
 				<span class="menu"><img src="images/menu-icon.png" alt="" /></span>
 				<ul class="nav1">
+
 					<li><a href="allocation_driver.jsp">车辆分配</a></li>
-					<li><a href="showallRegVehicle.jsp">车辆信息登记</a></li>
+					<li><a href="showallRegVehicle2.jsp">车辆信息登记</a></li>
 					<li><a href="reg_driver.jsp">驾驶员信息登记</a></li>
 					<li><a href="overspeed2.jsp">超速统计</a></li>
 					<li><a href="mileage2.jsp">里程统计</a></li>
@@ -115,7 +116,7 @@ xt/javascript"
 					id="cbp-spmenu-s1">
 					
 					<a href="allocation_driver.jsp">车辆分配</a>
-					<a href="showallRegVehicle.jsp">车辆信息登记</a>
+					<a href="showallRegVehicle2.jsp">车辆信息登记</a>
 					<a href="reg_driver.jsp">驾驶员信息登记</a>
 					<a href="overspeed2.jsp">超速统计</a>
 					<a href="mileage2.jsp">里程统计</a>
