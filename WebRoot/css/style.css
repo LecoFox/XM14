@@ -67,6 +67,7 @@ body a:hover {
 #popLayer {
 	display: none;
 	background-color: #000000;
+
 	color:black;
 	font-color:black;
 	position: absolute;
@@ -82,7 +83,9 @@ body a:hover {
 
 #popBox {
 	display: none;
+
 	background-color: #fdc9ef;
+
 	color: black;
 	z-index: 11;
 	width: 40%;

@@ -69,12 +69,15 @@ xt/javascript"
 			<div class="top-nav">
 				<span class="menu"><img src="images/menu-icon.png" alt="" /></span>
 				<ul class="nav1">
+					<li><a href="allocation_driver.jsp">车辆分配</a></li>
+					<li><a href="showallRegVehicle2.jsp">车辆信息登记</a></li>
+					<li><a href="reg_driver.jsp">驾驶员信息登记</a></li>
 					<li><a href="overspeed2.jsp">超速统计</a></li>
 					<li><a href="mileage2.jsp">里程统计</a></li>
-					<li><a href="javascript:openWin('normalgettrack.jsp')">轨迹回放</a></li>
-					<li><a href="reg_vehicle.jsp">车辆注册</a></li>
 					<li><a href="delete_account.jsp">删除账号</a></li>
-					<li><a href="reg_driver.jsp">驾驶员信息注册</a></li>
+					<li><a id="#b01" href="">一键提醒</a></li>
+					<li><a href="javascript:openWin('normalgettrack.jsp')">轨迹回放</a></li>
+					<li><a href="SendYuejie">越界提醒</a></li>
 				</ul>
 				<!-- script-for-menu -->
 				<script>
@@ -112,12 +115,15 @@ xt/javascript"
 		<div class="header-info-right">
 			<div class="header cbp-spmenu-push">
 				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1"> 
+					<a href="allocation_driver.jsp">车辆分配</a>
+					<a href="showallRegVehicle2.jsp">车辆信息登记</a>
+					<a href="reg_driver.jsp">驾驶员信息登记</a>
 					<a href="overspeed2.jsp">超速统计</a>
 					<a href="mileage2.jsp">里程统计</a>
-					<a href="javascript:openWin('normalgettrack.jsp')">轨迹回放</a>
-					<a href="reg_vehicle.jsp">车辆注册</a>
 					<a href="delete_account.jsp">删除账号</a>
-					<a href="reg_driver.jsp">驾驶员信息注册</a>
+					<a id="#b01" href="">一键提醒</a>
+					<a href="javascript:openWin('normalgettrack.jsp')">轨迹回放</a> 
+					<a href="SendYuejie">越界提醒</a>
 				</nav>
 				<!--script-nav -->
 				<script>

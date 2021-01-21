@@ -10,6 +10,11 @@
     <servlet-class>com.servlet.BcxData</servlet-class>
   </servlet>
   <servlet>
+    <servlet-name>BcxServlet</servlet-name>
+    <servlet-class>com.servlet.BcxServlet</servlet-class>
+    <load-on-startup>0</load-on-startup>
+  </servlet>
+  <servlet>
     <servlet-name>SearchRecord</servlet-name>
     <servlet-class>com.servlet.SearchRecord</servlet-class>
   </servlet>
@@ -88,6 +93,10 @@
   <servlet-mapping>
     <servlet-name>BcxData</servlet-name>
     <url-pattern>/BcxData</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>BcxServlet</servlet-name>
+    <url-pattern>/BcxServlet</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
     <servlet-name>SearchRecord</servlet-name>
