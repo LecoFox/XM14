@@ -39,7 +39,6 @@ input.form-control {-webkit-text-fill-color: #555}
 <script type="text/javascript" src="js/move-top.js"></script>
 <script type="text/javascript" src="js/easing.js"></script>
 <script type="text/javascript">
-
 			jQuery(document).ready(function($) {
 				$(".scroll").click(function(event) {
 					event.preventDefault();
@@ -67,13 +66,14 @@ input.form-control {-webkit-text-fill-color: #555}
 			<div class="top-nav">
 				<span class="menu"><img src="images/menu-icon.png" alt="" /></span>
 				<ul class="nav1">
-					<li><a href="showallRegVehicle1.jsp">车辆信息登记</a></li>
+					<li><a href="showallRegVehicle.jsp">车辆注册信息</a></li>
 					<li><a href="showall.jsp">用户注册信息</a></li>
 					<li><a href="loginstatus.jsp">用户在线信息</a></li>
-					<li><a href="allocation_device.jsp">设备分配</a></li>
 					<li><a href="overspeed.jsp">超速统计</a></li>
-					<li><a href="javascript:openWin('gettrack.jsp')">轨迹回放</a></li>
 					<li><a href="mileage.jsp">里程统计</a></li>
+					<li><a id="#b01" href="">一键提醒</a></li>
+					<li><a href="javascript:openWin('gettrack.jsp')">轨迹回放</a></li>
+					<li><a href="SendYuejie">越界提醒</a></li>
 				</ul>
 				<!-- script-for-menu -->
 				<script>
@@ -111,15 +111,12 @@ input.form-control {-webkit-text-fill-color: #555}
 		<div class="header-info-right">
 			<div class="header cbp-spmenu-push">
 				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"
-					id="cbp-spmenu-s1">
-					<a href="showallRegVehicle1.jsp">车辆信息登记</a>
-					<a href="showall.jsp">用户注册信息</a> 
-					<a href="loginstatus.jsp">用户在线信息</a>
-					<a href="allocation_device.jsp">设备分配</a>
-					<a href="overspeed.jsp">超速统计</a> 
-					<a href="javascript:openWin('gettrack.jsp')">轨迹回放</a> 
-					<a href="mileage.jsp">里程统计</a> 
-				</nav>
+					id="cbp-spmenu-s1"> <a href="showallRegVehicle.jsp">车辆注册信息</a>
+				<a href="showall.jsp">用户注册信息</a> <a href="loginstatus.jsp">用户在线信息</a>
+				<a href="overspeed.jsp">超速统计</a> <a href="mileage.jsp">里程统计</a> <a
+					id="#b01" href="">一键提醒</a> <a
+					href="javascript:openWin('gettrack.jsp')">轨迹回放</a> <a
+					href="SendYuejie">越界提醒</a> </nav>
 				<!--script-nav -->
 				<script>
 					$("span.menu").click(function() {
@@ -315,17 +312,13 @@ input.form-control {-webkit-text-fill-color: #555}
 </html>
 <script>
 $(function () {
-
     //1.初始化Table
     var oTable = new TableInit();
     oTable.Init();
-
     //2.初始化Button的点击事件
     var oButtonInit = new ButtonInit();
     oButtonInit.Init();
-
 });
-
 var TableInit= function(){
 	var oTableInit = new Object();
 	columns = [
@@ -427,7 +420,6 @@ var TableInit= function(){
             
             onEditableSave: function (field, row, oldValue, $el) {
                     //可进行异步操作
-
                     $.ajax({
                         type: "post",
                         url: "EditReg",
@@ -474,7 +466,6 @@ var TableInit= function(){
 var ButtonInit = function () {
     var oInit = new Object();
     var postdata = {};
-
     oInit.Init = function () {
         //初始化页面上面的按钮事件
         $('#btn_query').on('click',function(){
