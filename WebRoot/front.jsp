@@ -119,7 +119,7 @@ input.form-control {-webkit-text-fill-color: #555}
 						<div style="float:center;width:90%;height:30%;margin:20px auto;" align="left">
 							<form action="SearchTrack" method="post">
 								<label for="select_name">设备名称：</label> <select id="tname"
-									name="tname" style="width: 110px">
+									name="tname" style="width: 120px">
 									<option value="体验1">体验1</option>
 									<option value="体验2">体验2</option>
 									<option value="体验3">体验3</option>
@@ -618,7 +618,7 @@ input.form-control {-webkit-text-fill-color: #555}
 					var index = list.length - i;
 					var row = 'row' + index;
 					//1~25
-					code += '<div id="' + row + '" data-s = "' + speed + '" data-n = "' + name + '" class = "devicelist" style="height:50px;" index = "' + index + '" onmouseover=rowchange("' + row + '",' + true + ') onmouseout = rowchange("' + row + '",' + false + ')>';
+					code += '<div id="' + row + '" data-s = "' + speed + '" data-n = "' + name + '" class = "devicelist" style="height:60px;" index = "' + index + '" onmouseover=rowchange("' + row + '",' + true + ') onmouseout = rowchange("' + row + '",' + false + ')>';
 					code += '<div style="float:left;width:50px;font-size:3px;color:white" id="column' + index + '-1">' + name + '</div>';
 					code += '<div style="float:left;width:20px;font-size:3px;color:white" id="column' + index + '-2">' + speed + '</div>';
 					code += '<div style="float:left;width:30px;font-size:3px;color:white" id="column' + index + '-3">' + status + '</div>';
