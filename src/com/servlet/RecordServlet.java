@@ -56,7 +56,7 @@ public class RecordServlet extends BaseServlet {
 			PreparedStatement ps=conn.prepareStatement(sql);
 		
 			if(uId!=1){
-				sql = "select * from bcx_data natural join allocation where username=? order by id DESC limit 25;";
+				sql = "select * from bcx_data natural join allocation where username=? order by id DESC limit 1;";
 				ps= conn.prepareStatement(sql);
 				ps.setString(1, userName);
 			}
