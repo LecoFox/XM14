@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page import="com.model.User"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String path = request.getContextPath();
@@ -66,14 +67,8 @@ input.form-control {-webkit-text-fill-color: #555}
 
 			<div class="top-nav">
 				<span class="menu"><img src="images/menu-icon.png" alt="" /></span>
-				<ul class="nav1">
-					<li><a href="showallRegVehicle1.jsp">车辆信息登记</a></li>
-					<li><a href="showall.jsp">用户注册信息</a></li>
-					<li><a href="loginstatus.jsp">用户在线信息</a></li>
-					<li><a href="allocation_device.jsp">设备分配</a></li>
-					<li><a href="overspeed.jsp">超速统计</a></li>
-					<li><a href="javascript:openWin('gettrack.jsp')">轨迹回放</a></li>
-					<li><a href="mileage.jsp">里程统计</a></li>
+				<ul class="nav1" id ="clh-uni">
+				
 				</ul>
 				<!-- script-for-menu -->
 				<script>
@@ -112,14 +107,8 @@ input.form-control {-webkit-text-fill-color: #555}
 			<div class="header cbp-spmenu-push">
 				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"
 					id="cbp-spmenu-s1">
-					<a href="showallRegVehicle1.jsp">车辆信息登记</a>
-					<a href="showall.jsp">用户注册信息</a> 
-					<a href="loginstatus.jsp">用户在线信息</a>
-					<a href="allocation_device.jsp">设备分配</a>
-					<a href="overspeed.jsp">超速统计</a> 
-					<a href="javascript:openWin('gettrack.jsp')">轨迹回放</a> 
-					<a href="mileage.jsp">里程统计</a> 
-				</nav>
+					
+					 </nav>
 				<!--script-nav -->
 				<script>
 					$("span.menu").click(function() {
@@ -169,12 +158,12 @@ input.form-control {-webkit-text-fill-color: #555}
 				<form id="formSearch" class="form-horizontal">
 					<div class="form-group" style="margin-top:15px">
 						<label class="control-label col-sm-1"
-							for="txt_search_departmentname">车主</label>
+							for="txt_search_departmentname">型号</label>
 						<div class="col-sm-3">
 							<input type="text" class="form-control"
 								id="txt_search_departmentname">
 						</div>
-						<label class="control-label col-sm-1" for="txt_search_statu">驾驶员</label>
+						<label class="control-label col-sm-1" for="txt_search_statu">发动机号</label>
 						<div class="col-sm-3">
 							<input type="text" class="form-control" id="txt_search_statu">
 						</div>
@@ -194,6 +183,9 @@ input.form-control {-webkit-text-fill-color: #555}
 		</div>
 		<table id="tb_departments"></table>
 	</div>
+	<%
+		User user = (User) session.getAttribute("user");
+	%>
 	<div class="modal fade" id="addModal" tabindex="-1" role="dialog"
 		aria-labelledby="addModalLabel" data-backdrop="false">
 		<div class="modal-dialog" role="document" style="margin-top:10%;">
@@ -232,7 +224,7 @@ input.form-control {-webkit-text-fill-color: #555}
 							<label class="err-info-modal"></label>
 						</div>
 						
-						<div class="form-group">
+						<div class="form-group" id="for_hide">
 							<div class="col-sm-3">
 								<label class="control-label" for="add_owner">车主</label>
 							</div>
@@ -241,6 +233,7 @@ input.form-control {-webkit-text-fill-color: #555}
 								<select class="form-control" id="selowner" name="owner">
 									<option class="form-control">请选择</option>
 								</select>
+								
 							</div>
 						</div>
 
@@ -288,7 +281,11 @@ input.form-control {-webkit-text-fill-color: #555}
 									id="add_driverid">
 							</div>
 						</div>
-
+						<input type="hidden" name="uid" class="form-control"
+									id="add_uid" value=<%=user.getId()%>>
+						<input type="hidden" name="uname" class="form-control"
+									id="add_uname" value=<%=user.getUsername()%>>
+						
 					</form>
 
 					<div class="modal-footer">
@@ -395,7 +392,7 @@ var TableInit= function(){
     //初始化Table
     oTableInit.Init = function () {
     	$('#tb_departments').bootstrapTable({
-          url: 'SearchallRegVehicle',   //url一般是请求后台的url地址,调用ajax获取数据。此处我用本地的json数据来填充表格。
+          url: 'Vehicle?method=list',   //url一般是请求后台的url地址,调用ajax获取数据。此处我用本地的json数据来填充表格。
           method: "post",                     //使用get请求到服务器获取数据
           dataType: "json",
           contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
@@ -430,14 +427,14 @@ var TableInit= function(){
 
                     $.ajax({
                         type: "post",
-                        url: "EditReg",
+                        url: "Vehicle?method=update",
                         data: {
                         	engineid:row.engine_id,
                         	driverid:row.driver_id,
                         	deviceid:row.device_id
                         },
                         success: function (data) {
-                            if (JSON.parse(d).result_code == 200) {
+                            if (data.result_code == 200) {
                                 alert('提交数据成功');
                             }
                         },
@@ -451,14 +448,18 @@ var TableInit= function(){
       });
     };
     oTableInit.queryParams = function (params) {
-    	console.log(params)
+    	console.log(params);
+    	var userId='${sessionScope.user.id}';
+    	var userName='${sessionScope.user.username}';
         var temp = {   //这里的键的名字和控制器的变量名必须一直，这边改动，控制器也需要改成一样的
             limit: params.limit,   //页面大小
             offset: params.offset,  //页码
             order: params.order,
         	ordername: params.sort,
-            owner: $("#txt_search_departmentname").val(),
-            driver: $("#txt_search_statu").val()
+            model: $("#txt_search_departmentname").val(),
+            engine_id: $("#txt_search_statu").val(),
+            uname:userName,
+            uid:userId
         };
         return temp;
     };
@@ -498,7 +499,7 @@ var ButtonInit = function () {
 			console.log($("#add_form_modal").serializeArray());
 			$.ajax({
 				type: "post",
-				url: "TableRegVeh",
+				url: "Vehicle?method=add",
 				data: $("#add_form_modal").serializeArray(),              // 收集表单中的数据
 				dataType: "text",
 				success: function (d){
@@ -517,7 +518,7 @@ function delUser(dom) {
     console.log($(this).attr("deviceid"))
     if (mymessage == true) {
         $.ajax({
-            url :'DeleteReg',
+            url :'Vehicle?method=delete',
             type : 'post',
             data:{engineid:$(dom).attr('deviceid')},
             success : function(data) {
@@ -529,28 +530,20 @@ function delUser(dom) {
         });
     }
 }
-function updUser(id) {
-    layer.open({
-        type : 2,
-        title : '编辑注册车辆',
-        area : [ '500px', '440px' ],
-        fix : false, // 
-        content : path + '/user/pageUpd/' + id,
-        end : function() {
-            $("#mytab").bootstrapTable('refresh', {
-                url : path + "/user/list"
-            });
-        }
-    });
-   
-}
+
 </script>
 <script>
 $(document).ready(function () {
-    var url="/XM14/SelectVehicleServlet"; //访问后台去数据库查询select的选项,此处需填写后台接口路径
+    var url="Device?method=selectunreg"; //访问后台去数据库查询select的选项,此处需填写后台接口路径
+    var userId='${sessionScope.user.id}';
+    var userName='${sessionScope.user.username}';
     $.ajax({
         type:"get",
         url:url,
+        data:{
+        	uid:userId,
+        	username:userName
+        },
         datatype:"json",
         success:function(userList){
             var unitObj=$("#seldev"); //页面上的<html:select>元素
@@ -571,7 +564,7 @@ $(document).ready(function () {
 </script>
 <script>
 $(document).ready(function () {
-    var url="/XM14/SelectUser"; //访问后台去数据库查询select的选项,此处需填写后台接口路径
+    var url="User?method=down"; //访问后台去数据库查询select的选项,此处需填写后台接口路径
     $.ajax({
         type:"get",
         url:url,
@@ -590,6 +583,90 @@ $(document).ready(function () {
         error:function(){
             J.alert('Error');
         }
-    })
+    });
+    var userId='${sessionScope.user.id}';
+    if(userId!=1){
+    	$("#for_hide").hide();
+    }
+    else{
+    	$("#for_hide").show();
+    }
+    
 })
 </script>
+<script>
+			//获取权限 
+			var privilegeList='<%=session.getAttribute("privilegeList")%>';	
+			//console.log("值是:"+privilegeList+","+typeof(privilegeList));
+			var objPrivilegeList=JSON.parse(privilegeList);
+			$.each(objPrivilegeList.data,function(idx,item){
+				//将标识存放在 sessionStorage 里面，进行暂时的保存。 
+				sessionStorage.setItem(item,true);
+			})
+</script>
+<script>
+function getAllPrivilege(){
+    //取出当前登录的用户信息
+	   var userId='${sessionScope.user.id}';
+	   console.log("id:"+userId);
+	   
+	   $.post("PrivilegeServlet?method=getPrivilegeByUId",{userId:userId},function(data){
+		   //查询出权限
+		   var allPrivilegeList=data.data;
+		   
+		   createToolByData($("#cbp-spmenu-s1"),allPrivilegeList);
+		   
+		   createMenuByData($("#clh-uni"),allPrivilegeList);
+	   })
+    }
+	//执行获取权限的方法
+    getAllPrivilege();
+    //渲染到页面里面
+    function createToolByData(target,allPrivilegeList){
+    	
+    	target.empty();
+    	
+    	var firstMenus=[];
+    	
+    	var secondMenus=[];
+    	
+    	$.each(allPrivilegeList,function(idx,item){
+    		//有父
+    		if(item.pid){
+    			secondMenus.push(item);
+    		}else{
+    			firstMenus.push(item);
+    		}
+    	})
+    	
+    	$.each(firstMenus,function(idx,item){
+    		var $a=$('<a href="'+item.url+'" id="'+item.id+'">'+item.name+'</a>')
+    		target.append($a);
+    		
+    	})
+    }
+function createMenuByData(target,allPrivilegeList){
+    	
+    	target.empty();
+    	
+    	var firstMenus=[];
+    	
+    	var secondMenus=[];
+    	
+    	$.each(allPrivilegeList,function(idx,item){
+    		//有父
+    		if(item.pid){
+    			secondMenus.push(item);
+    		}else{
+    			firstMenus.push(item);
+    		}
+    	})
+    	
+    	$.each(firstMenus,function(idx,item){
+    		var $a=$('<li><a href="'+item.url+'">'+item.name+'</a></li>')
+    		target.append($a);
+    		
+    	})
+    }
+</script>
+

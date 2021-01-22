@@ -63,22 +63,13 @@ xt/javascript"
 	<div class="header-top" id="home">
 		<div class="container">
 			<div class="header-logo">
-				<a href="front2.jsp"><img src="images/logo.png" alt="" /></a>
+				<a href="front.jsp"><img src="images/logo.png" alt="" /></a>
 			</div>
 
 			<div class="top-nav">
 				<span class="menu"><img src="images/menu-icon.png" alt="" /></span>
-				<ul class="nav1">
-
-					<li><a href="allocation_driver.jsp">车辆分配</a></li>
-					<li><a href="showallRegVehicle2.jsp">车辆信息登记</a></li>
-					<li><a href="reg_driver.jsp">驾驶员信息登记</a></li>
-					<li><a href="overspeed2.jsp">超速统计</a></li>
-					<li><a href="mileage2.jsp">里程统计</a></li>
-					<li><a href="delete_account.jsp">删除账号</a></li>
-					<li><a id="#b01" href="">一键提醒</a></li>
-					<li><a href="javascript:openWin('normalgettrack.jsp')">轨迹回放</a></li>
-					<li><a href="SendYuejie">越界提醒</a></li>
+				<ul class="nav1" id ="clh-uni">
+				
 				</ul>
 				<!-- script-for-menu -->
 				<script>
@@ -96,6 +87,9 @@ xt/javascript"
 					<li><a href="#"><span class="fb"> </span></a></li>
 					<li><a href="#"><span class="g"> </span></a></li>
 				</ul>
+				<li id="remainTime" style="color:white;">平台将于<span
+					style="color:red">10</span>s后刷新
+				</li>
 			</div>
 			<div class="clearfix"></div>
 		</div>
@@ -115,16 +109,7 @@ xt/javascript"
 				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"
 					id="cbp-spmenu-s1">
 					
-					<a href="allocation_driver.jsp">车辆分配</a>
-					<a href="showallRegVehicle2.jsp">车辆信息登记</a>
-					<a href="reg_driver.jsp">驾驶员信息登记</a>
-					<a href="overspeed2.jsp">超速统计</a>
-					<a href="mileage2.jsp">里程统计</a>
-					<a href="delete_account.jsp">删除账号</a>
-					<a id="#b01" href="">一键提醒</a>
-					<a href="javascript:openWin('normalgettrack.jsp')">轨迹回放</a> 
-					<a href="SendYuejie">越界提醒</a>
-				</nav>
+					 </nav>
 				<!--script-nav -->
 				<script>
 					$("span.menu").click(function() {
@@ -144,6 +129,7 @@ xt/javascript"
 				<div class="clearfix"></div>
 				<!-- /script-nav -->
 				<div class="main">
+
 					<button id="showLeftPush">
 						<img src="images/menu.png" /><span>Menu</span>
 					</button>
@@ -203,3 +189,68 @@ xt/javascript"
 	<script src="js/demo-1.js"></script>
 </body>
 </html>
+<script>
+function getAllPrivilege(){
+    //取出当前登录的用户信息
+	   var userId='${sessionScope.user.id}';
+	   console.log("id:"+userId);
+	   
+	   $.post("PrivilegeServlet?method=getPrivilegeByUId",{userId:userId},function(data){
+		   //查询出权限
+		   var allPrivilegeList=data.data;
+		   
+		   createToolByData($("#cbp-spmenu-s1"),allPrivilegeList);
+		   
+		   createMenuByData($("#clh-uni"),allPrivilegeList);
+	   })
+    }
+	//执行获取权限的方法
+    getAllPrivilege();
+    //渲染到页面里面
+    function createToolByData(target,allPrivilegeList){
+    	
+    	target.empty();
+    	
+    	var firstMenus=[];
+    	
+    	var secondMenus=[];
+    	
+    	$.each(allPrivilegeList,function(idx,item){
+    		//有父
+    		if(item.pid){
+    			secondMenus.push(item);
+    		}else{
+    			firstMenus.push(item);
+    		}
+    	})
+    	
+    	$.each(firstMenus,function(idx,item){
+    		var $a=$('<a href="'+item.url+'" id="'+item.id+'">'+item.name+'</a>')
+    		target.append($a);
+    		
+    	})
+    }
+function createMenuByData(target,allPrivilegeList){
+    	
+    	target.empty();
+    	
+    	var firstMenus=[];
+    	
+    	var secondMenus=[];
+    	
+    	$.each(allPrivilegeList,function(idx,item){
+    		//有父
+    		if(item.pid){
+    			secondMenus.push(item);
+    		}else{
+    			firstMenus.push(item);
+    		}
+    	})
+    	
+    	$.each(firstMenus,function(idx,item){
+    		var $a=$('<li><a href="'+item.url+'">'+item.name+'</a></li>')
+    		target.append($a);
+    		
+    	})
+    }
+</script>

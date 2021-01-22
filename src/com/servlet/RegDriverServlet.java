@@ -66,7 +66,7 @@ public class RegDriverServlet extends HttpServlet {
 			req.setAttribute("info", "用户名为空！<br>注册失败！<br>");
 		}
 		//转发到message.jsp页面
-		req.getRequestDispatcher("front2.jsp").forward(req,resp);
+		req.getRequestDispatcher("front.jsp").forward(req,resp);
 	}
 
 

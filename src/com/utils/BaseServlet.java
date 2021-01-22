@@ -1,12 +1,12 @@
 package com.utils;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,41 +15,81 @@ import org.apache.commons.beanutils.BeanUtils;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 import net.sf.json.JsonConfig;
-
-public class DataBaseUtil {
-
-    //连接数据库
-    public static Connection getConn() {
-        Connection conn = null;
-        try {
-            //加载数据库驱动
-            Class.forName("com.mysql.jdbc.Driver");
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        String url = "jdbc:mysql://localhost:3306/xm14?user=XM14&password=123456&useUnicode=true&characterEncoding=UTF-8";
-        try {
-            conn = DriverManager.getConnection(url);
-            if (conn != null) {
-                //System.out.println(1123);
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-        return conn;
-    }
-
-    //关闭数据库
-    public static void closeConn(Connection conn){
-        if (conn != null) {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    public void java2Json(HttpServletResponse resp,Object o ,String[] exclueds){
+/**
+ * ͨ�õ�servlet
+ * @author ����������
+ *
+ */
+@SuppressWarnings("all")
+public class BaseServlet extends HttpServlet {
+	//����ǰ׺
+	private static String prefix;
+	//�����׺
+	private static String suffix;
+	{
+		prefix="/";
+		suffix=".jsp";
+	}
+	/**
+	 * �ύ����  ִ�з���ʱ�� User?method=login, ������Ҫд req,resp
+	 * 		 ��ת��ĳ��ҳ�棬 User?jsp=toLogin, ��������Ҫд req,resp
+	 */
+	@Override
+	protected void service(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		try {
+			req.setCharacterEncoding("utf-8");
+			
+			//��ʶ 0�Ƿ���,1�ǽ��� 2 ��Ĭ��
+			int flag=0;
+			String method = req.getParameter("method");
+			//�ж����methodΪ��
+			if(method == null) {
+				method=req.getParameter("jsp");
+				if(method==null){
+					method = "execute";
+					flag=2;
+				}else{
+					flag=1;
+				}
+			}
+			//�õ���ǰ�����servlet����ǰ���е���,�õ�UserServlet���Class
+			Class clazz = this.getClass();
+			
+			String result="";
+			
+			if(flag==0||flag==2){
+				//���ݵõ����ݹ��������ƣ������ƶ�Ӧ�ķ���ȥִ��
+				Method m1 = clazz.getMethod(method, HttpServletRequest.class,HttpServletResponse.class);
+				//�÷���ִ��
+				result= (String) m1.invoke(clazz.newInstance(), req,resp);
+			}else if(flag==1){
+				//���ݵõ����ݹ��������ƣ������ƶ�Ӧ�ķ���ȥִ��
+				Method m1 = clazz.getMethod(method);
+				//�÷���ִ��
+				result= (String) m1.invoke(clazz.newInstance());
+			}else{
+				//��Ĭ�ϵ�
+				result="";
+			}
+			if(result != null) {
+				//ת������
+				if(result.indexOf("?method=")==-1){
+					result=prefix+result+suffix;  
+				}
+				req.getRequestDispatcher(result).forward(req, resp);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+	}
+	
+	/**
+	 * ��ָ��Java����תΪjson������Ӧ���ͻ���ҳ��
+	 * @param o
+	 * @param exclueds
+	 */
+	public void java2Json(HttpServletResponse resp,Object o ,String[] exclueds){
 		JsonConfig jsonConfig = new JsonConfig();
 		//ָ����Щ���Բ���Ҫתjson
  		jsonConfig.setExcludes(exclueds);
@@ -144,5 +184,20 @@ public class DataBaseUtil {
 		
 		return t;
 	}
+	
+	
+	public String getPrefix() {
+		return prefix;
+	}
+	public void setPrefix(String prefix) {
+		this.prefix = prefix;
+	}
+	public String getSuffix() {
+		return suffix;
+	}
+	public void setSuffix(String suffix) {
+		this.suffix = suffix;
+	}
+	
+	
 }
-

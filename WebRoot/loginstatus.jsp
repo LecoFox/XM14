@@ -35,7 +35,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 	<link href="css/style.css" rel='stylesheet' type='text/css' />
 	<script src="js/jquery-1.11.0.min.js"></script>
 	<link
-		href='http://fonts.useso.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+		href='http://fonts.lug.ustc.edu.cn/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
 		rel='stylesheet' type='text/css'>
 		<!---- start-smoth-scrolling---->
 		<script type="text/javascript" src="js/move-top.js"></script>
@@ -71,13 +71,8 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 
 			<div class="top-nav">
 				<span class="menu"><img src="images/menu-icon.png" alt="" /></span>
-				<ul class="nav1">
-					<li><a href="showall.jsp">用户注册信息</a></li>
-					<li><a href="loginstatus.jsp">用户在线信息</a></li>
-					<li><a href="allocation_device.jsp">设备分配</a></li>
-					<li><a href="overspeed.jsp">超速统计</a></li>
-					<li><a href="javascript:openWin('gettrack.jsp')">轨迹回放</a></li>
-					<li><a href="mileage.jsp">里程统计</a></li>
+				<ul class="nav1" id ="clh-uni">
+				
 				</ul>
 				<!-- script-for-menu -->
 				<script>
@@ -115,13 +110,9 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		<div class="header-info-right">
 			<div class="header cbp-spmenu-push">
 				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"
-					id="cbp-spmenu-s1"> 
-					<a href="showall.jsp">用户注册信息</a> 
-					<a href="loginstatus.jsp">用户在线信息</a>
-					<a href="allocation_device.jsp">设备分配</a>
-					<a href="overspeed.jsp">超速统计</a> 
-					<a href="javascript:openWin('gettrack.jsp')">轨迹回放</a> 
-					<a href="mileage.jsp">里程统计</a>  </nav>
+					id="cbp-spmenu-s1">
+					
+					 </nav>
 				<!--script-nav -->
 				<script>
 					$("span.menu").click(function() {
@@ -176,7 +167,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 					<center>
 
 						<select class="input_outer2" id="sel" name="username" class="box"><option>选择指定用户日志</option>
-							<option></option></select>
+							</select>
 
 					</center>
 					<br/>
@@ -201,7 +192,7 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 <script src="https://cdn.bootcss.com/jquery/2.2.4/jquery.min.js"></script>
 <script>
 	$(document).ready(function() {
-		var url = "/XM14/SelectUser"; //访问后台去数据库查询select的选项,此处需填写后台接口路径
+		var url = "User?method=down"; //访问后台去数据库查询select的选项,此处需填写后台接口路径
 		$.ajax({
 			type : "get",
 			url : url,
@@ -282,3 +273,69 @@ Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, Sony
 		})
 	});
 </script>
+<script>
+function getAllPrivilege(){
+    //取出当前登录的用户信息
+	   var userId='${sessionScope.user.id}';
+	   console.log("id:"+userId);
+	   
+	   $.post("PrivilegeServlet?method=getPrivilegeByUId",{userId:userId},function(data){
+		   //查询出权限
+		   var allPrivilegeList=data.data;
+		   
+		   createToolByData($("#cbp-spmenu-s1"),allPrivilegeList);
+		   
+		   createMenuByData($("#clh-uni"),allPrivilegeList);
+	   })
+    }
+	//执行获取权限的方法
+    getAllPrivilege();
+    //渲染到页面里面
+    function createToolByData(target,allPrivilegeList){
+    	
+    	target.empty();
+    	
+    	var firstMenus=[];
+    	
+    	var secondMenus=[];
+    	
+    	$.each(allPrivilegeList,function(idx,item){
+    		//有父
+    		if(item.pid){
+    			secondMenus.push(item);
+    		}else{
+    			firstMenus.push(item);
+    		}
+    	})
+    	
+    	$.each(firstMenus,function(idx,item){
+    		var $a=$('<a href="'+item.url+'" id="'+item.id+'">'+item.name+'</a>')
+    		target.append($a);
+    		
+    	})
+    }
+function createMenuByData(target,allPrivilegeList){
+    	
+    	target.empty();
+    	
+    	var firstMenus=[];
+    	
+    	var secondMenus=[];
+    	
+    	$.each(allPrivilegeList,function(idx,item){
+    		//有父
+    		if(item.pid){
+    			secondMenus.push(item);
+    		}else{
+    			firstMenus.push(item);
+    		}
+    	})
+    	
+    	$.each(firstMenus,function(idx,item){
+    		var $a=$('<li><a href="'+item.url+'">'+item.name+'</a></li>')
+    		target.append($a);
+    		
+    	})
+    }
+</script>
+

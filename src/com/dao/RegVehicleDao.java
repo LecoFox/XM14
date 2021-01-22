@@ -464,4 +464,33 @@ public class RegVehicleDao {
         }
         return false;
     }
+
+	public boolean deviceAvailable(String device_id) {
+		Connection conn = DataBaseUtil.getConn();
+        //根据指定的用户名查询信息
+        String sql = "select * from reg_device where device_id = ?";
+
+        try {
+            //获取PreparedStatement对象，用于执行数据库查询
+            PreparedStatement preparedStatement = conn.prepareStatement(sql);
+            preparedStatement.setString(1, device_id);
+            //执行查询获取结果集
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (!resultSet.next()) {
+                //如果没有此数据，证明该发动机号可用
+                return true;
+            }
+            //释放资源,后创建的先销毁
+            resultSet.close();
+            preparedStatement.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DataBaseUtil.closeConn(conn);
+        }
+
+        return false;
+	}
+	
+	
 }

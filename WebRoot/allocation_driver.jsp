@@ -47,7 +47,7 @@ xt/javascript"
 			});
 		</script>
 <base href="<%=basePath%>">
-<title>里程统计</title>
+<title>设备分配</title>
 <script type="text/javascript" src="js/tableSort.js"></script>
 <link rel="stylesheet" type="text/css" href="css/normalize.css" />
 <link rel="stylesheet" type="text/css" href="css/demo.css" />
@@ -63,21 +63,13 @@ xt/javascript"
 	<div class="header-top" id="home">
 		<div class="container">
 			<div class="header-logo">
-				<a href="front2.jsp"><img src="images/logo.png" alt="" /></a>
+				<a href="front.jsp"><img src="images/logo.png" alt="" /></a>
 			</div>
 
 			<div class="top-nav">
 				<span class="menu"><img src="images/menu-icon.png" alt="" /></span>
-				<ul class="nav1">
-					<li><a href="allocation_driver.jsp">车辆分配</a></li>
-					<li><a href="showallRegVehicle2.jsp">车辆信息登记</a></li>
-					<li><a href="reg_driver.jsp">驾驶员信息登记</a></li>
-					<li><a href="overspeed2.jsp">超速统计</a></li>
-					<li><a href="mileage2.jsp">里程统计</a></li>
-					<li><a href="delete_account.jsp">删除账号</a></li>
-					<li><a id="#b01" href="">一键提醒</a></li>
-					<li><a href="javascript:openWin('normalgettrack.jsp')">轨迹回放</a></li>
-					<li><a href="SendYuejie">越界提醒</a></li>
+				<ul class="nav1" id ="clh-uni">
+				
 				</ul>
 				<!-- script-for-menu -->
 				<script>
@@ -95,6 +87,9 @@ xt/javascript"
 					<li><a href="#"><span class="fb"> </span></a></li>
 					<li><a href="#"><span class="g"> </span></a></li>
 				</ul>
+				<li id="remainTime" style="color:white;">平台将于<span
+					style="color:red">10</span>s后刷新
+				</li>
 			</div>
 			<div class="clearfix"></div>
 		</div>
@@ -113,16 +108,8 @@ xt/javascript"
 			<div class="header cbp-spmenu-push">
 				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"
 					id="cbp-spmenu-s1">
-					<a href="allocation_driver.jsp">车辆分配</a>
-					<a href="showallRegVehicle2.jsp">车辆信息登记</a>
-					<a href="reg_driver.jsp">驾驶员信息登记</a>
-					<a href="overspeed2.jsp">超速统计</a>
-					<a href="mileage2.jsp">里程统计</a>
-					<a href="delete_account.jsp">删除账号</a>
-					<a id="#b01" href="">一键提醒</a>
-					<a href="javascript:openWin('normalgettrack.jsp')">轨迹回放</a> 
-					<a href="SendYuejie">越界提醒</a>
-				</nav>
+					
+					 </nav>
 				<!--script-nav -->
 				<script>
 					$("span.menu").click(function() {
@@ -142,6 +129,7 @@ xt/javascript"
 				<div class="clearfix"></div>
 				<!-- /script-nav -->
 				<div class="main">
+
 					<button id="showLeftPush">
 						<img src="images/menu.png" /><span>Menu</span>
 					</button>
@@ -180,13 +168,13 @@ xt/javascript"
 
 						<div>
 								<select class="input_outer2" id="sel1" name="driverid"
-									class="box"><option>选择驾驶证号</option>
+									class="box"><option>选择设备号</option>
 								</select>
 
 						</div>
 						<div>
 								<select class="input_outer2" id="sel" name="engineid"
-									class="box"><option>选择发动机号</option>
+									class="box"><option>选择分配用户</option>
 								</select>
 
 						</div>
@@ -225,7 +213,7 @@ xt/javascript"
 
 <script>
 $(document).ready(function () {
-    var url="/XM14/SelectOnesCar"; //访问后台去数据库查询select的选项,此处需填写后台接口路径
+    var url="Device?method=list"; //访问后台去数据库查询select的选项,此处需填写后台接口路径
     $.ajax({
         type:"get",
         url:url,
@@ -250,25 +238,92 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function () {
-    var url="/XM14/SelectOnesDriver"; //访问后台去数据库查询select的选项,此处需填写后台接口路径
+    var url="User:list"; //访问后台去数据库查询select的选项,此处需填写后台接口路径
     $.ajax({
         type:"get",
         url:url,
         datatype:"json",
         success:function(userList){
-            var unitObj=$("#sel1"); //页面上的<html:select>元素
+            var unitObj=$("#selowner"); //页面上的<html:select>元素
             var parsedJson = jQuery.parseJSON(userList);
             //console.log(data[0].Device_id);
             if(parsedJson!=null){ //后台传回来的select选项
                 for(var i=0;i<parsedJson.length;i++){
                     //遍历后台传回的结果，一项项往select中添加option
-                    unitObj.append("<option>"+parsedJson[i].driver_id+"</option>");
+                    unitObj.append("<option>"+parsedJson[i].username+"</option>");
                 }
             }
         },
         error:function(){
             J.alert('Error');
         }
-    })
+    });
+    
 })
+</script>
+
+<script>
+function getAllPrivilege(){
+    //取出当前登录的用户信息
+	   var userId='${sessionScope.user.id}';
+	   console.log("id:"+userId);
+	   
+	   $.post("PrivilegeServlet?method=getPrivilegeByUId",{userId:userId},function(data){
+		   //查询出权限
+		   var allPrivilegeList=data.data;
+		   
+		   createToolByData($("#cbp-spmenu-s1"),allPrivilegeList);
+		   
+		   createMenuByData($("#clh-uni"),allPrivilegeList);
+	   })
+    }
+	//执行获取权限的方法
+    getAllPrivilege();
+    //渲染到页面里面
+    function createToolByData(target,allPrivilegeList){
+    	
+    	target.empty();
+    	
+    	var firstMenus=[];
+    	
+    	var secondMenus=[];
+    	
+    	$.each(allPrivilegeList,function(idx,item){
+    		//有父
+    		if(item.pid){
+    			secondMenus.push(item);
+    		}else{
+    			firstMenus.push(item);
+    		}
+    	})
+    	
+    	$.each(firstMenus,function(idx,item){
+    		var $a=$('<a href="'+item.url+'" id="'+item.id+'">'+item.name+'</a>')
+    		target.append($a);
+    		
+    	})
+    }
+function createMenuByData(target,allPrivilegeList){
+    	
+    	target.empty();
+    	
+    	var firstMenus=[];
+    	
+    	var secondMenus=[];
+    	
+    	$.each(allPrivilegeList,function(idx,item){
+    		//有父
+    		if(item.pid){
+    			secondMenus.push(item);
+    		}else{
+    			firstMenus.push(item);
+    		}
+    	})
+    	
+    	$.each(firstMenus,function(idx,item){
+    		var $a=$('<li><a href="'+item.url+'">'+item.name+'</a></li>')
+    		target.append($a);
+    		
+    	})
+    }
 </script>

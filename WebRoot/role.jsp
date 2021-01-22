@@ -1,4 +1,5 @@
-<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"
+import="com.model.RegVehicle" import="com.model.User"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 	String path = request.getContextPath();
@@ -12,7 +13,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Cache-Control" content="no-cache">
 <title>登录信息</title>
-
+<style type="text/css">
+input.form-control {-webkit-text-fill-color: #555}
+</style>
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
 
 
@@ -27,7 +30,7 @@
 <link href="css/bootstrap-editable.css" rel="stylesheet" />
 <script src="js/bootstrap-table-editable.js"></script>
 <script src="js/bootstrap-editable.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 <link href="css/style.css" rel='stylesheet' type='text/css' />
 
 <link
@@ -53,9 +56,6 @@
 <link rel="stylesheet" type="text/css" href="css/demo.css" />
 <!--必要样式-->
 <link rel="stylesheet" type="text/css" href="css/component.css" />
-<style type="text/css">
-input.form-control {-webkit-text-fill-color: #555}
-</style>
 </head>
 <body>
 <!--header-->
@@ -163,7 +163,7 @@ input.form-control {-webkit-text-fill-color: #555}
 							<input type="text" class="form-control"
 								id="txt_search_departmentname">
 						</div>
-						<label class="control-label col-sm-1" for="txt_search_statu">用户类型</label>
+						<label class="control-label col-sm-1" for="txt_search_statu">角色</label>
 						<div class="col-sm-3">
 							<input type="text" class="form-control" id="txt_search_statu">
 						</div>
@@ -176,11 +176,81 @@ input.form-control {-webkit-text-fill-color: #555}
 			</div>
 		</div>
 
-		
+		<div id="toolbar" class="btn-group">
+			<button id="btn_add" type="button" class="btn btn-default">
+				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+			</button>
+		</div>
 		<table id="tb_departments"></table>
+	</div>
+	
+	<div class="modal fade" id="addModal" tabindex="-1" role="dialog"
+		aria-labelledby="addModalLabel" data-backdrop="false">
+		<div class="modal-dialog" role="document" style="margin-top:10%;">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">×</span>
+					</button>
+					<h4 class="modal-title" id="addModalLabel">添加信息</h4>
+				</div>
+				<div class="modal-body">
+					<form id="add_form_modal" class="form-horizontal">
+					
+						<div class="form-group" id="for_hide">
+							<div class="col-sm-3">
+								<label class="control-label" for="add_owner">用户名</label>
+							</div>
+
+							<div class="col-sm-9">
+								<select class="form-control" id="selowner" name="username">
+									<option class="form-control">请选择</option>
+								</select>
+								
+							</div>
+						</div>
+						
+						<div class="form-group">
+							<div class="col-sm-3">
+								<label class="control-label" for="add_role">角色类型</label>
+							</div>
+
+							<div class="col-sm-9">
+								<select class="form-control" name="role" id="selrol">
+								<option class="form-control">请选择</option>
+								</select>
+								
+							</div>
+							<label class="err-info-modal"></label>
+						</div>
+
+
+					</form>
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default btn_reset_c"
+							data-dismiss="modal">
+							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>取消
+						</button>
+
+						<button type="button" id="btn_add_reset"
+							class="btn btn-default btn_reset_c">
+							<span class="glyphicon glyphicon-share-alt" aria-hidden="true"></span>重置
+						</button>
+
+						<button type="button" id="btn_add_submit" class="btn btn-primary"
+							data-dismiss="modal">
+							<span class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
+	
 <script>
 $(function () {
 
@@ -201,58 +271,41 @@ var TableInit= function(){
                       checkbox: true
                   },
                   {
-                      field: 'username',
-                      title: '用户名',
+                      field: 'id',
+                      title: '用户编号',
                       align: 'center',
                       width:300,
                       //sortable:true
                   }, {
-                      field: 'sex',
-                      title: '性别',
-                      align: 'center',
-                      sortable:true
-                  }, {
-                      field: 'question',
-                      title: '安全问题',
+                      field: 'username',
+                      title: '用户名',
                       align: 'center',
                       sortable:true,
-                      editable: {
-                      	type:'text',
-                      	title:'安全问题',
-                      	validate:function (v){
-                      		if(!v) return '安全问题不能为空';
-                      	}
-                      },
                   }, {
-                      field: 'email',
-                      title: '邮箱',
+                      field: 'role',
+                      title: '角色',
                       align: 'center',
                       sortable:true,
-                      editable: {
-                      	type:'text',
-                      	title:'邮箱',
-                      	validate:function (v){
-                      		if(!v) 
-                      			return '邮箱不能为空';
-                      		else if(v.split("@").length==1 || v.split(".").length==1)
-                      			return '邮箱地址必须包含@和.';
-                      	}
-                      },
-                  }, {
-                      field: 'type',
-                      title: '用户类型',
-                      align: 'left',
-                      halign:'center', //设置表头列居中对齐
-                      editable: {
-                      	type:'text',
-                      	title:'用户类型',
-                      	validate:function (v){
-                      		if(v!="n" ||v!="a" ) return '用户类型必须为n或者a';
-                      	}
-                      },
+                      editable:{
+                      type:'select',
+                    	title: '角色',
+                    	source:[{value:"管理员",text:"管理员"},{value:"经理",text:"经理"},{value:"普通职员",text:"普通职员"}]
+                      }
+                  }, 
+                   {
+                      field: 'description',
+                      title: '权限描述',
+                      align: 'center',
                       sortable:true
-                  }, {
-                        field: 'username',
+                  },
+                  {
+                      field: 'creator',
+                      title: '创建者',
+                      align: 'center',
+                      sortable:true
+                  },  
+                  {
+                        field: 'id',
                         title: '操作',
                         width: 120,
                         align: 'center',
@@ -263,7 +316,7 @@ var TableInit= function(){
     //初始化Table
     oTableInit.Init = function () {
     	$('#tb_departments').bootstrapTable({
-          url: 'User?method=list',   //url一般是请求后台的url地址,调用ajax获取数据。此处我用本地的json数据来填充表格。
+          url: 'Role?method=list',   //url一般是请求后台的url地址,调用ajax获取数据。此处我用本地的json数据来填充表格。
           method: "post",                     //使用get请求到服务器获取数据
           dataType: "json",
           contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
@@ -272,10 +325,10 @@ var TableInit= function(){
             cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
             pagination: true,                   //是否显示分页（*）
             sortable: true,                     //是否启用排序
-            sortName:"username",
+            sortName:"id",
             sortOrder: "asc",                   //排序方式
-            uniqueId: "username",
             queryParams: oTableInit.queryParams,//传递参数（*）
+            uniqueId: "id",
             sidePagination: "server",           //分页方式：client客户端分页，server服务端分页（*）
             pageNumber:1,                       //初始化加载第一页，默认第一页
             pageSize: 10,                       //每页的记录行数（*）
@@ -287,7 +340,6 @@ var TableInit= function(){
             minimumCountColumns: 2,             //最少允许的列数
             clickToSelect: true,                //是否启用点击选中行
             height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
-            //uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
             showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
             cardView: false,                    //是否显示详细视图
             detailView: false,                   //是否显示父子表
@@ -295,19 +347,19 @@ var TableInit= function(){
             
             onEditableSave: function (field, row, oldValue, $el) {
                     //可进行异步操作
-
+					console.log(row.id);
+					console.log(row.role);
+					console.log(oldValue);
                     $.ajax({
                         type: "post",
-                        url: "User?method=update",
+                        url: "Role?method=update",
                         data: {
-                        	question:row.question,
-                        	email:row.email,
-                        	type:row.type,
-                        	username:row.username
+                        	uid:row.id,
+                        	role:row.role
                         },
                         success: function (data) {
                             if (data.result_code == 200) {
-                                alert('提交数据成功');
+                                alert('修改成功');
                             }
                         },
                         error: function () {
@@ -327,16 +379,17 @@ var TableInit= function(){
             order: params.order,
         	ordername: params.sort,
             username: $("#txt_search_departmentname").val(),
-            type: $("#txt_search_statu").val()
+            role: $("#txt_search_statu").val(),
         };
         return temp;
     };
     return oTableInit;
     function actionFormatter(value, row, index) {
                 var id = value;
+                var role = row.role;
                 var result = "";
                 //result += '<button id="dupUser" class="btn btn-xs blue" deviceid='+value+' onclick="updUser(' + value + ')" title="编辑"><span class="glyphicon glyphicon-pencil"></span></button>';
-                result += '<button id="delUser" class="btn btn-xs red" username='+value+' onclick="delUser(this)" title="删除"><span class="glyphicon glyphicon-remove"></span></button>';
+                result += '<button id="delUser" class="btn btn-xs red" role='+role+' uid='+value+' onclick="delUser(this)" title="删除"><span class="glyphicon glyphicon-remove"></span></button>';
                 return result;
             }
 };
@@ -367,7 +420,7 @@ var ButtonInit = function () {
 			console.log($("#add_form_modal").serializeArray());
 			$.ajax({
 				type: "post",
-				url: "User?method=add",
+				url: "Role?method=add",
 				data: $("#add_form_modal").serializeArray(),              // 收集表单中的数据
 				dataType: "text",
 				success: function (d){
@@ -377,16 +430,21 @@ var ButtonInit = function () {
 			});
 		});
     };
+    
     return oInit;
 };
 function delUser(dom) {
+   
     var mymessage = confirm("确认删除嘛？");
-    console.log($(this).attr("username"))
+    console.log($(this).attr("uid"));
+    console.log($(this).attr("role"));
     if (mymessage == true) {
         $.ajax({
-            url :'User?method=delete',
+            url :'Role?method=delete',
             type : 'post',
-            data:{username:$(dom).attr('username')},
+            data:{uid:$(dom).attr('uid'),
+            	  role:$(dom).attr('role')
+            },
             success : function(data) {
                 $(dom).parent().parent().hide();
             },
@@ -398,7 +456,87 @@ function delUser(dom) {
 }
 
 </script>
+<script>	
+  $(document).ready(function () {
+  	console.log("运行listunalc");
+    var url="Device?method=listunalc"; //访问后台去数据库查询select的选项,此处需填写后台接口路径
+    $.ajax({
+        type:"post",
+        url:url,
+        datatype:"json",
+        success:function(userList){
+            var unitObj=$("#seldev"); //页面上的<html:select>元素
+            //var parsedJson = jQuery.parseJSON(userList);
+            //console.log(data[0].Device_id);
+            var list = userList.data;
+            if(list!=null){ //后台传回来的select选项
+                for(var i=0;i<list.length;i++){
+                    //遍历后台传回的结果，一项项往select中添加option
+                    unitObj.append("<option>"+list[i].device_id+"</option>");
+                }
+            }
+        },
+        error:function(){
+            J.alert('Error');
+        }
+    });
+})
+ </script>
+ <script>
+ $(document).ready(function () {
+    var url="User?method=down"; //访问后台去数据库查询select的选项,此处需填写后台接口路径
+    $.ajax({
+        type:"post",
+        url:url,
+        datatype:"json",
+        success:function(userList){
+            var unitObj=$("#selowner"); //页面上的<html:select>元素
+            var parsedJson = jQuery.parseJSON(userList);
+            //console.log(data[0].Device_id);
+            if(parsedJson!=null){ //后台传回来的select选项
+                for(var i=0;i<parsedJson.length;i++){
+                    //遍历后台传回的结果，一项项往select中添加option
+                    unitObj.append("<option>"+parsedJson[i].username+"</option>");
+                }
+            }
+        },
+        error:function(){
+            J.alert('Error');
+        }
+    });
+    
+})
+</script>
+ <script>
+ $(document).ready(function () {
+    var url="Role?method=listrolename"; //访问后台去数据库查询select的选项,此处需填写后台接口路径
+    $.ajax({
+        type:"post",
+        url:url,
+        datatype:"json",
+        success:function(userList){
+            var unitObj=$("#selrol"); //页面上的<html:select>元素
+            var parsedJson = jQuery.parseJSON(userList);
+            //console.log(data[0].Device_id);
+            if(parsedJson!=null){ //后台传回来的select选项
+                for(var i=0;i<parsedJson.length;i++){
+                    //遍历后台传回的结果，一项项往select中添加option
+                    unitObj.append("<option>"+parsedJson[i].name+"</option>");
+                }
+            }
+        },
+        error:function(){
+            J.alert('Error');
+        }
+    });
+    
+})
+</script>
 <script>
+/**
+ * 
+ */
+
 function getAllPrivilege(){
     //取出当前登录的用户信息
 	   var userId='${sessionScope.user.id}';

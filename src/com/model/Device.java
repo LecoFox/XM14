@@ -3,6 +3,7 @@ package com.model;
 public class Device{
 	private String device_id;
 	private String username;
+	private String adate;
 
 	public String getDeviceId() {
 		return device_id;
@@ -30,6 +31,14 @@ public class Device{
 
 	public Device() {
 		super();
+	}
+
+	public String getAdate() {
+		return adate;
+	}
+
+	public void setAdate(String adate) {
+		this.adate = adate;
 	}
 
 }
