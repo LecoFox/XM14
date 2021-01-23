@@ -20,42 +20,6 @@ xt/javascript"
 	src="http://api.map.baidu.com/getscript?v=3.0&ak=awORzYNz3svIeWeQ9pGPLnmZletmqfog">
 </script>
 
-<<<<<<< HEAD
-	<script type="application/x-javascript">addEventListener("load", function() {
-			setTimeout(hideURLbar, 0);
-		}, false);
-		function hideURLbar() {
-			window.scrollTo(0, 1);
-		}
-	</script>
-	<link href="css/bootstrap.css" rel='stylesheet' type='text/css' />
-	<link href="css/style.css" rel='stylesheet' type='text/css' />
-	<script src="js/jquery-1.11.0.min.js"></script>
-	<link
-		href='http://fonts.lug.ustc.edu.cn/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
-		rel='stylesheet' type='text/css'>
-		<!---- start-smoth-scrolling---->
-		<script type="text/javascript" src="js/move-top.js"></script>
-		<script type="text/javascript" src="js/easing.js"></script>
-		<script type="text/javascript">
-			jQuery(document).ready(function($) {
-				$(".scroll").click(function(event) {
-					event.preventDefault();
-					$('html,body').animate({
-						scrollTop : $(this.hash).offset().top
-					}, 1000);
-				});
-			});
-		</script>
-		<base href="<%=basePath%>">
-			<title>超速统计</title> <script type="text/javascript"
-				src="js/tableSort.js"></script>
-			<link rel="stylesheet" type="text/css" href="css/normalize.css" />
-			<link rel="stylesheet" type="text/css" href="css/demo.css" />
-			<!--必要样式-->
-			<link rel="stylesheet" type="text/css" href="css/component.css" />
-			<!--start-smoth-scrolling-->
-=======
 <script type="application/x-javascript">addEventListener("load", function() {
 		setTimeout(hideURLbar, 0);
 	}, false);
@@ -67,7 +31,7 @@ xt/javascript"
 <link href="css/style.css" rel='stylesheet' type='text/css' />
 <script src="js/jquery-1.11.0.min.js"></script>
 <link
-	href='http://fonts.useso.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+	href='http://fonts.lug.ustc.edu.cn/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
 	rel='stylesheet' type='text/css'>
 <!---- start-smoth-scrolling---->
 <script type="text/javascript" src="js/move-top.js"></script>
@@ -92,7 +56,7 @@ xt/javascript"
 <!--start-smoth-scrolling-->
 
 <script src="https://cdn.staticfile.org/echarts/4.3.0/echarts.min.js"></script>
->>>>>>> 585a717854985fe3900179ae21bd0f46247a6e53
+
 </head>
 
 
@@ -240,12 +204,6 @@ xt/javascript"
 			</div>
 		</div>
 	</div>
-
-
-
-
-
-
 
 
 	<script src="js/TweenLite.min.js"></script>
