@@ -12,11 +12,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Cache-Control" content="no-cache">
-<title>登录信息</title>
+<title>车辆注册信息</title>
 <style type="text/css">
 input.form-control {-webkit-text-fill-color: #555}
 </style>
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+
 
 
 <script src="js/bootstrap.js"></script>
@@ -26,10 +27,23 @@ input.form-control {-webkit-text-fill-color: #555}
 <script src="js/bootstrap-table.js"></script>
 <link href="css/bootstrap-table.css" rel="stylesheet" />
 <script src="js/bootstrap-table-zh-CN.js"></script>
+<script src="js/bootstrap-table-export.js"></script>
+<script src="js/bootstrap-table-print.js"></script>
 
 <link href="css/bootstrap-editable.css" rel="stylesheet" />
 <script src="js/bootstrap-table-editable.js"></script>
 <script src="js/bootstrap-editable.js"></script>
+
+<script src="js/jquery.base64.js"></script>
+<script src="js/html2canvas.min.js"></script>
+<script src="js/base64.js"></script>
+
+<script src="js/pdfmake.min.js"></script>
+<script src="js/gbsn00lp_fonts.js"></script>
+<script src="js/FileSaver.min.js"></script>
+<script src="js/xlsx.core.min.js"></script>
+
+<script src="js/tableExport.js"></script>
 
 <link href="css/style.css" rel='stylesheet' type='text/css' />
 
@@ -181,6 +195,12 @@ input.form-control {-webkit-text-fill-color: #555}
 				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
 			</button>
 		</div>
+		<div id="toolbar" class="btn-group">
+			<button id="btn_print" type="button" class="btn btn-default">
+				<span class="glyphicon glyphicon-print" aria-hidden="true"></span>打印
+			</button>
+		</div>
+		
 		<table id="tb_departments"></table>
 	</div>
 	<%
@@ -416,12 +436,20 @@ var TableInit= function(){
             minimumCountColumns: 2,             //最少允许的列数
             clickToSelect: true,                //是否启用点击选中行
             height: 500,                        //行高，如果没有设置height属性，表格自动根据记录条数觉得表格高度
-            uniqueId: "ID",                     //每一行的唯一标识，一般为主键列
             showToggle:true,                    //是否显示详细视图和列表视图的切换按钮
             cardView: false,                    //是否显示详细视图
             detailView: false,                   //是否显示父子表
             columns:columns,
-            
+            showExport: true,  //是否显示导出按钮
+        	exportDataType: "all",              //basic', 'all', 'selected'.
+        	//exportDataType: $(this).val(),//显示导出范围
+            exportTypes: ['json','png', 'txt', 'excel'],//导出格式
+            exportOptions: {//导出设置
+            				ignoreColumn: [0,8],
+                            fileName: 'TableVehicle',//下载文件名称
+                            onMsoNumberFormat: DoOnMsoNumberFormat
+            },
+        	showPrint:true,
             onEditableSave: function (field, row, oldValue, $el) {
                     //可进行异步操作
 
@@ -446,6 +474,7 @@ var TableInit= function(){
                     });
                 }
       });
+      $("#tb_departments").bootstrapTable("hideLoading");
     };
     oTableInit.queryParams = function (params) {
     	console.log(params);
@@ -471,6 +500,12 @@ var TableInit= function(){
                 result += '<button id="delUser" class="btn btn-xs red" deviceid='+value+' onclick="delUser(this)" title="删除"><span class="glyphicon glyphicon-remove"></span></button>';
                 return result;
             }
+    function DoOnMsoNumberFormat(cell, row, col) {
+        		var result = "";
+        	if (row > 0 && col == 0)
+            	result = "\\@";
+        	return result;
+    		}
 };
 var ButtonInit = function () {
     var oInit = new Object();
@@ -487,6 +522,10 @@ var ButtonInit = function () {
 				keyboard: true
 			});
 			clearForm("#add_form_modal");// 清除表单上一次的输入数据	
+		});
+		$("#btn_print").on("click",function (){
+				console.log("print");
+				printpage();
 		});
  
 	// helper: 重置表单
@@ -512,6 +551,15 @@ var ButtonInit = function () {
     
     return oInit;
 };
+function printpage(){
+    	var printData =$('#tb_departments').parent().html();
+
+    	window.document.body.innerHTML = printData;
+    	
+        // 开始打印
+        window.print();
+        window.location.reload(true);
+    }
 function delUser(dom) {
    
     var mymessage = confirm("确认删除嘛？");

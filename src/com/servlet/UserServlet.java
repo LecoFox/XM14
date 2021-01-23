@@ -222,23 +222,19 @@ public class UserServlet extends BaseServlet {
 		response.setCharacterEncoding("UTF=8");
 		//response.setContentType("text/html;charset=UTF-8");
 		
-		String tmp1=request.getParameter("limit");
-		String tmp2=request.getParameter("offset");
+		//String tmp1=request.getParameter("limit");
+		//String tmp2=request.getParameter("offset");
 		String username=request.getParameter("username");
 		String type=request.getParameter("type");
 		String order=request.getParameter("order");
 		String ordername=request.getParameter("ordername");
-		int limit=0;
-		int offset=10;
-		try {
-		    limit = Integer.parseInt(tmp1);
-		} catch (NumberFormatException e) {
-		    e.printStackTrace();
+		Integer limit=null;
+		Integer offset=null;
+		if(request.getParameter("limit")!=null){
+			limit = Integer.parseInt(request.getParameter("limit"));
 		}
-		try {
-		    offset = Integer.parseInt(tmp2);
-		} catch (NumberFormatException e) {
-		    e.printStackTrace();
+		if(request.getParameter("offset")!=null){
+			offset = Integer.parseInt(request.getParameter("offset"));
 		}
 		System.out.println("limit:"+limit);
 		System.out.println("offset:"+offset);
@@ -256,7 +252,20 @@ public class UserServlet extends BaseServlet {
 			// ����sql��䣬���ݴ��ݹ����Ĳ�ѯ��������
 			String sql="";
 			PreparedStatement preparedStatement=null;
-			
+			if(limit==null && offset==null){
+				sql="select * from tb_user";
+				preparedStatement = conn.prepareStatement(sql);
+				ResultSet tmprs = preparedStatement.executeQuery();
+				
+				while (tmprs.next()) {
+					size = size + 1;	
+				}
+				tmprs.close();
+				
+				//preparedStatement.setString(1, username);
+				
+			}
+			else{
 			if(username.equals("") && type.equals(""))
 			{
 				sql="select * from tb_user";
@@ -337,6 +346,7 @@ public class UserServlet extends BaseServlet {
 				//preparedStatement.setString(4, order);
 				preparedStatement.setInt(3, offset);
 				preparedStatement.setInt(4, limit);
+			}
 			}
 			// System.out.println("���������sql����ǣ�"+sql);
 			//执行查询获取结果集

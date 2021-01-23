@@ -215,14 +215,23 @@ public class VehicleServlet extends BaseServlet {
 		// TODO Auto-generated method stub
 		Integer uId=Integer.parseInt(request.getParameter("uid"));
 		String username = request.getParameter("uname");
-		String tmp1=request.getParameter("limit");
-		String tmp2=request.getParameter("offset");
+		//String tmp1=request.getParameter("limit");
+		//String tmp2=request.getParameter("offset");
 		String model=request.getParameter("model");
 		String engine_id=request.getParameter("engine_id");
 		String order=request.getParameter("order");
 		String ordername=request.getParameter("ordername");
-		int limit=0;
-		int offset=10;
+		Integer limit=null;
+		Integer offset=null;
+		if(request.getParameter("limit")!=null){
+			limit = Integer.parseInt(request.getParameter("limit"));
+		}
+		if(request.getParameter("offset")!=null){
+			offset = Integer.parseInt(request.getParameter("offset"));
+		}
+		//int limit = 0;
+		//int offset = 0;
+		/*
 		try {
 		    limit = Integer.parseInt(tmp1);
 		} catch (NumberFormatException e) {
@@ -233,6 +242,7 @@ public class VehicleServlet extends BaseServlet {
 		} catch (NumberFormatException e) {
 		    e.printStackTrace();
 		}
+		*/
 		System.out.println("limit:"+limit);
 		System.out.println("offset:"+offset);
 		System.out.println("model:"+model);
@@ -251,6 +261,21 @@ public class VehicleServlet extends BaseServlet {
 			
 			
 			if(uId!=1){
+				if(limit==null && offset==null){
+					sql="select * from (select * from reg_device where owner = ?) as a";
+					preparedStatement = conn.prepareStatement(sql);
+					preparedStatement.setString(1, username);
+					ResultSet tmprs = preparedStatement.executeQuery();
+					
+					while (tmprs.next()) {
+						size = size + 1;	
+					}
+					tmprs.close();
+					
+					//preparedStatement.setString(1, username);
+					
+				}
+				else{
 				if((model==null||model.equals("")) &&(engine_id==null||engine_id.equals("")))
 				{
 					sql="select * from (select * from reg_device where owner = ?) as a";
@@ -333,7 +358,21 @@ public class VehicleServlet extends BaseServlet {
 					preparedStatement.setInt(4, offset);
 					preparedStatement.setInt(5, limit);
 				}
+				}
 			} else{
+				if(limit==null && offset==null){
+					sql="select * from reg_device";
+					preparedStatement = conn.prepareStatement(sql);
+					ResultSet tmprs = preparedStatement.executeQuery();
+					
+					while (tmprs.next()) {
+						size = size + 1;	
+					}
+					tmprs.close();
+				}
+				else{
+					
+				
 				if((model==null||model.equals("")) &&(engine_id==null||engine_id.equals("")))
 				{
 					sql="select * from reg_device";
@@ -413,6 +452,7 @@ public class VehicleServlet extends BaseServlet {
 					//preparedStatement.setString(4, order);
 					preparedStatement.setInt(3, offset);
 					preparedStatement.setInt(4, limit);
+				}
 				}
 			}
 			ResultSet rs = preparedStatement.executeQuery();

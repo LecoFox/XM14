@@ -15,9 +15,7 @@
 <meta name="keywords"
 	content="Architect Responsive web template, Bootstrap Web Templates, Flat Web Templates, Andriod Compatible web template, 
 Smartphone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyErricsson, Motorola web design" />
-<script type="te
-xt/javascript"
-	src="http://api.map.baidu.com/getscript?v=3.0&ak=awORzYNz3svIeWeQ9pGPLnmZletmqfog">
+
 </script>
 
 <script type="application/x-javascript">addEventListener("load", function() {
@@ -31,7 +29,7 @@ xt/javascript"
 <link href="css/style.css" rel='stylesheet' type='text/css' />
 <script src="js/jquery-1.11.0.min.js"></script>
 <link
-	href='http://fonts.useso.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+	href='http://fonts.lug.ustc.edu.cn/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
 	rel='stylesheet' type='text/css'>
 <!---- start-smoth-scrolling---->
 <script type="text/javascript" src="js/move-top.js"></script>
@@ -213,13 +211,19 @@ xt/javascript"
 
 <script>
 $(document).ready(function () {
-    var url="Device?method=list"; //访问后台去数据库查询select的选项,此处需填写后台接口路径
+    var url="/XM14/SelectOnesCar"; //访问后台去数据库查询select的选项,此处需填写后台接口路径
+    var userId='${sessionScope.user.id}';
+    var userName='${sessionScope.user.username}';
     $.ajax({
         type:"get",
         url:url,
+        data:{
+        	uid:userId,
+        	username:userName
+        },
         datatype:"json",
         success:function(userList){
-            var unitObj=$("#sel"); //页面上的<html:select>元素
+            var unitObj=$("#sel1"); //页面上的<html:select>元素
             var parsedJson = jQuery.parseJSON(userList);
             //console.log(data[0].Device_id);
             if(parsedJson!=null){ //后台传回来的select选项
@@ -238,19 +242,19 @@ $(document).ready(function () {
 
 <script>
 $(document).ready(function () {
-    var url="User:list"; //访问后台去数据库查询select的选项,此处需填写后台接口路径
+    var url="/XM14/SelectOnesDriver"; //访问后台去数据库查询select的选项,此处需填写后台接口路径
     $.ajax({
         type:"get",
         url:url,
         datatype:"json",
         success:function(userList){
-            var unitObj=$("#selowner"); //页面上的<html:select>元素
+            var unitObj=$("#sel"); //页面上的<html:select>元素
             var parsedJson = jQuery.parseJSON(userList);
             //console.log(data[0].Device_id);
             if(parsedJson!=null){ //后台传回来的select选项
                 for(var i=0;i<parsedJson.length;i++){
                     //遍历后台传回的结果，一项项往select中添加option
-                    unitObj.append("<option>"+parsedJson[i].username+"</option>");
+                    unitObj.append("<option>"+parsedJson[i].name+"</option>");
                 }
             }
         },

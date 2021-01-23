@@ -26,10 +26,24 @@ input.form-control {-webkit-text-fill-color: #555}
 <script src="js/bootstrap-table.js"></script>
 <link href="css/bootstrap-table.css" rel="stylesheet" />
 <script src="js/bootstrap-table-zh-CN.js"></script>
+<script src="js/bootstrap-table-export.js"></script>
+<script src="js/bootstrap-table-print.js"></script>
 
 <link href="css/bootstrap-editable.css" rel="stylesheet" />
 <script src="js/bootstrap-table-editable.js"></script>
 <script src="js/bootstrap-editable.js"></script>
+
+<script src="js/jquery.base64.js"></script>
+<script src="js/html2canvas.min.js"></script>
+<script src="js/base64.js"></script>
+
+<script src="js/pdfmake.min.js"></script>
+<script src="js/gbsn00lp_fonts.js"></script>
+<script src="js/FileSaver.min.js"></script>
+<script src="js/xlsx.core.min.js"></script>
+
+<script src="js/tableExport.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
 <link href="css/style.css" rel='stylesheet' type='text/css' />
 
@@ -179,6 +193,11 @@ input.form-control {-webkit-text-fill-color: #555}
 		<div id="toolbar" class="btn-group">
 			<button id="btn_add" type="button" class="btn btn-default">
 				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>新增
+			</button>
+		</div>
+		<div id="toolbar" class="btn-group">
+			<button id="btn_print" type="button" class="btn btn-default">
+				<span class="glyphicon glyphicon-print" aria-hidden="true"></span>打印
 			</button>
 		</div>
 		<table id="tb_departments"></table>
@@ -344,7 +363,16 @@ var TableInit= function(){
             cardView: false,                    //是否显示详细视图
             detailView: false,                   //是否显示父子表
             columns:columns,
-            
+            showExport: true,  //是否显示导出按钮
+        	exportDataType: "all",              //basic', 'all', 'selected'.
+        	//exportDataType: $(this).val(),//显示导出范围
+            exportTypes: ['json','png', 'txt', 'excel'],//导出格式
+            exportOptions: {//导出设置
+            				ignoreColumn: [0,6],
+                            fileName: 'TableRole',//下载文件名称
+                            onMsoNumberFormat: DoOnMsoNumberFormat
+            },
+        	showPrint:true,
             onEditableSave: function (field, row, oldValue, $el) {
                     //可进行异步操作
 					console.log(row.id);
@@ -392,6 +420,12 @@ var TableInit= function(){
                 result += '<button id="delUser" class="btn btn-xs red" role='+role+' uid='+value+' onclick="delUser(this)" title="删除"><span class="glyphicon glyphicon-remove"></span></button>';
                 return result;
             }
+    function DoOnMsoNumberFormat(cell, row, col) {
+        		var result = "";
+        	if (row > 0 && col == 0)
+            	result = "\\@";
+        	return result;
+    		}
 };
 var ButtonInit = function () {
     var oInit = new Object();
@@ -409,7 +443,12 @@ var ButtonInit = function () {
 			});
 			clearForm("#add_form_modal");// 清除表单上一次的输入数据	
 		});
- 
+ 		
+ 		$("#btn_print").on("click",function (){
+				console.log("print");
+				printpage();
+		});
+		
 	// helper: 重置表单
 		function clearForm(form){
     		$(form)[0].reset();
@@ -433,6 +472,16 @@ var ButtonInit = function () {
     
     return oInit;
 };
+function printpage(){
+    	var printData =$('#tb_departments').parent().html();
+
+    	window.document.body.innerHTML = printData;
+    	
+        // 开始打印
+        window.print();
+        window.location.reload(true);
+};
+    
 function delUser(dom) {
    
     var mymessage = confirm("确认删除嘛？");
