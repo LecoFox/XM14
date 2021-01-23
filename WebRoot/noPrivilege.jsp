@@ -29,7 +29,7 @@
 				<canvas id="demo-canvas"></canvas>
 				<div class="logo_box">
 					<div class='mb2'>
-					<h3>对不起您没有登录！</h3>
+					<h3>对不起您没有权限！</h3>
 					<a href='front.jsp' class='act-but submit' style='color: #FFFFFF'>返回主界面</a>
 					</div>
 				</div>
