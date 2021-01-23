@@ -300,6 +300,46 @@ function createMenuByData(target,allPrivilegeList){
 </script>
 
 
+<script>
+	$(document).ready(function() {
+		$("#queren").click(function() {
+			var speed = $('#speed').val();
+			var Time1 = $('#datetime1').val();
+			var Time2 = $('#datetime2').val();
+			var userId='${sessionScope.user.id}';
+   			var userName='${sessionScope.user.username}';
+			$.ajax({
+				type : "get",
+				url : "Overspeed?method=show",
+				datatype : "json",
+				data : {
+					setSpeed : speed,
+					StartTime : Time1,
+					EndTime : Time2,
+					uid:userId,
+        			username:userName
+				},
+				success : function(result) {
+					var parsedJson = jQuery.parseJSON(result);
+					if (parsedJson != null && parsedJson.length > 0) {
+						var tableInfos = document.getElementById('tableInfo'); //生成动态表格
+						var code = '<div class="table100"><table id="theTable" class="table1"><thead><tr class="table100-head">';
+						code += '<TH>车辆ID</TH><TH>最高时速</TH><th>超速时间段</th></TR></thead><tbody>';
+						for (var i = 0; i < parsedJson.length; i++) {
+							code += '<TR><TD>' + parsedJson[i].device_id + '</TD><TD>' + parsedJson[i].maxspeed + '</TD><TD>' + parsedJson[i].btime + '~' + parsedJson[i].etime + '</TD></TR>';
+						}
+						tableInfos.innerHTML = code + '</tbody></TABLE>';
+					} else {
+						alert("无数据！");
+					}
+				},
+				error : function() {
+					alert('Error');
+				}
+			})
+		});
+	});
+</script>
 
 <script>
 	$(document).ready(function() {
@@ -307,14 +347,18 @@ function createMenuByData(target,allPrivilegeList){
 			var speed = $('#speed').val();
 			var Time1 = $('#datetime1').val();
 			var Time2 = $('#datetime2').val();
+			var userId='${sessionScope.user.id}';
+   			var userName='${sessionScope.user.username}';
 			$.ajax({
 				type : "get",
-				url : "/XM14/overspeed",
+				url : "Overspeed?method=show",
 				datatype : "json",
 				data : {
 					setSpeed : speed,
 					StartTime : Time1,
-					EndTime : Time2
+					EndTime : Time2,
+					uid:userId,
+        			username:userName
 				},
 				success : function(result) {
 					var parsedJson = jQuery.parseJSON(result);
