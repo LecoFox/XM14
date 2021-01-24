@@ -430,7 +430,7 @@ function delUser(dom) {
         $.ajax({
             url :'Device?method=delete',
             type : 'post',
-            data:{engineid:$(dom).attr('deviceid')},
+            data:{deviceid:$(dom).attr('deviceid')},
             success : function(data) {
                 $(dom).parent().parent().hide();
             },

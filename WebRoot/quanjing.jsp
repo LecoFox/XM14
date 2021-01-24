@@ -225,8 +225,17 @@ body, html {
 		});
 	}
 	function getRecord() {
-		var url = "SearchRecord";
-		$.post(url, function(json) {
+		var url = "Record?method=list";
+		var userId='${sessionScope.user.id}';
+		var userName='${sessionScope.user.username}';
+		var type = "全部";
+		$.post(url,
+		 {
+			show : type,
+			uid:userId,
+			username:userName
+		},
+		function(json) {
 			console.log("running getRecord()");
 			window.map.clearOverlays();
 			var list = json.aaData;
