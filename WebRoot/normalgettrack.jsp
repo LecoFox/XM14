@@ -370,11 +370,17 @@ body, html {
 <script src="jquery-1.8.3.min.js"></script>
 <script>
 $(document).ready(function () {
-    var url="/XM14/SelectOnesDevice"; //访问后台去数据库查询select的选项,此处需填写后台接口路径
+    var url="Device?method=select"; //访问后台去数据库查询select的选项,此处需填写后台接口路径
+    var userId='${sessionScope.user.id}';
+    var userName='${sessionScope.user.username}';
     $.ajax({
         type:"get",
         url:url,
         datatype:"json",
+        data:{
+        	uid:userId,
+        	username:userName
+        },
         success:function(userList){
             var unitObj=$("#tname"); //页面上的<html:select>元素
             var parsedJson = jQuery.parseJSON(userList);

@@ -3255,7 +3255,7 @@
 	  // glyphicon or fa(font-awesome)
 	  loadingFontSize: 'auto',
 	  loadingTemplate: function loadingTemplate(loadingMessage) {
-	    return "<span class=\"loading-wrap\">\n      <span class=\"loading-text\">".concat(loadingMessage, "</span>\n      <span class=\"animation-wrap\"><span class=\"animation-dot\"></span></span>\n      </span>\n    ");
+	    return "<span id=\"uuuu\" class=\"loading-wrap\">\n      <span class=\"loading-text\">".concat(loadingMessage, "</span>\n      <span class=\"animation-wrap\"><span class=\"animation-dot\"></span></span>\n      </span>\n    ");
 	  },
 	  onAll: function onAll(name, args) {
 	    return false;
@@ -3344,7 +3344,7 @@
 	};
 	var EN = {
 	  formatLoadingMessage: function formatLoadingMessage() {
-	    return 'Loading, please wait';
+	    return '';
 	  },
 	  formatRecordsPerPage: function formatRecordsPerPage(pageNumber) {
 	    return "".concat(pageNumber, " rows per page");

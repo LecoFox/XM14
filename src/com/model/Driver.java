@@ -10,7 +10,8 @@ public class Driver {
 	private String birthday;
 	private String validity_period;
 	private String phone_number;
-	//private String engine_id;
+	private String email;
+	private String creator;
 /*
 	public int getId() {
 		return id;
@@ -67,13 +68,20 @@ public class Driver {
 	public void setPhoneNumber(String phone_number) {
 		this.phone_number = phone_number;
 	}
-	//public String getEngineId() {
-	//	return engine_id;
-	//}
+	public String getEmail() {
+		return email;
+	}
 
-	//public void setEngineId(String engine_id) {
-	//	this.engine_id = engine_id;
-	//}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getCreator() {
+		return creator;
+	}
+
+	public void setCreator(String creator) {
+		this.creator = creator;
+	}
 
 	@Override
 	public String toString() {
@@ -81,7 +89,7 @@ public class Driver {
 		return "User [username=" + name + ", driver_id=" + driver_id + "]";
 	}
 
-	public Driver(String name, String driver_id, String sex, String birthday, String validity_period, String phone_number) {
+	public Driver(String name, String driver_id, String sex, String birthday, String validity_period, String phone_number , String email, String creator) {
 		super();
 		this.name = name;
 		this.driver_id = driver_id;
@@ -89,7 +97,8 @@ public class Driver {
 		this.birthday = birthday;
 		this.validity_period = validity_period;
 		this.phone_number = phone_number;
-		//this.engine_id = engine_id;
+		this.email = email;
+		this.creator = creator;
 	}
 
 	public Driver() {

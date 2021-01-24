@@ -62,18 +62,13 @@ src="http://api.map.baidu.com/getscript?v=3.0&ak=awORzYNz3svIeWeQ9pGPLnmZletmqfo
 	<div class="header-top" id="home">
 		<div class="container">
 			<div class="header-logo">
-				<a href="front2.jsp"><img src="images/logo.png" alt="" /></a>
+				<a href="front.jsp"><img src="images/logo.png" alt="" /></a>
 			</div>
 
 			<div class="top-nav">
 				<span class="menu"><img src="images/menu-icon.png" alt="" /></span>
-				<ul class="nav1">
-					<li><a href="overspeed2.jsp">超速统计</a></li>
-					<li><a href="mileage2.jsp">里程统计</a></li>
-					<li><a href="javascript:openWin('normalgettrack.jsp')">轨迹回放</a></li>
-					<li><a href="reg_vehicle.jsp">车辆注册</a></li>
-					<li><a href="delete_account.jsp">删除账号</a></li>
-					<li><a href="reg_driver.jsp">驾驶员信息注册</a></li>
+				<ul class="nav1" id ="clh-uni">
+				
 				</ul>
 				<!-- script-for-menu -->
 				<script>
@@ -110,14 +105,10 @@ src="http://api.map.baidu.com/getscript?v=3.0&ak=awORzYNz3svIeWeQ9pGPLnmZletmqfo
 		</div>
 		<div class="header-info-right">
 			<div class="header cbp-spmenu-push">
-				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left" id="cbp-spmenu-s1"> 
-					<a href="overspeed2.jsp">超速统计</a>
-					<a href="mileage2.jsp">里程统计</a>
-					<a href="javascript:openWin('normalgettrack.jsp')">轨迹回放</a>
-					<a href="reg_vehicle.jsp">车辆注册</a>
-					<a href="delete_account.jsp">删除账号</a>
-					<a href="reg_driver.jsp">驾驶员信息注册</a>
-				</nav>
+				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"
+					id="cbp-spmenu-s1">
+					
+					 </nav>
 				<!--script-nav -->
 				<script>
 					$("span.menu").click(function() {
@@ -186,7 +177,7 @@ src="http://api.map.baidu.com/getscript?v=3.0&ak=awORzYNz3svIeWeQ9pGPLnmZletmqfo
 									</td>
 								</tr>
 								<tr>
-									<td class="td1">车主：</td>
+									<td class="td1">车辆拥有者：</td>
 									<td class="td2">
 										<div class="input_outer2">
 										<input class="text1" type="text" readonly="readonly" name="owner" value=<%=user.getUsername()%> style="color: #FFFFFF !important" class="box">
@@ -220,15 +211,7 @@ src="http://api.map.baidu.com/getscript?v=3.0&ak=awORzYNz3svIeWeQ9pGPLnmZletmqfo
 										</div>
 									</td>
 								</tr>
-								<tr>
-									<td class="td1">驾驶证号：</td>
-									<td class="td2">
-										<div class="input_outer2">
-											<input class="text1" type="text" name="driverid"
-												style="color: #FFFFFF !important" class="box">
-										</div>
-									</td>
-								</tr>
+								
 								<tr>
 									<td class="td5" colspan="2"><input
 										type="submit" value="注册" class="act-but1 submit1"
@@ -274,4 +257,69 @@ $(document).ready(function () {
         }
     })
 })
+</script>
+<script>
+function getAllPrivilege(){
+    //取出当前登录的用户信息
+	   var userId='${sessionScope.user.id}';
+	   console.log("id:"+userId);
+	   
+	   $.post("PrivilegeServlet?method=getPrivilegeByUId",{userId:userId},function(data){
+		   //查询出权限
+		   var allPrivilegeList=data.data;
+		   
+		   createToolByData($("#cbp-spmenu-s1"),allPrivilegeList);
+		   
+		   createMenuByData($("#clh-uni"),allPrivilegeList);
+	   })
+    }
+	//执行获取权限的方法
+    getAllPrivilege();
+    //渲染到页面里面
+    function createToolByData(target,allPrivilegeList){
+    	
+    	target.empty();
+    	
+    	var firstMenus=[];
+    	
+    	var secondMenus=[];
+    	
+    	$.each(allPrivilegeList,function(idx,item){
+    		//有父
+    		if(item.pid){
+    			secondMenus.push(item);
+    		}else{
+    			firstMenus.push(item);
+    		}
+    	})
+    	
+    	$.each(firstMenus,function(idx,item){
+    		var $a=$('<a href="'+item.url+'" id="'+item.id+'">'+item.name+'</a>')
+    		target.append($a);
+    		
+    	})
+    }
+function createMenuByData(target,allPrivilegeList){
+    	
+    	target.empty();
+    	
+    	var firstMenus=[];
+    	
+    	var secondMenus=[];
+    	
+    	$.each(allPrivilegeList,function(idx,item){
+    		//有父
+    		if(item.pid){
+    			secondMenus.push(item);
+    		}else{
+    			firstMenus.push(item);
+    		}
+    	})
+    	
+    	$.each(firstMenus,function(idx,item){
+    		var $a=$('<li><a href="'+item.url+'">'+item.name+'</a></li>')
+    		target.append($a);
+    		
+    	})
+    }
 </script>

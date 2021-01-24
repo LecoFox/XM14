@@ -40,7 +40,7 @@ public class BcxServlet extends HttpServlet {
     public void init() throws ServletException {  
         // TODO Auto-generated method stub  
         super.init();  
-        System.out.println("×Ô¶¯¼ÓÔØÆô¶¯.");   
+        //System.out.println("ï¿½Ô¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½.");   
         conn = DataBaseUtil.getConn();
 		try {
 			statement = conn.createStatement();
@@ -48,7 +48,7 @@ public class BcxServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 
-		// Çå¿Õbcx_data±í
+		// ï¿½ï¿½ï¿½bcx_dataï¿½ï¿½
 		try {
 			this.truncate();
 		} catch (SQLException e) {
@@ -56,17 +56,19 @@ public class BcxServlet extends HttpServlet {
 		}
 		
 		this.runTimer();
-		System.out.println("runTimer");
+		//System.out.println("runTimer");
     }  
     
-    // Çå¿Õbcx_data±í
+    // ï¿½ï¿½ï¿½bcx_dataï¿½ï¿½
  	public void truncate() throws SQLException {
  		String sql = "TRUNCATE TABLE bcx_data";
  		statement.executeUpdate(sql);
- 		System.out.println("Çå¿Õbcx_data±í");
+ 		sql = "TRUNCATE TABLE allocation";
+ 		statement.executeUpdate(sql);
+ 		//System.out.println("ï¿½ï¿½ï¿½bcx_dataï¿½ï¿½");
  	}
 
- 	// ¶¨Ê±»ñÈ¡Êý¾Ý
+ 	// ï¿½ï¿½Ê±ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
  	public void runTimer() {
  		this.timer.scheduleAtFixedRate(new TimerTask() {
  			public void run() {
@@ -94,8 +96,8 @@ public class BcxServlet extends HttpServlet {
  				} catch (ProtocolException e2) {
  					e2.printStackTrace();
  				}
- 				System.out.println("Method: " + urlConn.getRequestMethod());
- 				System.out.println("Cookie: " + urlConn.getRequestProperty("Cookie"));
+ 				//System.out.println("Method: " + urlConn.getRequestMethod());
+ 				//System.out.println("Cookie: " + urlConn.getRequestProperty("Cookie"));
  				try {
  					urlConn.connect();
  				} catch (IOException e1) {
@@ -109,23 +111,23 @@ public class BcxServlet extends HttpServlet {
  						if (key.equalsIgnoreCase("set-cookie")) {
  							cookieVal = urlConn.getHeaderField(i);
  							cookieVal = cookieVal.substring(0, cookieVal.indexOf(";"));
- 							System.out.println("set-cookie..." + cookieVal);
+ 							//System.out.println("set-cookie..." + cookieVal);
  							loginSessionId += ";" + cookieVal;
  						}
  					}
  					randTID2 = "get randTID2...";
  					randTIDkey = "get randTIDkey...";
- 					System.out.println("set-cookie loginSessionId: " + loginSessionId);
+ 					//System.out.println("set-cookie loginSessionId: " + loginSessionId);
  				} else {
- 					System.out.println("Already set-cookie loginSessionId: " + loginSessionId);
+ 					//System.out.println("Already set-cookie loginSessionId: " + loginSessionId);
  				}
 
  				try {
  					if (urlConn.getResponseCode() == 200) {
- 						System.out.println("Connect succeed");
+ 						//System.out.println("Connect succeed");
 
  					} else {
- 						System.out.println("Connect failed");
+ 						//System.out.println("Connect failed");
  					}
  				} catch (IOException e2) {
  					e2.printStackTrace();
@@ -160,8 +162,8 @@ public class BcxServlet extends HttpServlet {
  						JSONObject j = new JSONObject(sb.toString());
  						JSONArray l = j.getJSONArray("list");
  						if (l.length() == 0) {
- 							System.out.println("log in");
- 							// ÖØÐÂµÇÂ¼,Çå¿Õ±í
+ 							//System.out.println("log in");
+ 							// ï¿½ï¿½ï¿½Âµï¿½Â¼,ï¿½ï¿½Õ±ï¿½
  							try {
  								truncate();
  							} catch (SQLException e) {
@@ -196,14 +198,14 @@ public class BcxServlet extends HttpServlet {
  							randTID2 = null;
  							randTIDkey = null;
  						} else {
- 							System.out.println("Already log in");
+ 							//System.out.println("Already log in");
  							save_data(l);
  						}
  					} catch (JSONException e) {
  						e.printStackTrace();
  					}
  				} else {
- 					System.out.println("length == 0");
+ 					//System.out.println("length == 0");
  				}
 
  				urlConn.disconnect();
@@ -211,7 +213,7 @@ public class BcxServlet extends HttpServlet {
  		}, 0, 2000);
  	}
 
- 	// ±£´æµ½Êý¾Ý¿â
+ 	// ï¿½ï¿½ï¿½æµ½ï¿½ï¿½ï¿½Ý¿ï¿½
  	public void save_data(JSONArray l) {
  		try {
  			for (int i = 0; i < l.length(); i++) {

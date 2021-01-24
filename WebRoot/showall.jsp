@@ -11,7 +11,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta http-equiv="Cache-Control" content="no-cache">
-<title>登录信息</title>
+<title>用户信息</title>
 
 <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
 
@@ -23,10 +23,23 @@
 <script src="js/bootstrap-table.js"></script>
 <link href="css/bootstrap-table.css" rel="stylesheet" />
 <script src="js/bootstrap-table-zh-CN.js"></script>
+<script src="js/bootstrap-table-export.js"></script>
+<script src="js/bootstrap-table-print.js"></script>
 
 <link href="css/bootstrap-editable.css" rel="stylesheet" />
 <script src="js/bootstrap-table-editable.js"></script>
 <script src="js/bootstrap-editable.js"></script>
+
+<script src="js/jquery.base64.js"></script>
+<script src="js/html2canvas.min.js"></script>
+<script src="js/base64.js"></script>
+
+<script src="js/pdfmake.min.js"></script>
+<script src="js/gbsn00lp_fonts.js"></script>
+<script src="js/FileSaver.min.js"></script>
+<script src="js/xlsx.core.min.js"></script>
+
+<script src="js/tableExport.js"></script>
 
 <link href="css/style.css" rel='stylesheet' type='text/css' />
 
@@ -67,15 +80,8 @@ input.form-control {-webkit-text-fill-color: #555}
 
 			<div class="top-nav">
 				<span class="menu"><img src="images/menu-icon.png" alt="" /></span>
-				<ul class="nav1">
-					<li><a href="showallRegVehicle.jsp">车辆注册信息</a></li>
-					<li><a href="showall.jsp">用户注册信息</a></li>
-					<li><a href="loginstatus.jsp">用户在线信息</a></li>
-					<li><a href="overspeed.jsp">超速统计</a></li>
-					<li><a href="mileage.jsp">里程统计</a></li>
-					<li><a id="#b01" href="">一键提醒</a></li>
-					<li><a href="javascript:openWin('gettrack.jsp')">轨迹回放</a></li>
-					<li><a href="SendYuejie">越界提醒</a></li>
+				<ul class="nav1" id ="clh-uni">
+				
 				</ul>
 				<!-- script-for-menu -->
 				<script>
@@ -113,12 +119,9 @@ input.form-control {-webkit-text-fill-color: #555}
 		<div class="header-info-right">
 			<div class="header cbp-spmenu-push">
 				<nav class="cbp-spmenu cbp-spmenu-vertical cbp-spmenu-left"
-					id="cbp-spmenu-s1"> <a href="showallRegVehicle.jsp">车辆注册信息</a>
-				<a href="showall.jsp">用户注册信息</a> <a href="loginstatus.jsp">用户在线信息</a>
-				<a href="overspeed.jsp">超速统计</a> <a href="mileage.jsp">里程统计</a> <a
-					id="#b01" href="">一键提醒</a> <a
-					href="javascript:openWin('gettrack.jsp')">轨迹回放</a> <a
-					href="SendYuejie">越界提醒</a> </nav>
+					id="cbp-spmenu-s1">
+					
+					 </nav>
 				<!--script-nav -->
 				<script>
 					$("span.menu").click(function() {
@@ -186,7 +189,11 @@ input.form-control {-webkit-text-fill-color: #555}
 			</div>
 		</div>
 
-		
+		<div id="toolbar" class="btn-group">
+			<button id="btn_print" type="button" class="btn btn-default">
+				<span class="glyphicon glyphicon-print" aria-hidden="true"></span>打印
+			</button>
+		</div>
 		<table id="tb_departments"></table>
 	</div>
 </body>
@@ -273,7 +280,7 @@ var TableInit= function(){
     //初始化Table
     oTableInit.Init = function () {
     	$('#tb_departments').bootstrapTable({
-          url: 'SearchallUser',   //url一般是请求后台的url地址,调用ajax获取数据。此处我用本地的json数据来填充表格。
+          url: 'User?method=list',   //url一般是请求后台的url地址,调用ajax获取数据。此处我用本地的json数据来填充表格。
           method: "post",                     //使用get请求到服务器获取数据
           dataType: "json",
           contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
@@ -302,13 +309,22 @@ var TableInit= function(){
             cardView: false,                    //是否显示详细视图
             detailView: false,                   //是否显示父子表
             columns:columns,
-            
+            showExport: true,  //是否显示导出按钮
+        	exportDataType: "all",              //basic', 'all', 'selected'.
+        	//exportDataType: $(this).val(),//显示导出范围
+            exportTypes: ['json','png', 'txt', 'excel'],//导出格式
+            exportOptions: {//导出设置
+            				ignoreColumn: [0,6],
+                            fileName: 'TableUser',//下载文件名称
+                            onMsoNumberFormat: DoOnMsoNumberFormat
+            },
+        	showPrint:true,
             onEditableSave: function (field, row, oldValue, $el) {
                     //可进行异步操作
 
                     $.ajax({
                         type: "post",
-                        url: "EditUser",
+                        url: "User?method=update",
                         data: {
                         	question:row.question,
                         	email:row.email,
@@ -316,7 +332,7 @@ var TableInit= function(){
                         	username:row.username
                         },
                         success: function (data) {
-                            if (JSON.parse(d).result_code == 200) {
+                            if (data.result_code == 200) {
                                 alert('提交数据成功');
                             }
                         },
@@ -349,6 +365,12 @@ var TableInit= function(){
                 result += '<button id="delUser" class="btn btn-xs red" username='+value+' onclick="delUser(this)" title="删除"><span class="glyphicon glyphicon-remove"></span></button>';
                 return result;
             }
+    function DoOnMsoNumberFormat(cell, row, col) {
+        		var result = "";
+        	if (row > 0 && col == 0)
+            	result = "\\@";
+        	return result;
+    		}
 };
 var ButtonInit = function () {
     var oInit = new Object();
@@ -371,13 +393,18 @@ var ButtonInit = function () {
 		function clearForm(form){
     		$(form)[0].reset();
 		};
- 
+		
+ 		$("#btn_print").on("click",function (){
+				console.log("print");
+				printpage();
+		});
+		
 	// 当点击【保存】按钮后，将表单中的数据提交到后台
 		$("#btn_add_submit").on("click",function (){
 			console.log($("#add_form_modal").serializeArray());
 			$.ajax({
 				type: "post",
-				url: "TableRegVeh",
+				url: "User?method=add",
 				data: $("#add_form_modal").serializeArray(),              // 收集表单中的数据
 				dataType: "text",
 				success: function (d){
@@ -394,7 +421,7 @@ function delUser(dom) {
     console.log($(this).attr("username"))
     if (mymessage == true) {
         $.ajax({
-            url :'DeleteUser',
+            url :'User?method=delete',
             type : 'post',
             data:{username:$(dom).attr('username')},
             success : function(data) {
@@ -407,18 +434,79 @@ function delUser(dom) {
     }
 }
 
-function updUser(id) {
-    layer.open({
-        type : 2,
-        title : '编辑注册车辆',
-        area : [ '500px', '440px' ],
-        fix : false, // 
-        content : path + '/user/pageUpd/' + id,
-        end : function() {
-            $("#mytab").bootstrapTable('refresh', {
-                url : path + "/user/list"
-            });
-        }
-    });
-}
+function printpage(){
+    	var printData =$('#tb_departments').parent().html();
+
+    	window.document.body.innerHTML = printData;
+    	
+        // 开始打印
+        window.print();
+        window.location.reload(true);
+    }
+
+</script>
+<script>
+function getAllPrivilege(){
+    //取出当前登录的用户信息
+	   var userId='${sessionScope.user.id}';
+	   console.log("id:"+userId);
+	   
+	   $.post("PrivilegeServlet?method=getPrivilegeByUId",{userId:userId},function(data){
+		   //查询出权限
+		   var allPrivilegeList=data.data;
+		   
+		   createToolByData($("#cbp-spmenu-s1"),allPrivilegeList);
+		   
+		   createMenuByData($("#clh-uni"),allPrivilegeList);
+	   })
+    }
+	//执行获取权限的方法
+    getAllPrivilege();
+    //渲染到页面里面
+    function createToolByData(target,allPrivilegeList){
+    	
+    	target.empty();
+    	
+    	var firstMenus=[];
+    	
+    	var secondMenus=[];
+    	
+    	$.each(allPrivilegeList,function(idx,item){
+    		//有父
+    		if(item.pid){
+    			secondMenus.push(item);
+    		}else{
+    			firstMenus.push(item);
+    		}
+    	})
+    	
+    	$.each(firstMenus,function(idx,item){
+    		var $a=$('<a href="'+item.url+'" id="'+item.id+'">'+item.name+'</a>')
+    		target.append($a);
+    		
+    	})
+    }
+function createMenuByData(target,allPrivilegeList){
+    	
+    	target.empty();
+    	
+    	var firstMenus=[];
+    	
+    	var secondMenus=[];
+    	
+    	$.each(allPrivilegeList,function(idx,item){
+    		//有父
+    		if(item.pid){
+    			secondMenus.push(item);
+    		}else{
+    			firstMenus.push(item);
+    		}
+    	})
+    	
+    	$.each(firstMenus,function(idx,item){
+    		var $a=$('<li><a href="'+item.url+'">'+item.name+'</a></li>')
+    		target.append($a);
+    		
+    	})
+    }
 </script>

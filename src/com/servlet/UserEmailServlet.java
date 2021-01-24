@@ -40,6 +40,10 @@ public class UserEmailServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
+		
+		HttpSession session =request.getSession(false);
+		String s = (String) session.getAttribute("username");
+		
 		response.setCharacterEncoding("UTF=8");
 		response.setContentType("text/html;charset=UTF-8");
 		List jsonList = new ArrayList();
@@ -50,12 +54,13 @@ public class UserEmailServlet extends HttpServlet {
 			Statement statement = conn.createStatement();
 			// ����sql��䣬���ݴ��ݹ����Ĳ�ѯ��������
 			String sql = "select distinct email,reg_device.Device_id, Location,car_name, Lon, Lat, Start, max(Speed) as Speed, bcx_data.carImg, owner "
-					+ "from bcx_data,reg_device,tb_user where speed > 15 and bcx_data.Device_id = reg_device.Device_id and reg_device.`owner` = tb_user.username"
+					+ "from bcx_data,reg_device,driver where speed > 15 and bcx_data.Device_id = reg_device.Device_id and reg_device.driver_id = driver.driver_id"
 					+ " group by reg_device.Device_id;";
 			System.out.println("Sql语句是："+sql);
 			ResultSet rs = statement.executeQuery(sql);
 			//int count = 0;
 			while (rs.next()) {
+				
 				//count = count + 1;
 				//Map map = new HashMap();
 				HashMap<String, String> map =new HashMap<String, String>();
@@ -70,7 +75,9 @@ public class UserEmailServlet extends HttpServlet {
 				map.put("speed", rs.getString("Speed"));
 				map.put("carImg", rs.getString("carImg"));
 				map.put("owner", rs.getString("owner"));
-				jsonList.add(map);
+				if((rs.getString("owner")).equals(s)){
+					jsonList.add(map);
+				}
 			}
 			statement.close();
 			conn.close();
